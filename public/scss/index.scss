@@ -1,0 +1,108 @@
+$base_width:80%;
+$base_margin:0 auto;
+$base_max_width:500ox;
+$base_min_width:300ox;
+
+body{
+  background-color: rgb(100,200,100);
+}
+
+h1 {
+  text-align: center;
+  height:50px;
+  line-height:50px;
+  border-bottom: black solid 1px;
+  width:300px;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+// エラーメッセージ
+// okメッセージ
+.if_error,.ok_message{
+  color:red;
+  width:$base_width;
+  margin:$base_margin;
+  max-width:$base_max_width;
+  min-width:$base_min_width;
+}
+
+// フォーム：基本的には基本の長さ
+form{
+  width:$base_width;
+  margin:$base_margin;
+  max-width:$base_max_width;
+  min-width:$base_min_width;
+}
+
+// 少なくとも初期段階では見せない
+#type_select,.config_form{
+  display: none;
+}
+
+// 選択要素(ui)
+#first_ul,#theme_ul{
+  width:$base_width;
+  margin:$base_margin;
+  max-width:$base_max_width;
+  min-width:$base_min_width;
+  padding:0;
+  .first_li,.theme_li{
+    list-style-type:none;
+    text-decoration: underline;
+    cursor: pointer;
+    background-color: rgb(120,220,120);
+    border:black solid 1px;
+    border-collapse:collapse;
+    border-radius: 10px;
+    text-align: center;
+    height:40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    color:rgb(20,20,20);
+  }
+}
+
+// 設定のフォーム
+.config_form{
+  width:$base_width;
+  margin:$base_margin;
+  max-width:$base_max_width;
+  min-width:$base_min_width;
+  border:black solid 1px;
+  border-radius: 20px;
+  // height:100px;
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
+// ボタン
+.btn_div{
+  text-align: center;
+  margin-top: 30px;
+}
+
+// 個別ボタン
+.config_form{
+  .btn_div{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+// ラベル要素
+label{
+  // display: inline-block;
+  display: block;
+  width:$base_width;
+  margin:$base_margin;
+  max-width:$base_max_width;
+  min-width:$base_min_width;
+  text-align: left;
+  input{
+    width:100%;
+  }
+}
+

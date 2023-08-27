@@ -1,0 +1,91 @@
+body {
+  background-color: rgb(100, 200, 100);
+}
+
+h1 {
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: black solid 1px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.if_error, .ok_message {
+  color: red;
+  width: 80%;
+  margin: 0 auto;
+  max-width: 500ox;
+  min-width: 300ox;
+}
+
+form {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 500ox;
+  min-width: 300ox;
+}
+
+#type_select, .config_form {
+  display: none;
+}
+
+#first_ul, #theme_ul {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 500ox;
+  min-width: 300ox;
+  padding: 0;
+}
+#first_ul .first_li, #first_ul .theme_li, #theme_ul .first_li, #theme_ul .theme_li {
+  list-style-type: none;
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: rgb(120, 220, 120);
+  border: black solid 1px;
+  border-collapse: collapse;
+  border-radius: 10px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  color: rgb(20, 20, 20);
+}
+
+.config_form {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 500ox;
+  min-width: 300ox;
+  border: black solid 1px;
+  border-radius: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.btn_div {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.config_form .btn_div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  max-width: 500ox;
+  min-width: 300ox;
+  text-align: left;
+}
+label input {
+  width: 100%;
+}
+
+/*# sourceMappingURL=styles.css.map */
