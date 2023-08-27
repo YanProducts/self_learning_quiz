@@ -27,7 +27,31 @@ h1 {
   margin:$base_margin;
   max-width:$base_max_width;
   min-width:$base_min_width;
+  height:30px;
+  line-height:30px;
+  animation-name:out_three_minute;
+  animation-duration:3s;
+  animation-fill-mode:forwards;
+  text-align: center;
 }
+
+@keyframes out_three_minute{
+  99%{
+    height:30px;
+    line-height:30px;
+    visibility: visible;
+    opacity:1;
+  }
+  100%{
+    height:0px;
+    line-height:0px;
+    visibility: hidden;
+    opacity:0;
+  }
+
+}
+
+
 
 // フォーム：基本的には基本の長さ
 form{
@@ -104,5 +128,15 @@ label{
   input{
     width:100%;
   }
+}
+
+// 戻るボタン
+.back_home{
+  width:$base_width;
+  margin:$base_margin;
+  max-width:$base_max_width;
+  min-width:$base_min_width;
+  text-align: center;
+  margin-top: 30px;
 }
 

@@ -19,7 +19,7 @@
 
 <ul id="theme_ul">
   <li class="theme_li" data-li="play">テーマを作る</li>
-  <li class="theme_li" data-li="make">クイズを編集する</li>
+  <li class="theme_li" data-li="make">テーマを編集する</li>
 </ul>
 
 
@@ -37,10 +37,10 @@
  @method("PATCH")
  @csrf
  <label for="edit_old_name">変更するテーマ
-  <select id="edit_old_theme" name="edit_select">
-    <option value="">a</option>
-    <option value="">b</option>
-    <option value="">c</option>
+  <select id="edit_old_theme" name="old_theme_name">
+    @foreach ($theme_lists as $theme_name)
+    <option value="{{$theme_name}}">{{$theme_name}}</option>   
+    @endforeach
   </select>
  </label>
 
@@ -52,5 +52,6 @@
   </div>
 </form>
 
+@include("footer")
 
 </x-layout>
