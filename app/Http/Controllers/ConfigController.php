@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Theme;
+use App\Http\Requests\Theme_Request;
 
 class ConfigController extends Controller
 {
@@ -12,18 +13,20 @@ class ConfigController extends Controller
     public function config_theme(){
 
         $theme_lists=Theme::pluck("theme_name");
+        $kind_lists=Theme::groupby("kind")->pluck("kind");
 
-       return view("config")->with(["theme_lists"=>$theme_lists]);
+       return view("config")->with(["theme_lists"=>$theme_lists,
+       "kind_lists"=>$kind_lists]);
     }
 
     // 作成ルート
-    public function create_theme(Request $request){
+    public function create_theme(Theme_Request $request){
         $theme_name=$request->new_theme_name;
         try{
             DB::transaction(function()use ($theme_name){
                 // 重複確認
-                $this->is_multiple($theme_name);        
-
+                $this->is_multiple($theme_name);     
+                
                 // 登録
                 $themes=new Theme;
                 $themes->theme_name=$theme_name;
@@ -36,9 +39,9 @@ class ConfigController extends Controller
     }
 
     // 編集ページ表示
-    public function edit_theme(Request $request){
+    public function edit_theme(Theme_Request $request){
         $old_theme_name=$request->old_theme_name;
-        $new_theme_name=$request->new_theme_name;
+        $new_theme_name=$request->edit_theme_name;
         try{
             DB::transaction(function()use($old_theme_name,$new_theme_name){
                 // 重複確認

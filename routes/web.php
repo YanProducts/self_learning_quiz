@@ -47,3 +47,11 @@ Route::post("/configquiz/create",[ConfigController::class,"create_theme"])
 // テーマ編集
 Route::patch("/configquiz/edit",[ConfigController::class,"edit_theme"])
 ->name("edit_theme_route");
+
+// クイズ作成→投稿
+Route::post("/post_createquiz",[QuizController::class,"post_create_quiz"])
+->name("post_create_route");
+
+// お知らせのページ
+// Route::get("sign{naiyou}{page}{js_needless}",[ChoiseController::class,"view_sign"])
+// ->name("sign_route");

@@ -7,7 +7,11 @@
   <title>{{$title}}</title>
   <link rel="stylesheet" href="{{url("css/styles.css")}}">
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <script defer src="{{ url("js/${for_js}.js")}}"></script>
+
+  {{-- jsがいらない時 --}}
+  @if(!isset($js_needless) || !$js_needless)
+   <script defer src="{{ url("js/${for_js}.js")}}"></script>
+  @endif
 </head>
 
 <body>

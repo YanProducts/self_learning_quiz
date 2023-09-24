@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(100, 200, 100);
+  background-color: #41b841;
 }
 
 h1 {
@@ -15,11 +15,11 @@ h1 {
 }
 
 .if_error, .ok_message {
-  color: red;
   width: 80%;
   margin: 0 auto;
-  max-width: 500ox;
-  min-width: 300ox;
+  max-width: 1000px;
+  min-width: 300px;
+  color: red;
   height: 30px;
   line-height: 30px;
   animation-name: out_three_minute;
@@ -45,8 +45,8 @@ h1 {
 form {
   width: 80%;
   margin: 0 auto;
-  max-width: 500ox;
-  min-width: 300ox;
+  max-width: 1000px;
+  min-width: 300px;
 }
 
 #type_select, .config_form {
@@ -56,8 +56,8 @@ form {
 #first_ul, #theme_ul {
   width: 80%;
   margin: 0 auto;
-  max-width: 500ox;
-  min-width: 300ox;
+  max-width: 1000px;
+  min-width: 300px;
   padding: 0;
 }
 #first_ul .first_li, #first_ul .theme_li, #theme_ul .first_li, #theme_ul .theme_li {
@@ -74,16 +74,93 @@ form {
   margin-bottom: 10px;
   color: rgb(20, 20, 20);
 }
+#first_ul .first_li_click, #theme_ul .first_li_click {
+  background-color: white;
+}
 
 .config_form {
   width: 80%;
   margin: 0 auto;
-  max-width: 500ox;
-  min-width: 300ox;
+  max-width: 1000px;
+  min-width: 300px;
   border: black solid 1px;
   border-radius: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+#kind_which {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 400px;
+  min-width: 200px;
+  padding: 0;
+}
+#kind_which .kind_li {
+  list-style-type: none;
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: white;
+  border: black solid 1px;
+  border-collapse: collapse;
+  border-radius: 10px;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 5px;
+  color: rgb(20, 20, 20);
+}
+
+#quiz_create_form {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  border: black solid 3px;
+  border-radius: 10px;
+  background-color: #9a9a9a;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+div[id*=quiz_create_] {
+  width: 90%;
+  max-width: 900px;
+  min-width: 200px;
+  margin: 0 auto;
+}
+div[id*=quiz_create_] p {
+  margin-top: none;
+  margin-bottom: 1px;
+}
+div[id*=quiz_create_] input, div[id*=quiz_create_] textarea {
+  width: 100%;
+}
+div[id*=quiz_create_] ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+div[id*=quiz_create_] ul .quiz_create_each_kind {
+  background-color: gray;
+}
+div[id*=quiz_create_] ul .quiz_create_each_theme {
+  background-color: #e6e6e6;
+  padding-left: 15px;
+  white-space: nowrap;
+  border-bottom: black solid 1px;
+  cursor: pointer;
+}
+
+#quiz_create_hidden_select {
+  display: none;
+}
+
+.no_data {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 400px;
+  min-width: 200px;
+  padding: 0;
 }
 
 .btn_div {
@@ -97,24 +174,45 @@ form {
 }
 
 label {
-  display: block;
   width: 80%;
   margin: 0 auto;
-  max-width: 500ox;
-  min-width: 300ox;
+  max-width: 400px;
+  min-width: 200px;
+  display: block;
   text-align: left;
 }
 label input {
   width: 100%;
 }
 
+.label_inner1 {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: black dashed 1px;
+}
+
+#finish_sign {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  background-color: cornsilk;
+  border: black solid 5px;
+  border-radius: 10px;
+}
+
 .back_home {
   width: 80%;
   margin: 0 auto;
-  max-width: 500ox;
-  min-width: 300ox;
+  max-width: 1000px;
+  min-width: 300px;
   text-align: center;
   margin-top: 30px;
+}
+
+.back_home_inner {
+  text-align: center;
+  margin-top: 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */

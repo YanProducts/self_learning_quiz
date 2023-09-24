@@ -13,7 +13,7 @@ class ChoiseController extends Controller
               return redirect()->route("before_quiz_route");
             break;
             case "make":
-              return redirect()->route("creteroute");
+              return redirect()->route("createroute");
             break;
             case "edit":
                 return redirect()->route("editroute");
@@ -27,4 +27,15 @@ class ChoiseController extends Controller
         }
         // exit;
     }
+
+    // // 完了などのサイン
+    // public function view_sign($naiyou,$page,$js){
+    //     return view("sign")->with([
+    //         "naiyou"=>$naiyou,
+    //         "pageRoute"=>$page,
+    //         "js_needless"=>$js
+    //     ]);
+    // }
+
+
 }

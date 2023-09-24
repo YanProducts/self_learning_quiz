@@ -1,8 +1,14 @@
-// トップ画面
-// liをクリックすればoptionが動く
+// トップページ
 
-$(".first_li").each(function(index,elem){
-  $(elem).click(function(){
-    $(".first_option").eq(index).prop("selected",true);
+$(()=>{
+  // liをクリックすればoptionが動く
+  
+  $(".first_li").each(function(index,elem){
+    $(elem).click(function(){
+      $(".first_li").removeClass("first_li_click")
+      $(".first_option").eq(index).prop("selected",true);
+      $(this).addClass("first_li_click")
+    });
   });
-});
+
+})
