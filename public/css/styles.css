@@ -150,6 +150,9 @@ div[id*=quiz_create_] ul .quiz_create_each_theme {
   border-bottom: black solid 1px;
   cursor: pointer;
 }
+div[id*=quiz_create_] select {
+  font-size: 1em;
+}
 
 #quiz_create_hidden_select {
   display: none;
@@ -199,6 +202,10 @@ label input {
   background-color: cornsilk;
   border: black solid 5px;
   border-radius: 10px;
+}
+
+.finish_p {
+  text-align: center;
 }
 
 .back_home {

@@ -50,4 +50,12 @@ final class QuizPtn extends Enum
     // getValues()で数値の全てを返すのはそのまま
 
 
+    // isValid(元Enum値で)
+    public static function isValid($value){
+        if(array_key_exists($value,self::getDescriptions())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

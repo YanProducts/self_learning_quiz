@@ -167,17 +167,14 @@ div[id*="quiz_create_"]{
       cursor: pointer;
     }
   }
+  select{
+    font-size: 1em;
+  }
 }
 
 #quiz_create_hidden_select{
   display:none;
 }
-
-
-
-
-
-
 
 
 
@@ -227,6 +224,10 @@ label{
   background-color: cornsilk;
   border:black solid 5px;
   border-radius: 10px;
+}
+
+.finish_p{
+  text-align: center;
 }
 
 

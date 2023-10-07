@@ -1,19 +1,5 @@
-
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
-
-
-
-
 <x-layout>
-  <x-slot name="title">自習用クイズを作ろう</x-slot>
+  <x-slot name="title">クイズの作成</x-slot>
   <x-slot name="for_js">quiz/create</x-slot>
 
   <h1>クイズの作成</h1>
@@ -26,7 +12,7 @@
 <input type="text" name="title">
 </div>
 @error("title")
-{{$message}}
+<p class="if_error">{{$message}}</p>
 @enderror
 
 
@@ -35,7 +21,7 @@
 <textarea name="quiz"></textarea>
 </div>
 @error("quiz")
-{{$message}}
+<p class="if_error">{{$message}}</p>
 @enderror
 
 
@@ -43,8 +29,8 @@
 <p id="each_quiz_answer1">回答１</p>
 <input type="text" name="answer">
 </div>
-@error("answe1")
-{{$message}}
+@error("answer")
+<p class="if_error">{{$message}}</p>
 @enderror
 
 
@@ -87,7 +73,7 @@
     <li class="quiz_create_each_theme">{{$theme->theme_name}}</li>
   @endforeach
 </ul>
-<select id="quiz_create_hidden_select" name="themes" multiple>
+<select id="quiz_create_hidden_select" name="themes[]" multiple>
   @foreach($theme_lists as $theme)
   <option class="quiz_create_hidden_option" value="{{$theme->theme_name}}"></option>
   @endforeach
@@ -105,11 +91,11 @@
 </select>
 </div>
 @error("level")
-{{$message}}
+<p class="if_error">{{$message}}</p>
 @enderror
 
-<div id="quiz_create_level">
-<p id="each_quiz_level">パターン</p>
+<div id="quiz_create_ptn">
+<p id="each_quiz_ptn">パターン</p>
 <select id="quiz_create_select_ptn" name="ptn">
   <option hidden>選択してください</option>
 @foreach($ptn_which as $ptn_key=>$ptn)
@@ -117,6 +103,9 @@
 @endforeach
 </select>
 </div>
+@error("ptn")
+<p class="if_error">{{$message}}</p>
+@enderror
 
 <div class="btn_div">
   <button>決定！</button>
