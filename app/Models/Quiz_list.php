@@ -9,6 +9,6 @@ class Quiz_list extends Model
 {
     use HasFactory;
     public $fillable=[
-        "title","quiz","answer","ptn","theme_name","level"
+        "title","quiz","answer","ptn","theme_name","level","theme_name2","theme_name3","correct","wrong"
     ];
 }

@@ -12,21 +12,43 @@ $inner_min_width:200px;
   min-width:$min;
 }
 
+@mixin border_sets($color:black,$size:3px,$radius:10px){
+  border:$color solid $size;
+  border-radius:$radius;
+  border-collapse: collapse;
+}
+
+@mixin page_title($height:50px,$marginTop:40px,$marginBottom:50px){
+  text-align: center;
+  height:$height;
+  line-height:$height;
+  border-bottom: black solid 1px;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: $marginTop;
+  margin-bottom: $marginBottom;
+  width:100%;
+  min-width: 300px;
+  max-width:800px;
+}
+
+@mixin base_button($btn_marginTop:30px,$btn_marginBtm:0px){
+  margin-top: $btn_marginTop;
+  margin-bottom: $btn_marginBtm;
+  text-align: center;
+}
+
 
 body{
   background-color: darken(rgb(100,200,100),10%);
 }
 
 h1 {
-  text-align: center;
-  height:50px;
-  line-height:50px;
-  border-bottom: black solid 1px;
-  width:300px;
-  margin-left:auto;
-  margin-right: auto;
-  margin-top: 40px;
-  margin-bottom: 50px;
+  @include page_title();
+}
+
+h2 {
+  @include page_title($height:30px,$marginTop:30px,$marginBottom:30px);
 }
 
 
@@ -79,9 +101,7 @@ form{
     text-decoration: underline;
     cursor: pointer;
     background-color: rgb(120,220,120);
-    border:black solid 1px;
-    border-collapse:collapse;
-    border-radius: 10px;
+    @include border_sets();
     text-align: center;
     height:40px;
     line-height: 40px;
@@ -98,8 +118,7 @@ form{
 // 設定のフォーム
 .config_form{
   @include base_frame();
-  border:black solid 1px;
-  border-radius: 20px;
+  @include border_sets($radius:20px);
   // height:100px;
   padding-top:15px;
   padding-bottom:15px;
@@ -120,9 +139,7 @@ form{
     cursor: pointer;
     // background-color: rgb(120,220,120);
     background-color: white;
-    border:black solid 1px;
-    border-collapse:collapse;
-    border-radius: 10px;
+   @include border_sets();
     text-align: center;
     height:30px;
     line-height: 30px;
@@ -131,11 +148,10 @@ form{
   }
 }
 
-// クイズページ
+// クイズ作成ページ
 #quiz_create_form{
   @include base_frame;
-  border: black solid 3px;
-  border-radius: 10px;
+  @include border_sets();
   background-color: lighten(gray,10%);
   padding-top: 10px;
   padding-bottom: 20px;
@@ -177,6 +193,149 @@ div[id*="quiz_create_"]{
 }
 
 
+// クイズ行う前段階
+#before_quiz_form{
+  @include base_frame();
+  @include border_sets();
+  max-width: 500px;
+
+  div{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    text-align: center;
+      p{
+        font-size: 1.1em;
+        margin:$base_margin
+      }
+      select{
+        margin-top: 7px;
+        width:80%;
+        font-size: 1em;
+      }
+      .level_percent_flex{
+        margin-top: 0px;
+        margin-bottom:20px;
+        display:flex;
+        justify-content: center;
+        select{
+          width:40%;
+        }
+      }
+  }
+}
+
+// クイズ行うとき
+  //クイズの設定表示 
+  #quiz_play_conf{
+    @include base_frame();
+    @include border_sets();
+    background-color: lighten(gray,25%);
+    margin-bottom: 20px;
+    text-align: center;
+
+    #display_themeother{
+      display:none;
+      @include border_sets($size:1px,$radius:5px);
+      position:absolute;
+      font-size:0.8em;
+      background-color: gray;
+      text-align: center;
+      width:120px;
+      padding:5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+    }
+
+    #theme_other{
+      text-decoration: underline;
+      cursor:pointer;
+      color:blue;
+    }
+    p.count_zero_p{
+      font-weight: bold;
+    }
+
+  }
+  
+ 
+  // 正解不正解の表示
+   #display_isok{
+      @include base_frame();
+      @include border_sets();
+      padding-top:10px;
+      display: none;
+      #isok_ok{
+        color:black;
+      }
+      #isok_out{
+        color:black;
+      }
+      p{
+        text-align: center;
+        margin:$base_margin;
+      }
+      #what_is_correct{
+        margin-top:5px;
+        margin-bottom:7px;
+      }
+   }
+
+  //クイズの表示 
+    #play_quiz_corner{
+      @include base_frame();
+      @include border_sets();
+      text-align: center;
+      background-color: darkkhaki;
+      padding:15px 0px;
+      p,h3{
+        margin:$base_margin;
+      }
+      .play_each{
+        margin-top:8px;
+        margin-bottom:8px;
+      }
+      #play_user_answer{
+        margin-bottom: 12px;
+      }
+    }
+
+    // 正解不正解の表示
+    #play_results{
+      @include base_frame();
+      text-align: right;
+      font-size: 0.9em;
+    }
+
+    // 非同期通信のエラー
+    #play_quiz_error{
+      display:none;
+      @include base_frame();
+      p{
+        text-align: center;
+      }
+    }
+
+    #end_of_quiz{
+      @include base_frame();
+      @include border_sets();
+      display:none;
+      background-color: skyblue;
+      text-align: center;
+      animation-name:end_anime;
+      animation-duration:2s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes end_anime{
+      0%{
+        transform: scale(0);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+
 
 // 設定されていない
 .no_data{
@@ -189,8 +348,10 @@ div[id*="quiz_create_"]{
 
 // ボタン
 .btn_div{
-  text-align: center;
-  margin-top: 30px;
+  @include base_button();
+}
+.btn_div2{
+  @include base_button(10px,10px);
 }
 
 // 個別ボタン
@@ -217,13 +378,14 @@ label{
   border-top:black dashed 1px;
 }
 
+
+
 // お知らせページ
 
 #finish_sign{
   @include base_frame(1000px,300px);
   background-color: cornsilk;
-  border:black solid 5px;
-  border-radius: 10px;
+  @include border_sets($size:5px);
 }
 
 .finish_p{

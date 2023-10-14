@@ -85,7 +85,7 @@
 <p id="each_quiz_level">初期レベル</p>
 <select id="quiz_create_select_level" name="level">
   <option hidden>選択してください</option>
-  @for($n=1;$n<10;$n++)
+  @for($n=1;$n<=10;$n++)
     <option class="quiz_create_each_level">{{$n}}</option>
   @endfor
 </select>

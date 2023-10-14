@@ -29,8 +29,11 @@ class Create_Request extends FormRequest
             "title"=>"required",
             "quiz"=>"required|min:3",
             "answer"=>"required|min:1",
-            "level"=>"required|integer",
-            "ptn"=>["required",new PtnEnumValue]
+            "level"=>"required|integer|min:1|max:10",
+            "ptn"=>["required",new PtnEnumValue],
+            "theme_name"=>"not_regex:/^all_themes$/",
+            "theme_name2"=>"not_regex:/^all_themes$/",
+            "theme_name3"=>"not_regex:/^all_themes$/"
             ];
     }
 
@@ -44,7 +47,12 @@ class Create_Request extends FormRequest
             "ptn.required"=>"回答が入力されていません",
             "quiz.min"=>"クイズが短すぎます",
             "answer.min"=>"回答が短すぎます",
-            "level.integer"=>"レベルは数値で記入してください"
+            "level.integer"=>"レベルは数値で記入してください",
+            "level.min"=>"レベルは1以上で記入してください",
+            "level.max"=>"レベルは10以下で記入してください",
+            "theme_name.not_regex"=>"テーマに「all_themes」は使えません",
+            "theme_name2.not_regex"=>"テーマに「all_themes」は使えません",
+            "theme_name3.not_regex"=>"テーマに「all_themes」は使えません",
         ];
     }
 

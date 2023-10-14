@@ -49,13 +49,17 @@ Route::patch("/configquiz/edit",[ConfigController::class,"edit_theme"])
 Route::post("/post_createquiz",[QuizController::class,"post_create_quiz"])
 ->name("post_create_route");
 
-// クイズで遊ぶ前段階
+// クイズで遊ぶカテゴリー選び
 Route::get('quiz/beforequiz',[PlayQuizController::class,"before_play_quiz"]
 )->name("before_quiz_route");
 
-// クイズで遊ぶ
-Route::get("quiz/playquiz",[PlayQuizController::class,"play_quiz"])
+// 選んでからクイズで遊ぶページへ
+Route::post("quiz/playquiz",[PlayQuizController::class,"play_quiz"])
 ->name("play_quiz_route");
+
+// 結果を登録
+Route::post("quiz/check",[PlayQuizController::class,"to_record"])
+->name("to_record_route");
 
 
 
