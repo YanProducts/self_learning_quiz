@@ -212,6 +212,32 @@ div[id*="quiz_create_"]{
         width:80%;
         font-size: 1em;
       }
+      #theme_select_beforequiz{
+        margin:0;
+        width:0;
+        display:none;
+        .beforequiz_theme_hidden,.beforequiz_theme_hidden0{
+          display:none;
+        }
+      }
+      #theme_ui_ul{
+        list-style-type:none;
+        @include base_frame();
+        text-align: left;
+        li{
+          @include border_sets($size:1px, $radius:0px);
+        }
+        .beforequiz_theme_li,.beforequiz_theme_li0{
+          background-color: white;
+          padding-left:10px;
+          white-space: nowrap;
+          overflow-x: hidden;
+          cursor: pointer;
+        }
+        .no_choise_li{
+          background-color: gray;
+        }
+      }
       .level_percent_flex{
         margin-top: 0px;
         margin-bottom:20px;
@@ -222,6 +248,12 @@ div[id*="quiz_create_"]{
         }
       }
   }
+
+  #now_choise_theme_field{
+    @include base_frame();
+    @include border_sets($size:2px,$radius:3px);
+  }
+
 }
 
 // クイズ行うとき

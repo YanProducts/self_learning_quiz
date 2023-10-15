@@ -200,6 +200,37 @@ div[id*=quiz_create_] select {
   width: 80%;
   font-size: 1em;
 }
+#before_quiz_form div #theme_select_beforequiz {
+  margin: 0;
+  width: 0;
+  display: none;
+}
+#before_quiz_form div #theme_select_beforequiz .beforequiz_theme_hidden, #before_quiz_form div #theme_select_beforequiz .beforequiz_theme_hidden0 {
+  display: none;
+}
+#before_quiz_form div #theme_ui_ul {
+  list-style-type: none;
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  text-align: left;
+}
+#before_quiz_form div #theme_ui_ul li {
+  border: black solid 1px;
+  border-radius: 0px;
+  border-collapse: collapse;
+}
+#before_quiz_form div #theme_ui_ul .beforequiz_theme_li, #before_quiz_form div #theme_ui_ul .beforequiz_theme_li0 {
+  background-color: white;
+  padding-left: 10px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  cursor: pointer;
+}
+#before_quiz_form div #theme_ui_ul .no_choise_li {
+  background-color: gray;
+}
 #before_quiz_form div .level_percent_flex {
   margin-top: 0px;
   margin-bottom: 20px;
@@ -208,6 +239,15 @@ div[id*=quiz_create_] select {
 }
 #before_quiz_form div .level_percent_flex select {
   width: 40%;
+}
+#before_quiz_form #now_choise_theme_field {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  border: black solid 2px;
+  border-radius: 3px;
+  border-collapse: collapse;
 }
 
 #quiz_play_conf {

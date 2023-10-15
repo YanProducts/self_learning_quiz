@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot name="title">クイズを行う</x-slot>
-  <x-slot name="js_needless">{{True}}</x-slot>
+  <x-slot name="for_js">quiz/before_create</x-slot>
 
 <h2>どんなクイズをしますか？</h2>
 
@@ -9,18 +9,42 @@
   <div class="quiz_before_select_type">
   <p class="quiz_before_p">テーマは？(＊複数選択可)
   </p>
+
+  {{-- 裏select用 --}}
     <select id="theme_select_beforequiz" name="theme_what[]" multiple>
-      <option value="all_themes" selected>全て</option>
+      <option class="beforequiz_theme_hidden0" value="all_themes"></option>
       <?php $before_kind="" ?>
       @foreach($theme_lists as $tl)
        @if($tl["kind"]!==$before_kind)
-        <optgroup label="{{!empty($tl["kind"]) ? $tl["kind"] : "未分類"}}"></optgroup>
+       <?php $large_theme=!empty($tl["kind"]) ? $tl["kind"] : "分類なし" ?>
+        <option class="beforequiz_theme_hidden0" data-kind="{{$large_theme}}" value="all_themes_{{$large_theme}}"></option>
        @endif
-       <option value="{{$tl["theme_name"]}}">{{$tl["theme_name"]}}</option>
+      <option  class="beforequiz_theme_hidden" data-kind="{{$large_theme}}" value="{{$tl["theme_name"]}}"></option>
        <?php $before_kind=$tl["kind"] ?>
       @endforeach
     </select>
+
+    {{-- UI用 --}}
+    <ul id="theme_ui_ul">
+      <li class="beforequiz_theme_li0" data-value="all_themes">　全テーマ</li>
+      <?php $before_kind="" ?>
+      @foreach($theme_lists as $tl)
+       @if($tl["kind"]!==$before_kind)
+       <?php $large_theme=!empty($tl["kind"]) ? $tl["kind"] : "分類なし" ?>
+        <li  class="no_choise_li">{{$large_theme}}</li>
+        <li  class="beforequiz_theme_li0" data-kind="{{$large_theme}}" data-value="all_themes_{{$large_theme}}">　{{$large_theme}}の全テーマ</li>
+       @endif
+        <li  class="beforequiz_theme_li" data-kind="{{$large_theme}}" data-value="{{$tl["theme_name"]}}">　{{$tl["theme_name"]}}</li>
+       <?php $before_kind=$tl["kind"] ?>
+      @endforeach
+    </ul>
   </div>
+
+  <fieldset id="now_choise_theme_field">
+      <legend>現在選択中テーマ</legend>
+      <p id="now_choice_themes">選択なし</p>
+  </fieldset>
+
 
   <div class="quiz_before_select_type">
   <p class="quiz_before_p">回答形式は？</p>
