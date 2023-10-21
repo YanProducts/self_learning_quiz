@@ -6,9 +6,10 @@
 
 <form id="before_quiz_form" method="post" action="{{route("play_quiz_route")}}">
   @csrf
-  <div class="quiz_before_select_type">
+  <div class="quiz_before_select_type" id="quiz_before_themelist">
   <p class="quiz_before_p">テーマは？(＊複数選択可)
   </p>
+  @error("theme_what")<p class="if_error1">{{$message}}</p>@enderror
 
   {{-- 裏select用 --}}
     <select id="theme_select_beforequiz" name="theme_what[]" multiple>
@@ -40,6 +41,7 @@
     </ul>
   </div>
 
+
   <fieldset id="now_choise_theme_field">
       <legend>現在選択中テーマ</legend>
       <p id="now_choice_themes">選択なし</p>
@@ -48,6 +50,7 @@
 
   <div class="quiz_before_select_type">
   <p class="quiz_before_p">回答形式は？</p>
+  @error("answer_which")<p class="if_error1">{{$message}}</p> @enderror
     <select id="answer_select_beforequiz" name="answer_which">
       <?php $ptn_n=0; ?>
       @foreach($ptn_which as $ptn)
@@ -57,9 +60,14 @@
     </select>
   </div>
 
-  <div class="quiz_before_select_type">
+  <div class="quiz_before_select_type" id="quiz_before_levels">
   <p class="quiz_before_p">レベルは？</p>
-    <div class="level_percent_flex">
+
+  @if($errors->has("level_min") || $errors->has("level_max"))
+    <p class="if_error1">{{$message}}</p>
+  @endif
+
+  <div class="level_percent_flex">
     <select id="level_select_beforequiz1" name="level_min">
       @for($min=1;$min<=10;$min++)
       <option value="{{$min}}" @if($min===1) selected @endif>{{$min}}</option>
@@ -74,8 +82,13 @@
     </div>
   </div>
 
-  <div class="quiz_before_select_type">
+  <div class="quiz_before_select_type" id="quiz_before_percents">
   <p class="quiz_before_p">正解率は？</p>
+
+  @if($errors->has("percent_min") || $errors->has("percent_max"))
+    <p class="if_error1">{{$message}}</p>
+  @endif
+
     <div class="level_percent_flex">
     <select id="percent_select_beforequiz1" name="percent_min">
       @for($min=0;$min<=100;$min++)

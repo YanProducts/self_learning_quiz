@@ -38,6 +38,14 @@ $inner_min_width:200px;
   text-align: center;
 }
 
+@mixin base_error(){
+  @include base_frame();
+  color:red;
+  height:30px;
+  line-height:30px;
+  text-align: center;
+}
+
 
 body{
   background-color: darken(rgb(100,200,100),10%);
@@ -52,17 +60,21 @@ h2 {
 }
 
 
-// エラーメッセージ
 // okメッセージ
-.if_error,.ok_message{
-  @include base_frame();
-  color:red;
-  height:30px;
-  line-height:30px;
-  animation-name:out_three_minute;
-  animation-duration:3s;
-  animation-fill-mode:forwards;
-  text-align: center;
+.ok_message{
+  @include base_error();
+}
+
+// エラーメッセージ
+@for $i from 0 through 1{
+  .if_error#{$i}{
+    @include base_error();
+    @if($i == 0){
+      animation-name:out_three_minute;
+      animation-duration:3s;
+      animation-fill-mode:forwards;
+    }
+  }
 }
 
 @keyframes out_three_minute{
@@ -224,6 +236,7 @@ div[id*="quiz_create_"]{
         list-style-type:none;
         @include base_frame();
         text-align: left;
+        padding-left:0px;
         li{
           @include border_sets($size:1px, $radius:0px);
         }
@@ -234,8 +247,11 @@ div[id*="quiz_create_"]{
           overflow-x: hidden;
           cursor: pointer;
         }
+        .beforequiz_theme_li0{
+          font-weight: bold;
+        }
         .no_choise_li{
-          background-color: gray;
+          background-color: lighten(gray,25%);
         }
       }
       .level_percent_flex{
@@ -250,8 +266,9 @@ div[id*="quiz_create_"]{
   }
 
   #now_choise_theme_field{
-    @include base_frame();
+    @include base_frame($min:280px);
     @include border_sets($size:2px,$radius:3px);
+    padding:0;
   }
 
 }
@@ -292,7 +309,7 @@ div[id*="quiz_create_"]{
   
  
   // 正解不正解の表示
-   #display_isok{
+   #display_isok,#display_without{
       @include base_frame();
       @include border_sets();
       padding-top:10px;

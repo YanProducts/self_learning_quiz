@@ -12,7 +12,7 @@
 <input type="text" name="title">
 </div>
 @error("title")
-<p class="if_error">{{$message}}</p>
+<p class="if_error1">{{$message}}</p>
 @enderror
 
 
@@ -21,7 +21,7 @@
 <textarea name="quiz"></textarea>
 </div>
 @error("quiz")
-<p class="if_error">{{$message}}</p>
+<p class="if_error1">{{$message}}</p>
 @enderror
 
 
@@ -30,7 +30,7 @@
 <input type="text" name="answer">
 </div>
 @error("answer")
-<p class="if_error">{{$message}}</p>
+<p class="if_error1">{{$message}}</p>
 @enderror
 
 
@@ -91,7 +91,7 @@
 </select>
 </div>
 @error("level")
-<p class="if_error">{{$message}}</p>
+<p class="if_error1">{{$message}}</p>
 @enderror
 
 <div id="quiz_create_ptn">
@@ -104,7 +104,7 @@
 </select>
 </div>
 @error("ptn")
-<p class="if_error">{{$message}}</p>
+<p class="if_error1">{{$message}}</p>
 @enderror
 
 <div class="btn_div">

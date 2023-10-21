@@ -8,6 +8,7 @@ use App\Models\Quiz_list;
 use App\Enums\QuizPtn;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\BeforePlay_Request;
 
 
 class PlayQuizController extends Controller
@@ -22,24 +23,43 @@ class PlayQuizController extends Controller
      }
 
     // クイズで遊ぶ
-    public function play_quiz(Request $request){
-        // バリデーション
-        $request->validate([
-
-        ]);
+    public function play_quiz(BeforePlay_Request $request){
 
         $theme_what=$request->theme_what;
-
 
         // 出題するクイズの取得
         $all_quizzes=self::get_allquiz_data($request,$theme_what);
 
-
         // 出題クイズのjson用
         $base64Data = self::gzip($all_quizzes);
-
+        
         // 表示用にarray分割
         list($theme_view,$theme_other,$count_other)=self::themes_for_view($theme_what);
+
+        // 最初の問題の表示用
+        if(isset($all_quizzes[0])){
+            $first_quiz=$all_quizzes[0];
+            // テーマ表示の変換
+
+            if(!empty($first_quiz["theme_name"])){
+                $first_quiz["displaytheme"]=$first_quiz["theme_name"];
+                if(!empty($first_quiz["theme_name2"])){
+                    $first_quiz["displaytheme"]=$first_quiz["displaytheme"]." ".$first_quiz["theme_name2"];
+                    if(!empty($first_quiz["theme_name3"])){
+                        $first_quiz["displaytheme"]=$first_quiz["displaytheme"]."、".$first_quiz["theme_name3"];
+                    }
+                }
+            }
+            // 正解率表示の転換
+            if($first_quiz["correct"]+$first_quiz["wrong"]===0){
+                $first_quiz["percent"]=0;
+            }else{
+                $first_quiz["percent"]=round(($first_quiz["correct"]/($first_quiz["correct"]+$first_quiz["wrong"]))*100,1);         
+            }
+        }else{
+            $first_quiz="no_quiz";
+        }
+        
 
         // ページへ
         return view("quiz/play_quiz")->with([    
@@ -51,9 +71,9 @@ class PlayQuizController extends Controller
             "max_level"=>$request->level_max,
             "min_percent"=>$request->percent_min,
             "max_percent"=>$request->percent_max,
-            "first_quiz"=>$all_quizzes[0] ?? "no_quiz",
+            "first_quiz"=>$first_quiz,
             "all_to_json"=>$base64Data,
-
+            "quiz_sum_count"=>count($all_quizzes),
             // 何問目かのフラグ
             "num"=>0,
         ]);
@@ -62,17 +82,38 @@ class PlayQuizController extends Controller
     // 該当クイズSQLの取得(play_quizの一部)
     public function get_allquiz_data($request,$theme_what){
 
+        // ベース部分
           $query=Quiz_List::where([
                 ["level",">=",intval($request->level_min)],
                 ["level","<=",intval($request->level_max)],
                 ["ptn","=",$request->answer_which]
-           ])
-           ->whereBetween(
-                DB::raw("(correct/(correct + wrong)) *100"),
-                [intval($request->percent_min),intval($request->percent_max)]
-             );
+           ]);
 
-        
+        // 正解率
+        if(intval($request->percent_min)===0){
+          $query
+          ->where(function($q)use($request){
+        //  最低が０％＝未回答クイズも出題
+                $q->where(DB::raw("correct + wrong"),"=",0)
+                  ->orWhereBetween(
+                    DB::raw("(correct/(correct + wrong)) *100"),
+                    [intval($request->percent_min),intval($request->percent_max)]
+                  );
+            });
+        }else{
+            $query
+            ->where(function($q)use($request){
+                $q
+                  ->where(DB::raw("correct + wrong"),">",0)
+                  ->whereBetween(
+                    DB::raw("(correct/(correct + wrong)) *100"),
+                    [intval($request->percent_min),intval($request->percent_max)]
+                 );               
+            });
+        }
+ 
+
+            // all_themes以外は下記で絞る(all_themesが入っていたら全部選ぶから絞らない)
             if(!in_array("all_themes",$theme_what)){
                 $query
                 ->where(function($q) use($theme_what){
@@ -95,6 +136,22 @@ class PlayQuizController extends Controller
 
     // 表示用のテーマ取得
     public function themes_for_view($theme_what){
+
+        // 全種類の変換
+        for($n=0;$n<count($theme_what);$n++){
+            if(mb_strpos($theme_what[$n],"all_themes")>-1){
+                if($theme_what[$n]==="all_themes"){
+                    // 全テーマ全種類の場合
+                    // 表示用のtheme_whatは「全種類」のみ
+                    $theme_what=["全種類"];
+                }else{
+                    // 〜の全種類系列は各要素が取得されているので削除
+                    unset($theme_what[$n]);
+                }
+            }
+        }
+
+        // ３つ以上テーマがある場合
         if(count($theme_what)>3){
             $theme_first=array_slice($theme_what,0,3);
             $theme_second=array_slice($theme_what,3);

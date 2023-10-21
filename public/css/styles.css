@@ -30,7 +30,7 @@ h2 {
   max-width: 800px;
 }
 
-.if_error, .ok_message {
+.ok_message {
   width: 80%;
   margin: 0 auto;
   max-width: 1000px;
@@ -38,9 +38,31 @@ h2 {
   color: red;
   height: 30px;
   line-height: 30px;
+  text-align: center;
+}
+
+.if_error0 {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  color: red;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
   animation-name: out_three_minute;
   animation-duration: 3s;
   animation-fill-mode: forwards;
+}
+
+.if_error1 {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  color: red;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
 }
 
@@ -215,6 +237,7 @@ div[id*=quiz_create_] select {
   max-width: 1000px;
   min-width: 300px;
   text-align: left;
+  padding-left: 0px;
 }
 #before_quiz_form div #theme_ui_ul li {
   border: black solid 1px;
@@ -228,8 +251,11 @@ div[id*=quiz_create_] select {
   overflow-x: hidden;
   cursor: pointer;
 }
+#before_quiz_form div #theme_ui_ul .beforequiz_theme_li0 {
+  font-weight: bold;
+}
 #before_quiz_form div #theme_ui_ul .no_choise_li {
-  background-color: gray;
+  background-color: silver;
 }
 #before_quiz_form div .level_percent_flex {
   margin-top: 0px;
@@ -244,10 +270,11 @@ div[id*=quiz_create_] select {
   width: 80%;
   margin: 0 auto;
   max-width: 1000px;
-  min-width: 300px;
+  min-width: 280px;
   border: black solid 2px;
   border-radius: 3px;
   border-collapse: collapse;
+  padding: 0;
 }
 
 #quiz_play_conf {
@@ -286,7 +313,7 @@ div[id*=quiz_create_] select {
   font-weight: bold;
 }
 
-#display_isok {
+#display_isok, #display_without {
   width: 80%;
   margin: 0 auto;
   max-width: 1000px;
@@ -297,17 +324,17 @@ div[id*=quiz_create_] select {
   padding-top: 10px;
   display: none;
 }
-#display_isok #isok_ok {
+#display_isok #isok_ok, #display_without #isok_ok {
   color: black;
 }
-#display_isok #isok_out {
+#display_isok #isok_out, #display_without #isok_out {
   color: black;
 }
-#display_isok p {
+#display_isok p, #display_without p {
   text-align: center;
   margin: 0 auto;
 }
-#display_isok #what_is_correct {
+#display_isok #what_is_correct, #display_without #what_is_correct {
   margin-top: 5px;
   margin-bottom: 7px;
 }

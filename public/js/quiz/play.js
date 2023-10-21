@@ -1,5 +1,11 @@
 $(()=>{
 
+  // クイズが０問のときは終了
+  if( $("#quiz_hidden").data("all")===null || typeof($("#quiz_hidden").data("all"))==="undefined"){
+    return;
+  }
+
+  // 圧縮したjsonデータの解凍
   const decodedData = atob($("#quiz_hidden").data("all"));
   const inflatedData = pako.inflate(decodedData, { to: 'string' });
   const alldata=JSON.parse(inflatedData);
@@ -9,33 +15,43 @@ $(()=>{
   if($("#theme_other")){
     theme_display();
   };
-                                                   
 
 
 
-
-
+  // 回答ボタンが押されたとき（どちらのptnでもこの処理へ)
   $("#play_quiz_btn").click((e)=>{
 
     e.preventDefault();
 
-    if($("#user_answer").val()===""){
-      alert("回答が入力されていません");
-      return;
+    const ptn=Number($("#quiz_hidden").data("ptn"));
+
+    // 回答があるかどうか
+    if(ptn===0){
+      if($("#user_answer").val()===""){
+        alert("回答が入力されていません");
+        return;
+      }
+      // 正解不正解チェック
+      let is_ok=answer_check();
+
+      // 正解不正解が正しい値か
+      // returnのタイミングうまくいっているか確認しよう！！！！！！（結果挿入されていないか？）
+      if(is_ok!=="ok" && is_ok!=="out"){
+        error_display("何らかのエラーです");
+        return;
+      }
+
+      // 画面変更
+      display_change("after",is_ok);
+
+      // 結果の挿入
+      result_plus(is_ok)
+
+    }else{
+      // 画面変更（回答は文章の時）
+      display_change("after","without");
     }
 
-    // 正解不正解の表示とクイズの非表示
-    let is_ok=answer_check();
-    
-    if(is_ok!=="ok" && is_ok!=="out"){
-      error_display("何らかのエラーです");
-      return;
-    }
-
-    display_change("after",is_ok);
-
-    // 正解不正解のデータ登録
-    result_plus(is_ok)
     
     // 現在何問目か
     const mondai_num=$("#nanmonme").text()
@@ -112,12 +128,23 @@ function display_change(flug1,flug2=""){
       $("#display_isok").css("background-color","gray");
       $("#display_isok").css("height","100px");
       $("#wrong_sum").text(parseInt($("#wrong_sum").text())+1);
+    }else if(flug2==="without"){
+      // 解説の表示
+      $("#display_without").css("display","block");
+      $("#seikai_display").text($("#quiz_hidden").data("answer"));
+      $("#display_without").css("background-color","skyblue");
+      $("#display_without").css("height","100px");
     }
   }else if(flug1==="before"){
     // 出題側の処理
     $("#user_answer").val("");
     $("#async_error").css("display","none");
-    $("#display_isok").css("display","none");
+    if($("#display_isok")){
+      $("#display_isok").css("display","none");
+    }
+    if($("#display_without")){
+      $("#display_without").css("display","none");
+    }
     $("#play_quiz_corner").css("display","block");
   }else{
     error_display("何らかのエラーです");
@@ -133,16 +160,45 @@ function display_change(flug1,flug2=""){
   }
 
 
-    // 問題の入替
-    $("#mondai").text(alldata[mondai_num].quiz);
-
-    // 回答などの入替
+    // データの入替
     $("#quiz_hidden").data("id",alldata[mondai_num].id)
+    $("#quiz_hidden").data("theme",alldata[mondai_num].theme_name)
+    $("#quiz_hidden").data("theme2",alldata[mondai_num].theme_name2)
+    $("#quiz_hidden").data("theme3",alldata[mondai_num].theme_name3)
+    $("#quiz_hidden").data("level",alldata[mondai_num].level)
+    $("#quiz_hidden").data("correct",alldata[mondai_num].correct)
+    $("#quiz_hidden").data("wrong",alldata[mondai_num].wrong)
     $("#quiz_hidden").data("answer",alldata[mondai_num].answer)
     $("#quiz_hidden").data("answer2",alldata[mondai_num].answer2)
     $("#quiz_hidden").data("answer3",alldata[mondai_num].answer3)
     $("#quiz_hidden").data("answer4",alldata[mondai_num].answer4)
     $("#quiz_hidden").data("answer5",alldata[mondai_num].answer5)
+
+
+    // 表示の入替
+    $("#mondai").text(alldata[mondai_num].quiz);
+
+    // 表示テーマ
+    let theme_value=$("#quiz_hidden").data("theme");
+    if($("#quiz_hidden").data("theme2")){
+      theme_value=theme_value + " " + $("#quiz_hidden").data("theme2");
+      if($("#quiz_hidden").data("theme3")){
+        theme_value=theme_value + " " +$("#quiz_hidden").data("theme3");
+      }  
+    }
+    $("#each_quiz_theme_span").text(theme_value);
+    
+    // 表示パーセント
+    let percent="";
+    if($("#quiz_hidden").data("correct")+$("#quiz_hidden").data("wrong")===0){
+      percent="0%";
+    }else{
+      percent=Math.round($("#quiz_hidden").data("correct")/($("#quiz_hidden").data("correct")+$("#quiz_hidden").data("wrong"))*100,1) + "%";
+    }
+    
+    $("#each_quiz_percent_span").text(percent);
+
+    $("#each_quiz_level_span").text($("#quiz_hidden").data("level"));
 
     // 何問目かの表示入替
     $("#nanmonme").text(parseInt(mondai_num)+1);

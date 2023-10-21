@@ -5,7 +5,7 @@
   {{-- エラーメッセージ --}}
 @empty(session("Error"))
 @else
-<p class="if_error">{{session("Error")}}</p>
+<p class="if_error1">{{session("Error")}}</p>
 @endempty
 
 @empty(session("message"))
@@ -14,7 +14,7 @@
 @endempty
 
 @error("is_valid")
-<p class="if_error">{{$message}}</p>
+<p class="if_error1">{{$message}}</p>
 @enderror
 
   <h1>テーマの設定</h1>  
@@ -37,7 +37,7 @@ style="display:block;"
   </label>
 
   @error("new_theme_name")
-  <p class="if_error">{{$message}}</p>
+  <p class="if_error1">{{$message}}</p>
   @enderror
   
   <label for="new_kind_input" class="label_inner1">種類の設定
@@ -91,7 +91,7 @@ style="display:block;"
  <input type="text" name="edit_theme_name" id="edit_name_input">
  </label>
  @error("edit_theme_name")
- <p class="if_error">{{$message}}</p>
+ <p class="if_error1">{{$message}}</p>
  @enderror
   <div class="btn_div">
     <button>決定！</button>
