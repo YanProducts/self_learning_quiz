@@ -36,6 +36,17 @@ $inner_min_width:200px;
   margin-top: $btn_marginTop;
   margin-bottom: $btn_marginBtm;
   text-align: center;
+  min-width: 300px;
+}
+
+@mixin span_to_btn(){
+  @include border_sets(black, 1px, 3px);
+  background-color: lighten(gray,30%);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding:5px;
+  font-size: 0.9em;
 }
 
 @mixin base_error(){
@@ -57,6 +68,12 @@ h1 {
 
 h2 {
   @include page_title($height:30px,$marginTop:30px,$marginBottom:30px);
+  @media screen and (max-width:500px){
+    font-size: 1.2em;
+  }
+  @media screen and (max-width:350px){
+    font-size: 1.1em;
+  }
 }
 
 
@@ -206,7 +223,7 @@ div[id*="quiz_create_"]{
 
 
 // クイズ行う前段階
-#before_quiz_form{
+#before_quiz_form,#before_edit_from_case{
   @include base_frame();
   @include border_sets();
   max-width: 500px;
@@ -265,6 +282,7 @@ div[id*="quiz_create_"]{
       }
   }
 
+  
   #now_choise_theme_field{
     @include base_frame($min:280px);
     @include border_sets($size:2px,$radius:3px);
@@ -386,6 +404,123 @@ div[id*="quiz_create_"]{
     }
 
 
+// 編集方法決定ボタン
+#before_edit_to_next{
+  font-size: 1em;
+}
+
+// クイズ編集
+form[id*="before_edit_from"]{
+  display:none;
+}
+
+// 言葉で検索条件
+
+#edit_words_phrase,#edit_andor_display{
+  font-size: 1.1em;
+  border-top: black dashed 2px;
+  border-bottom: black dashed 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+#edit_words_phrase{
+  @include border_sets($size:2px);
+  padding:10px;
+}
+
+#edit_andor_display{
+  padding-bottom:10px;
+  box-sizing: content-box;
+}
+
+.edit_words_sentence{
+  height:40px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1em;
+  @media screen and (max-width:500px) {
+    font-size:0.9em;
+  }
+  @media screen and (max-width:430px){
+    font-size: 0.85em;
+  }
+
+  select,input{
+    height:30px;
+    vertical-align: middle;
+    width:30%;
+    @media screen and (max-width:500px){
+      width:100px;
+    }
+    @media screen and (max-width:450px){
+      width:80px;
+    }
+    @media screen and (max-width:380px){
+      width:70px;
+    }
+  }
+}
+
+.edit_words_delete_btn,#edit_back_search{
+  display:none;
+}
+
+// 編集ー言葉ー条件追加削除のspanボタン
+#and_addition,#or_addition,#normal_addition,.edit_words_delete_btn{
+  @include span_to_btn();
+}
+
+// andor条件追加文章
+#edit_word_condition_space{
+  display:flex;
+  justify-content: center;
+  margin-top: 10px;
+  #or_addition{
+    margin-left: 10px;
+  }
+  #and_addition{
+    margin-right: 10px;
+  }
+}
+
+#now_edit_andor{
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 0;
+  display:none;
+  height:40px;
+  line-height: 40px;
+  #normal_addition{
+    height:30px;
+    vertical-align: middle;
+    margin-left: 30px;
+  }
+}
+
+#edit_back_search{
+  cursor: pointer;
+  text-decoration: underline;
+  color:blue;
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 2px;
+}
+
+
+#edit_word_btn2{
+  font-size: 1.1em;
+  @media screen and (max-width:500px){
+    font-size: 0.95em;
+  }
+  @media screen and (max-width:380px){
+    font-size: 0.9em;
+  }
+}
+
+
+
 // 設定されていない
 .no_data{
   width:100%;
@@ -454,3 +589,6 @@ label{
   text-align: center;
   margin-top: 10px;
 }
+
+
+

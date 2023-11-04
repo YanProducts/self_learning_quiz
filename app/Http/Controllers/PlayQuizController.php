@@ -19,6 +19,8 @@ class PlayQuizController extends Controller
          
         $valuesets=QuizController::setReturnsets();
 
+        $valuesets["js_sets"]=["quiz/before_play"];
+
         return view("quiz/before_play_quiz")->with($valuesets);
      }
 
@@ -76,6 +78,7 @@ class PlayQuizController extends Controller
             "quiz_sum_count"=>count($all_quizzes),
             // 何問目かのフラグ
             "num"=>0,
+            "js_sets"=>["quiz/play"]
         ]);
     }
 

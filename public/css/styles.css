@@ -29,6 +29,16 @@ h2 {
   min-width: 300px;
   max-width: 800px;
 }
+@media screen and (max-width: 500px) {
+  h2 {
+    font-size: 1.2em;
+  }
+}
+@media screen and (max-width: 350px) {
+  h2 {
+    font-size: 1.1em;
+  }
+}
 
 .ok_message {
   width: 80%;
@@ -198,7 +208,7 @@ div[id*=quiz_create_] select {
   display: none;
 }
 
-#before_quiz_form {
+#before_quiz_form, #before_edit_from_case {
   width: 80%;
   margin: 0 auto;
   max-width: 1000px;
@@ -208,29 +218,29 @@ div[id*=quiz_create_] select {
   border-collapse: collapse;
   max-width: 500px;
 }
-#before_quiz_form div {
+#before_quiz_form div, #before_edit_from_case div {
   margin-top: 12px;
   margin-bottom: 12px;
   text-align: center;
 }
-#before_quiz_form div p {
+#before_quiz_form div p, #before_edit_from_case div p {
   font-size: 1.1em;
   margin: 0 auto;
 }
-#before_quiz_form div select {
+#before_quiz_form div select, #before_edit_from_case div select {
   margin-top: 7px;
   width: 80%;
   font-size: 1em;
 }
-#before_quiz_form div #theme_select_beforequiz {
+#before_quiz_form div #theme_select_beforequiz, #before_edit_from_case div #theme_select_beforequiz {
   margin: 0;
   width: 0;
   display: none;
 }
-#before_quiz_form div #theme_select_beforequiz .beforequiz_theme_hidden, #before_quiz_form div #theme_select_beforequiz .beforequiz_theme_hidden0 {
+#before_quiz_form div #theme_select_beforequiz .beforequiz_theme_hidden, #before_quiz_form div #theme_select_beforequiz .beforequiz_theme_hidden0, #before_edit_from_case div #theme_select_beforequiz .beforequiz_theme_hidden, #before_edit_from_case div #theme_select_beforequiz .beforequiz_theme_hidden0 {
   display: none;
 }
-#before_quiz_form div #theme_ui_ul {
+#before_quiz_form div #theme_ui_ul, #before_edit_from_case div #theme_ui_ul {
   list-style-type: none;
   width: 80%;
   margin: 0 auto;
@@ -239,34 +249,34 @@ div[id*=quiz_create_] select {
   text-align: left;
   padding-left: 0px;
 }
-#before_quiz_form div #theme_ui_ul li {
+#before_quiz_form div #theme_ui_ul li, #before_edit_from_case div #theme_ui_ul li {
   border: black solid 1px;
   border-radius: 0px;
   border-collapse: collapse;
 }
-#before_quiz_form div #theme_ui_ul .beforequiz_theme_li, #before_quiz_form div #theme_ui_ul .beforequiz_theme_li0 {
+#before_quiz_form div #theme_ui_ul .beforequiz_theme_li, #before_quiz_form div #theme_ui_ul .beforequiz_theme_li0, #before_edit_from_case div #theme_ui_ul .beforequiz_theme_li, #before_edit_from_case div #theme_ui_ul .beforequiz_theme_li0 {
   background-color: white;
   padding-left: 10px;
   white-space: nowrap;
   overflow-x: hidden;
   cursor: pointer;
 }
-#before_quiz_form div #theme_ui_ul .beforequiz_theme_li0 {
+#before_quiz_form div #theme_ui_ul .beforequiz_theme_li0, #before_edit_from_case div #theme_ui_ul .beforequiz_theme_li0 {
   font-weight: bold;
 }
-#before_quiz_form div #theme_ui_ul .no_choise_li {
+#before_quiz_form div #theme_ui_ul .no_choise_li, #before_edit_from_case div #theme_ui_ul .no_choise_li {
   background-color: silver;
 }
-#before_quiz_form div .level_percent_flex {
+#before_quiz_form div .level_percent_flex, #before_edit_from_case div .level_percent_flex {
   margin-top: 0px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
 }
-#before_quiz_form div .level_percent_flex select {
+#before_quiz_form div .level_percent_flex select, #before_edit_from_case div .level_percent_flex select {
   width: 40%;
 }
-#before_quiz_form #now_choise_theme_field {
+#before_quiz_form #now_choise_theme_field, #before_edit_from_case #now_choise_theme_field {
   width: 80%;
   margin: 0 auto;
   max-width: 1000px;
@@ -406,6 +416,136 @@ div[id*=quiz_create_] select {
     transform: scale(1);
   }
 }
+#before_edit_to_next {
+  font-size: 1em;
+}
+
+form[id*=before_edit_from] {
+  display: none;
+}
+
+#edit_words_phrase, #edit_andor_display {
+  font-size: 1.1em;
+  border-top: black dashed 2px;
+  border-bottom: black dashed 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#edit_words_phrase {
+  border: black solid 2px;
+  border-radius: 10px;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+#edit_andor_display {
+  padding-bottom: 10px;
+  box-sizing: content-box;
+}
+
+.edit_words_sentence {
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1em;
+}
+@media screen and (max-width: 500px) {
+  .edit_words_sentence {
+    font-size: 0.9em;
+  }
+}
+@media screen and (max-width: 430px) {
+  .edit_words_sentence {
+    font-size: 0.85em;
+  }
+}
+.edit_words_sentence select, .edit_words_sentence input {
+  height: 30px;
+  vertical-align: middle;
+  width: 30%;
+}
+@media screen and (max-width: 500px) {
+  .edit_words_sentence select, .edit_words_sentence input {
+    width: 100px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .edit_words_sentence select, .edit_words_sentence input {
+    width: 80px;
+  }
+}
+@media screen and (max-width: 380px) {
+  .edit_words_sentence select, .edit_words_sentence input {
+    width: 70px;
+  }
+}
+
+.edit_words_delete_btn, #edit_back_search {
+  display: none;
+}
+
+#and_addition, #or_addition, #normal_addition, .edit_words_delete_btn {
+  border: black solid 1px;
+  border-radius: 3px;
+  border-collapse: collapse;
+  background-color: #cdcdcd;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 0.9em;
+}
+
+#edit_word_condition_space {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+#edit_word_condition_space #or_addition {
+  margin-left: 10px;
+}
+#edit_word_condition_space #and_addition {
+  margin-right: 10px;
+}
+
+#now_edit_andor {
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 0;
+  display: none;
+  height: 40px;
+  line-height: 40px;
+}
+#now_edit_andor #normal_addition {
+  height: 30px;
+  vertical-align: middle;
+  margin-left: 30px;
+}
+
+#edit_back_search {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 2px;
+}
+
+#edit_word_btn2 {
+  font-size: 1.1em;
+}
+@media screen and (max-width: 500px) {
+  #edit_word_btn2 {
+    font-size: 0.95em;
+  }
+}
+@media screen and (max-width: 380px) {
+  #edit_word_btn2 {
+    font-size: 0.9em;
+  }
+}
+
 .no_data {
   width: 100%;
   margin: 0 auto;
@@ -418,12 +558,14 @@ div[id*=quiz_create_] select {
   margin-top: 30px;
   margin-bottom: 0px;
   text-align: center;
+  min-width: 300px;
 }
 
 .btn_div2 {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
+  min-width: 300px;
 }
 
 .config_form .btn_div {

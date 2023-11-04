@@ -1,7 +1,7 @@
 <x-layout>
   <x-slot name="title">クイズを行う</x-slot>
-  <x-slot name="for_js">quiz/play</x-slot>
-
+  <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
+  
   <h1>クイズ出題！</h1>
 
   @if(gettype($first_quiz)==="string" && $first_quiz==="no_quiz")

@@ -10,9 +10,13 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.11/pako.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
-  {{-- jsがいらない時 --}}
+  {{-- jsがいらない時を省く --}}
+  {{-- jsはbladeで配列をセット --}}
   @if(!isset($js_needless) || !$js_needless)
-   <script defer src="{{ url("js/${for_js}.js")}}"></script>
+   @foreach(json_decode(html_entity_decode($js_sets)) as $js)
+   <script defer src="{{ url("js/${js}.js")}}"
+   ></script>
+   @endforeach
   @endif
 </head>
 

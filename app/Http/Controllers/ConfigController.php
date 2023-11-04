@@ -16,7 +16,7 @@ class ConfigController extends Controller
         $kind_lists=Theme::groupby("kind")->pluck("kind");
 
        return view("config")->with(["theme_lists"=>$theme_lists,
-       "kind_lists"=>$kind_lists]);
+       "kind_lists"=>$kind_lists,"js_sets"=>["config"]]);
     }
 
     // 作成ルート

@@ -17,9 +17,8 @@ use App\Http\Controllers\PlayQuizController;
 */
 
 // 最初の画面
-Route::get('/', function () {
-    return view('index');
-})->name("indexroute");
+Route::get('/',[ChoiseController::class,"first_index"])
+->name("indexroute");
 
 // 何をするかの選択時
 Route::post('/firstchoise',[ChoiseController::class,"firstchoise"]
@@ -60,6 +59,22 @@ Route::post("quiz/playquiz",[PlayQuizController::class,"play_quiz"])
 // 結果を登録
 Route::post("quiz/check",[PlayQuizController::class,"to_record"])
 ->name("to_record_route");
+
+// 編集するクイズリストの表示
+Route::get("quiz/edit/view_all_quiz_list",[QuizController::class,"view_all_quiz_lists"])
+->name("edit_from_all_route");
+
+// 言葉から該当するクイズの取得
+Route::post("quiz/edit/from_words",[QuizController::class,"edit_from_words"])
+->name("edit_from_words_route");
+
+// 条件から該当するクイズの取得（編集用）
+Route::post("quiz/edit/from_case",[QuizController::class,"edit_from_case"])
+->name("edit_from_case_route");
+
+// 編集クイズ決定→編集ページ
+Route::post("quiz/edit/edit_decide",[QuizController::class,"edit_decide"])
+->name("edit_decide_route");
 
 
 

@@ -1,7 +1,6 @@
 <x-layout>
   <x-slot name="title">自習用クイズを作ろう</x-slot>
-  <x-slot name="for_js">config</x-slot>
-
+  <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
   {{-- エラーメッセージ --}}
 @empty(session("Error"))
 @else

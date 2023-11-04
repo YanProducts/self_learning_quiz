@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot name="title">クイズの作成</x-slot>
-  <x-slot name="for_js">quiz/create</x-slot>
+  <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
 
   <h1>クイズの作成</h1>
 

@@ -7,6 +7,24 @@ use App\Http\Controllers\QuizController;
 
 class ChoiseController extends Controller
 {
+    public function first_index(){
+
+        $values=[
+            "li_option_sets"=>[
+                "play"=>"クイズを行う",
+                "make"=>"クイズを作る",
+                "edit"=>"クイズを編集/削除する",
+                "config"=>"テーマを編集する"
+            ],
+            "js_sets"=>["index"]
+        ];
+
+        return view('index')->with($values);
+    }
+
+
+
+
     public function firstchoise(Request $request){
         switch($request->select_first_choise){
             case "play":
@@ -25,7 +43,6 @@ class ChoiseController extends Controller
             //  エラーページ
             break; 
         }
-        // exit;
     }
 
     // // 完了などのサイン
