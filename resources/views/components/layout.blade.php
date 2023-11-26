@@ -13,8 +13,9 @@
   {{-- jsがいらない時を省く --}}
   {{-- jsはbladeで配列をセット --}}
   @if(!isset($js_needless) || !$js_needless)
+  {{-- 各bladeでは、文字実体参照が配列ではできないため、json渡しで送られてくる。また、文字実体参照を解凍すにはhtml_entity_decodeが必要 --}}
    @foreach(json_decode(html_entity_decode($js_sets)) as $js)
-   <script defer src="{{ url("js/${js}.js")}}"
+      <script defer src="{{ url("js/${js}.js")}}"
    ></script>
    @endforeach
   @endif

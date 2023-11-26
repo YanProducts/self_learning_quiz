@@ -5,6 +5,8 @@ use App\Http\Controllers\ChoiseController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\PlayQuizController;
+use App\Http\Controllers\EditQuizController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +31,7 @@ Route::get('/createquiz',[QuizController::class,"create_quiz"]
 )->name("createroute");
 
 // クイズを編集する
-Route::get('/editquiz',[QuizController::class,"edit_quiz"]
+Route::get('/editquiz',[EditQuizController::class,"edit_quiz"]
 )->name("editroute");
 
 // テーマの設定ページへ
@@ -61,22 +63,30 @@ Route::post("quiz/check",[PlayQuizController::class,"to_record"])
 ->name("to_record_route");
 
 // 編集するクイズリストの表示
-Route::get("quiz/edit/view_all_quiz_list",[QuizController::class,"view_all_quiz_lists"])
+Route::get("quiz/edit/view_all_quiz_lists_get",[EditQuizController::class,"view_all_quiz_lists"])
 ->name("edit_from_all_route");
 
+
 // 言葉から該当するクイズの取得
-Route::post("quiz/edit/from_words",[QuizController::class,"edit_from_words"])
+Route::post("quiz/edit/from_words",[EditQuizController::class,"edit_from_word"])
 ->name("edit_from_words_route");
 
+
 // 条件から該当するクイズの取得（編集用）
-Route::post("quiz/edit/from_case",[QuizController::class,"edit_from_case"])
+Route::post("quiz/edit/from_case",[EditQuizController::class,"edit_from_case"])
 ->name("edit_from_case_route");
 
 // 編集クイズ決定→編集ページ
-Route::post("quiz/edit/edit_decide",[QuizController::class,"edit_decide"])
+// バリデーションで返った時用にgetも用意
+Route::post("quiz/edit/edit_decide",[EditQuizController::class,"edit_decide"])
 ->name("edit_decide_route");
+Route::get("quiz/edit/edit_decide",[EditQuizController::class,"edit_decide_get"])
+->name("edit_decide_get_route");
 
 
+// 編集入力→編集決定ページ
+Route::patch("quiz/edit/edit_final",[EditQuizController::class,"edit_final"])
+->name("edit_final_route");
 
 // お知らせのページ
 // Route::get("sign{naiyou}{page}{js_needless}",[ChoiseController::class,"view_sign"])
