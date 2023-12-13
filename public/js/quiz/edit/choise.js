@@ -22,7 +22,6 @@ $(()=>{
       // 色の固定（それ以外の色をなくす）
       $(".edit_quiz_what").css("background-color","rgba(0, 0, 0, 0)");
       $(elem).css("background-color","rgb(230, 220, 110)");
-      console.log($(elem).css("background-color"))
     })
  })
 })

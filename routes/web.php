@@ -89,5 +89,5 @@ Route::patch("quiz/edit/edit_final",[EditQuizController::class,"edit_final"])
 ->name("edit_final_route");
 
 // お知らせのページ
-// Route::get("sign{naiyou}{page}{js_needless}",[ChoiseController::class,"view_sign"])
-// ->name("sign_route");
+Route::get("sign",function(){return view("sign");})
+->name("sign_route");

@@ -1,4 +1,3 @@
-
   <div class="quiz_before_select_type" id="quiz_before_themelist">
   <p class="quiz_before_p">テーマは？(＊複数選択可)
   </p>

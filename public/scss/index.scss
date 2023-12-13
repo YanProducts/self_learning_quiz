@@ -541,9 +541,6 @@ form[id*="before_edit_from"]{
     min-width: 300px;
     tr{
       cursor:pointer;
-       &:hover{
-        // background-color: lighten(khaki,10%);
-      }
     }
     th{
       @include border_sets($size:2px,$radius:0px);
@@ -586,6 +583,12 @@ form[id*="before_edit_from"]{
   font-size: 1.1em;
   text-align: center;
 }
+
+// 編集最終決定ボタン
+#edit_to_viewquiz{
+  font-size: 1em;
+}
+
 
 
 
@@ -654,7 +657,8 @@ label{
 .back_home{
   @include base_frame();
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 // 戻るボタン(内側)

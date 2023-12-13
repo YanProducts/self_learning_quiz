@@ -625,6 +625,10 @@ form[id*=before_edit_from] {
   text-align: center;
 }
 
+#edit_to_viewquiz {
+  font-size: 1em;
+}
+
 .no_data {
   width: 100%;
   margin: 0 auto;
@@ -691,7 +695,8 @@ label input {
   max-width: 1000px;
   min-width: 300px;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .back_home_inner {

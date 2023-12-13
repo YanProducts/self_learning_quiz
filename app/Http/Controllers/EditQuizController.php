@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\QUiz_list;
+use App\Models\Quiz_list;
 use App\Models\Theme;
 use App\Enums\QuizPtn;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EditWord_Request;
 use App\Http\Requests\Create_Request;
+use App\Http\Requests\BeforePlay_Request;
 
 class EditQuizController extends Controller
 {
@@ -44,7 +45,7 @@ class EditQuizController extends Controller
             "all_quizes"=>$quiz,
             "theme_lists"=>$theme,
             "ptn_which"=>$ptn,
-            "js_sets"=>["quiz/edit/search","before_play","index"],
+            "js_sets"=>["quiz/edit/search","quiz/before_play","index"],
             "li_option_sets"=>$li_option_sets
         ]);
     }
@@ -136,9 +137,41 @@ class EditQuizController extends Controller
     }
 
     // 条件に合うクイズを返す
-    public function edit_from_case(){
-        return redirect("quiz/edit/view_edit_quiz_lists")->with([
-            "quiz_lists"=>$quiz_lists
+    public function edit_from_case(BeforePlay_Request $request){
+        try{
+            $quiz_lists=Quiz_list::where([
+                ["ptn","=",$request->answer_which]  
+                ])
+            ->WhereBetween(
+                "level",[$request->level_min,$request->level_max]
+            )->where(function($query)use($request){
+                $query->WhereBetween(
+                    DB::raw("(correct/(correct + wrong))*100"),
+                    [$request->percent_min,$request->percent_max]
+                )->orWhere(
+                    DB::raw("correct + wrong"),"=",0
+                );
+             }
+            )->where(function($query)use($request){
+                $query->whereIn(
+                    "theme_name",$request->theme_what
+                )->orWhereIn(
+                    "theme_name2",$request->theme_what      
+                )->orWhereIn(
+                    "theme_name3",$request->theme_what      
+                );
+             })    
+            ->get();
+        }catch(\Throwable $e){
+            $naiyou=$e->getMessage();
+            return redirect()->route("sign_route")->with([
+                "is_error"=>"error",
+                "naiyou"=>$naiyou,
+            ]);
+        }
+        return view("quiz/edit/view_edit_quiz_lists")->with([
+            "quiz_lists"=>$quiz_lists,
+            "js_sets"=>["quiz/edit/choise"]
             ]);
     }
 
@@ -183,45 +216,59 @@ class EditQuizController extends Controller
     // idで渡した初期値は「old」で変更直前の値を保持
     public function edit_decide_get(){
 
-
         // 受け渡す変数の格納
-        // js_setsはcreateと同じ（？）
         $valuesets=array_merge(self::setReturnsets(),["js_sets"=>[ "quiz/create"],"mode"=>"作成","quiz_for_edit"=>""
         ]);
 
-        // 存在しなければデフォルトエラーページへ
-        // if(!$quiz_for_edit){
-        //     throw new \Exception("存在しないidです");
-        // }else{
-        // 編集本番ページ
-            return view("quiz/edit/review")->with($valuesets);
-    //   }
+        return view("quiz/edit/review")->with($valuesets);
 
     }
 
 
     // クイズの編集決定
-
-
     public function edit_final(Create_Request $request){
-        // editの場合はidも必要
-        // 返り値が未設定！！！！！！！！
 
-        $request->validate([
-            "edit_id"=>"required|int"
-        ],
-        [
-            "edit_id.required"=>"選択されていません",
-            "edit_id.int"=>"入力データが不正です"
-        ]);
+        // idはcreateのrequestで処理されないため、こちらで処理
+        if(!$request->edit_id || !Quiz_list::find($request->edit_id)){
+            throw new \Exception("不適切な処理です");
+        }else{
+            $edit_quiz_set=Quiz_list::find($request->edit_id);
+        }
+
+        // theme以外のrequest
+        // 後にRuleクラスで例外定義
+        $requestSets=["title","quiz","answer","answer2","answer3","answer4","answer5","level","ptn"];
 
         // sqlデータ変更
+        try{
+            DB::transaction(function()use($edit_quiz_set,$request,$requestSets){
+                // themne以外
+                foreach($requestSets as $parameter)
+                if($edit_quiz_set->$parameter!==$request->$parameter){
+                    $edit_quiz_set->$parameter=$request->$parameter;
+                }
 
-        // dd($request->edit_id);
+                // theme
+                if([$edit_quiz_set->theme_name,$edit_quiz_set->theme_name2,$edit_quiz_set->theme_name3]!==$request->themes){
+                    $edit_quiz_set->theme_name=$request->themes[0];
+                    $edit_quiz_set->theme_name2=$request->themes[1];
+                    $edit_quiz_set->theme_name3=$request->themes[2];
+                }
+            $edit_quiz_set->save();
+            });
+        }catch(\Throwable $e){
+            $naiyou=$e->getMessage();
+            return redirect()->route("sign_route")->with([
+                "is_error"=>"error",
+                "naiyou"=>$naiyou,
+            ]);
+        }
+            
 
-        
-        // リダイレクト(リロード対策にviewで渡す)
-        return view("test");
+        $naiyou="編集完了しました！";
+        $page="editroute";
+
+        return redirect()->route("sign_route")->with(["naiyou"=>$naiyou,"pageRoute"=>$page]);
 
     }
 

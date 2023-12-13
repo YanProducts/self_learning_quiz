@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf8">
-  <meta name="description" contents="width=device-width;initial-scale=1;user-scalable=no;">
+  <meta name="viewport" contents="width=device-width;initial-scale=1;user-scalable=no;">
   <title>{{$title}}</title>
   <link rel="stylesheet" href="{{url("css/styles.css")}}">
    <!-- gzipを解凍できるpacoライブラリの読み込み -->

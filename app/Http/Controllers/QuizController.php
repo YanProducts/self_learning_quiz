@@ -66,14 +66,13 @@ class QuizController extends Controller
             $naiyou="エラーです\n".$e->getMessage();
             $page="createroute";
 
-            return view("sign",["naiyou"=>$naiyou,"is_ok"=>false,"pageRoute"=>$page]);
+            return redirect()->route("sign_route")->with(["naiyou"=>$naiyou,"is_error"=>"error","pageRoute"=>$page]);
         }
 
         $naiyou="登録完了しました！";
         $page="createroute";
 
-        return view("sign",["naiyou"=>$naiyou,"is_ok"=>true,"pageRoute"=>$page]);
+        return redirect()->route("sign_route")->with(["naiyou"=>$naiyou,"pageRoute"=>$page]);
     }
-    
-   
+       
 }

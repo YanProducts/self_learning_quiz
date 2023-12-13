@@ -4,13 +4,18 @@
 {{-- jsは必要ない --}}
 <x-slot name="js_needless">{{True}}</x-slot>
 <div id="finish_sign">
+  {{-- リダイレクト時の２重登録防止 --}}
+  @if(session("is_error") && session("is_error")==="error")
+    <p  class="finish_p">
+        {!! nl2br("エラーです\n".session("naiyou")) !!}
+    </p>
+  @else
+    <p  class="finish_p">
+        {!! nl2br(session("naiyou")) !!}
+    </p>
+    <p class="back_home_inner"><a href="{{route(session("pageRoute"))}}">戻る</a></p>
+  @endif
 
-  <p  class="finish_p">
-    {!! nl2br(e($is_ok ? $naiyou :"エラーです\n".$naiyou)) !!}
-  </p>
-
-  <p class="back_home_inner"><a href="{{route($pageRoute)}}">戻る</a></p>
   <p class="back_home_inner"><a href="{{route("indexroute")}}">トップページへ</a></p>
 </div>
-
 </x-layout>

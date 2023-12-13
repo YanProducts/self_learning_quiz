@@ -22,8 +22,6 @@
 @include("/quiz/edit/part/from_word_part");
 
 
-
-
 {{-- 条件から検索する場合--}}
 {{-- 次で該当クイズリストを表示する --}}
 <form id="before_edit_from_case" method="post" action="{{route("edit_from_case_route")}}">

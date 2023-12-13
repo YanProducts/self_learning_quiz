@@ -12,7 +12,7 @@
  
   
   <div class="btn_div">
-    <button>決定！</button>
+    <button id="index_btn">決定！</button>
   </div>
 </form>
 </x-layout>
