@@ -27,7 +27,7 @@ class QuizController extends Controller
 
         $valuesets=array_merge(self::setReturnsets(),["js_sets"=>[ "quiz/create"],"mode"=>"作成"]);
 
-        return view("quiz/create")
+        return view("common/create_edit")
         ->with($valuesets);
     }
 

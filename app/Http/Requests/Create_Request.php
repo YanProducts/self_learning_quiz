@@ -31,9 +31,8 @@ class Create_Request extends FormRequest
             "answer"=>"required|min:1",
             "level"=>"required|integer|min:1|max:10",
             "ptn"=>["required",new PtnEnumValue],
-            "theme_name"=>"not_regex:/^all_themes/",
-            "theme_name2"=>"not_regex:/^all_themes/",
-            "theme_name3"=>"not_regex:/^all_themes/"
+            "themes"=>["required","array","max:3"],
+            "themes.*"=>["required","string","not_regex:/^all_themes/u","min:3"]
             ];
     }
 
@@ -50,9 +49,13 @@ class Create_Request extends FormRequest
             "level.integer"=>"レベルは数値で記入してください",
             "level.min"=>"レベルは1以上で記入してください",
             "level.max"=>"レベルは10以下で記入してください",
-            "theme_name.not_regex"=>"テーマに「all_themes」で始まる言葉は使えません",
-            "theme_name2.not_regex"=>"テーマに「all_themes」で始まる言葉は使えません",
-            "theme_name3.not_regex"=>"テーマに「all_themes」で始まる言葉は使えません",
+            "themes.required"=>"テーマが入力されていません",
+            "themes.array"=>"テーマ形式で予期せぬエラーです",
+            "themes.max"=>"テーマは３つ以上選べません",
+            "themes.*.required"=>"テーマ形式で予期せぬエラーです",
+            "themes.*.string"=>"テーマ形式で予期せぬエラーです",
+            "themes.*.not_regex"=>"テーマ名はall_themesから始めないでください",
+            "themes.*.min"=>"テーマ名は３文字を超えてください",
         ];
     }
 

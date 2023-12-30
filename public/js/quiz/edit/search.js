@@ -122,6 +122,17 @@ function before_addition(){
 
   // 言語検索条件の初期化
   function edit_word_default(){
+
+    // 位置が検索ボタンと重なる場合があるため、ダブルクリックの防止
+    $("#edit_word_btn2").css("pointer-events","none");
+    $("#edit_word_btn2").css("opacity","0.3");
+    $("#edit_word_btn2").css("cursor","wait");
+    setTimeout(()=>{
+      $("#edit_word_btn2").css("pointer-events","auto");
+      $("#edit_word_btn2").css("opacity","1");
+      $("#edit_word_btn2").css("cursor","pointer");  
+    },2000)
+
     // ２つ目の削除ボタン以降の削除
     if($(".edit_words_sentence").length > 1){
       for(let n=$(".edit_words_sentence").length;n>0;n--){

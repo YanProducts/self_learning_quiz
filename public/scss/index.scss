@@ -90,6 +90,7 @@ h2 {
       animation-name:out_three_minute;
       animation-duration:3s;
       animation-fill-mode:forwards;
+      background-color: lavenderblush;
     }
     @if($i == 2){
       margin-top: 30px;

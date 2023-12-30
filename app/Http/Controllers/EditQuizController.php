@@ -211,7 +211,7 @@ class EditQuizController extends Controller
         ]);
 
         // 編集本番ページ
-            return view("quiz/edit/review")->with($valuesets);
+            return view("common/create_edit")->with($valuesets);
       
     }
 
@@ -224,7 +224,7 @@ class EditQuizController extends Controller
         $valuesets=array_merge(self::setReturnsets(),["js_sets"=>[ "quiz/create"],"mode"=>"作成","quiz_for_edit"=>""
         ]);
 
-        return view("quiz/edit/review")->with($valuesets);
+        return view("common/create_edit")->with($valuesets);
 
     }
 

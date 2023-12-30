@@ -1,8 +1,11 @@
+<x-layout>
+  <x-slot name="title">クイズの{{$mode}}</x-slot>
+  <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
 
 <h1>クイズの{{$mode}}</h1>
 
 @error("edit_id")
-  <p class="if_error1">{{$message}}</p>
+  <p class="if_error0">{{$message}}</p>
 @enderror
 
 <form action="{{$mode==="編集"  ? route("edit_final_route") :route("post_create_route")}}" method="post" id="quiz_create_form">
@@ -17,7 +20,7 @@
 <input type="text" name="title" value="{{old("title", $mode==="編集" ? $quiz_for_edit->title : "")}}">
 </div>
 @error("title")
- <p class="if_error1">{{$message}}</p>
+ <p class="if_error0">{{$message}}</p>
 @enderror
 
 
@@ -26,7 +29,7 @@
 <textarea name="quiz">{{old("quiz", $mode==="編集" ? $quiz_for_edit->quiz : "")}}</textarea>
 </div>
 @error("quiz")
-<p class="if_error1">{{$message}}</p>
+<p class="if_error0">{{$message}}</p>
 @enderror
 
 
@@ -35,7 +38,7 @@
 <input type="text" name="answer" value="{{old("answer", $mode==="編集" ? $quiz_for_edit->answer : "")}}">
 </div>
 @error("answer")
-<p class="if_error1">{{$message}}</p>
+<p class="if_error0">{{$message}}</p>
 @enderror
 
 
@@ -63,6 +66,12 @@
 <div id="quiz_create_theme">
 
 <p id="each_quiz_theme">テーマ<span class="quiz_create_span">３つまで選択可能</span></p>
+@error("themes")
+<p class="if_error0">{{$message}}</p>
+@enderror
+@error("themes.*")
+<p class="if_error0">{{$message}}</p>
+@enderror
 <ul id="quiz_create_select_theme">
   {{-- 種類で区分け --}}
   @foreach($theme_lists as $theme)
@@ -120,7 +129,7 @@
 </select>
 </div>
 @error("level")
-<p class="if_error1">{{$message}}</p>
+<p class="if_error0">{{$message}}</p>
 @enderror
 
 
@@ -138,7 +147,7 @@
 </select>
 </div>
 @error("ptn")
-<p class="if_error1">{{$message}}</p>
+<p class="if_error0">{{$message}}</p>
 @enderror
 
 <div class="btn_div">
@@ -147,4 +156,5 @@
 
 </form>
 
-
+@include("footer")
+</x-layout>
