@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EditWord_Request;
 use App\Http\Requests\Create_Request;
 use App\Http\Requests\BeforePlay_Request;
+use App\Exceptions\CustomException;
 
 class EditQuizController extends Controller
 {
@@ -124,7 +125,7 @@ class EditQuizController extends Controller
                 break;
                 default:                
                 // normalで2巡目以降がきていたらエラー
-                  throw new Exception("検索条件設定のエラーです");
+                  throw new CustomException("検索条件設定のエラーです");
                 break;
             }
         }
@@ -179,18 +180,25 @@ class EditQuizController extends Controller
     // post処理はimplicit binding使わない
     public function edit_decide(Request $request){
 
+       // idが存在しなければデフォルトエラーページへ
+       if(!$quiz_for_edit){
+        throw new CustomException("選択時にエラーがありました");
+       }
+
         // バリデーション
-        // 返り値が未設定！！！！！！！！
         $request->validate([
-            "edit_quiz_decide"=>"required|int"
+            "edit_quiz_decide"=>"required|integer"
         ],
         [
             "edit_quiz_decide.required"=>"選択されていません",
-            "edit_quiz_decide.int"=>"入力データが不正です"
+            "edit_quiz_decide.integer"=>"入力データが不正です"
         ]);
 
-        // idを受け取る
+        // 該当idのクイズを受け取る
         $quiz_for_edit=Quiz_list::find($request->edit_quiz_decide);
+    
+      
+        // テーマは順不同の配列で表示
         $edit_quiz_themes=[
             $quiz_for_edit["theme_name"],
             $quiz_for_edit["theme_name2"],
@@ -202,13 +210,9 @@ class EditQuizController extends Controller
         $valuesets=array_merge(self::setReturnsets(),["js_sets"=>[ "quiz/create"],"mode"=>"編集","quiz_for_edit"=>$quiz_for_edit,"edit_quiz_themes"=>$edit_quiz_themes
         ]);
 
-        // 存在しなければデフォルトエラーページへ
-        if(!$quiz_for_edit){
-            throw new \Exception("存在しないidです");
-        }else{
         // 編集本番ページ
             return view("quiz/edit/review")->with($valuesets);
-      }
+      
     }
 
 
@@ -230,7 +234,7 @@ class EditQuizController extends Controller
 
         // idはcreateのrequestで処理されないため、こちらで処理
         if(!$request->edit_id || !Quiz_list::find($request->edit_id)){
-            throw new \Exception("不適切な処理です");
+            throw new CustomException("不適切な処理です");
         }else{
             $edit_quiz_set=Quiz_list::find($request->edit_id);
         }

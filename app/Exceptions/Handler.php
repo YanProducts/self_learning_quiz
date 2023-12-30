@@ -27,4 +27,18 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+
+    // customExceptionがあれば特殊ページを返す
+    public function render($request, Throwable $exception)
+    {
+       if ($exception instanceof CustomException) {
+        return response()->view('errors.custom', ["message"=>$exception->getMessage()],500);
+       }
+      return parent::render($request, $exception);
+    }
+
 }
+
+
+

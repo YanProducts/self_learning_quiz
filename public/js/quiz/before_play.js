@@ -66,8 +66,11 @@ $(()=>{
     if(!$("#theme_select_beforequiz").val().includes("all_themes")){
       // 各テーマごとの全種類も完全消去
       $(".beforequiz_theme_hidden0").prop("selected",false);
+      // その上で全要素を選択
       $(".beforequiz_theme_hidden").prop("selected",true);
-      $(".beforequiz_theme_li").css("background-color","skyblue");        
+      // 全要素を選択の色に
+      $(".beforequiz_theme_li").css("background-color","skyblue");
+        //  「全種類」ボタンの選択
       $(".beforequiz_theme_hidden0").eq(0).prop("selected",true);
     }else{
       $(".beforequiz_theme_hidden").prop("selected",false);

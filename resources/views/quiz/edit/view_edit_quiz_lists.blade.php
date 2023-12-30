@@ -12,6 +12,12 @@
 
   <form id="edit_quiz_decide" method="post" action="{{route("edit_decide_route")}}">
     @csrf
+    
+    @error("edit_quiz_decide")
+    <p class="if_error1">{{$message}}</p>
+    @enderror
+
+
     <table>
 
     <tr>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Theme;
 use App\Http\Requests\Theme_Request;
+use App\Exceptions\CustomException;
 
 class ConfigController extends Controller
 {
@@ -32,7 +33,7 @@ class ConfigController extends Controller
                 $themes->theme_name=$theme_name;
                 $themes->save();
             });
-        }catch(\PDOException $e){
+        }catch(\Throwable $e){
             return redirect()->route("configroute")->with(["Error"=>$e->getMessage()]);
         }
         return redirect()->route("configroute")->with(["message"=>"テーマを登録しました！"]);
@@ -55,7 +56,7 @@ class ConfigController extends Controller
                     throw new \PDOException("元データが見当たりません");
                 }
             });
-        }catch(\PDOException $e){
+        }catch(\Throwable $e){
             return redirect()->route("configroute")->with(["Error"=>$e->getMessage()]);
         }
         return redirect()->route("configroute")->with(["message"=>"テーマを編集しました！"]);
@@ -66,7 +67,7 @@ class ConfigController extends Controller
         // 重複除去
         $all_themes=Theme::pluck("theme_name")->toArray();
         if(in_array($theme_name,$all_themes)){
-            throw new \PDOException("既に登録されています");
+            throw new CustomException("既に登録されています");
         }        
     }
 

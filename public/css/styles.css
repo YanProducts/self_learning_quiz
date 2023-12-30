@@ -76,6 +76,23 @@ h2 {
   text-align: center;
 }
 
+.if_error2 {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  color: red;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin-top: 30px;
+  width: 30%;
+  background-color: lavenderblush;
+  font-size: 1.3em;
+  height: 80px;
+  line-height: 40px;
+}
+
 @keyframes out_three_minute {
   99% {
     height: 30px;

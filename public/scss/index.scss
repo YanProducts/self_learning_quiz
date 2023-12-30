@@ -83,13 +83,21 @@ h2 {
 }
 
 // エラーメッセージ
-@for $i from 0 through 1{
+@for $i from 0 through 2{
   .if_error#{$i}{
     @include base_error();
     @if($i == 0){
       animation-name:out_three_minute;
       animation-duration:3s;
       animation-fill-mode:forwards;
+    }
+    @if($i == 2){
+      margin-top: 30px;
+      width: 30%;
+      background-color: lavenderblush;
+      font-size: 1.3em;
+      height:80px;
+      line-height:40px;
     }
   }
 }

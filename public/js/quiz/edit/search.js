@@ -25,20 +25,29 @@ $(()=>{
     }
   })
 
-
   
   // and条件クリック
   $("#and_addition").click(()=>{
+    if(!before_addition()){
+      return;
+    }
     word_add_click("type_a","AND");
   })
 
   // or条件クリック
   $("#or_addition").click(()=>{
+    // 両方が入力されている時に限り作動
+    if(!before_addition()){
+      return;
+    }
     word_add_click("type_o","OR");
   })
 
   // 追加条件クリック
   $("#normal_addition").click(()=>{
+    if(!before_addition()){
+      return;
+    }
     word_add_click("","");
   });
 
@@ -65,6 +74,18 @@ $(()=>{
     $(".if_error1").closest("form").css("display","block");
     $("#quiz_edit_ptn_div").css("display","none");
   }
+
+// and検索/or検索の前段階の追加
+function before_addition(){
+  // 全てのinputとselectの両方が入力されている時に限り作動
+  for(let setnum=0;setnum<$(".edit_words_sentence").length;setnum++){
+    if($(".edit_words_sentence").eq(setnum).children("input").val()==="" || $(".edit_words_sentence").eq(setnum).children("select").val()==="no_choise"){
+     alert("未入力の項目があります");
+     return false;
+   }
+  }
+  return true;
+}
 
 
   // 言葉検索条件追加の共通処理

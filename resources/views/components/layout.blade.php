@@ -5,6 +5,7 @@
   <meta charset="utf8">
   <meta name="viewport" contents="width=device-width;initial-scale=1;user-scalable=no;">
   <title>{{$title}}</title>
+  <link rel="icon" href="{{url("img/icon.jpg")}}">
   <link rel="stylesheet" href="{{url("css/styles.css")}}">
    <!-- gzipを解凍できるpacoライブラリの読み込み -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.11/pako.min.js"></script>
