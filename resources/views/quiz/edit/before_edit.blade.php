@@ -7,7 +7,7 @@
 
 {{-- どの選び方をするか --}}
 <div id="quiz_edit_ptn_div">
-  @include("common/index_before_edit")
+  @include("common/li_option_view" ,["num"=>"first"])
   <div class="btn_div">
     <button  id="before_edit_to_next">これで選ぶ！</button>
   </div>

@@ -13,34 +13,39 @@ class ConfigController extends Controller
     // configのトップ画面
     public function config_theme(){
 
+        $all_lists=Theme::orderBy("kind")->get();
         $theme_lists=Theme::pluck("theme_name");
         $kind_lists=Theme::groupby("kind")->pluck("kind");
 
-       return view("config")->with(["theme_lists"=>$theme_lists,
-       "kind_lists"=>$kind_lists,"js_sets"=>["config"]]);
+       return view("config.config")->with(["theme_lists"=>$theme_lists,
+       "kind_lists"=>$kind_lists,
+       "all_lists"=>$all_lists,
+       "js_sets"=>["config","index","validationReturn"]]);
     }
 
     // 作成ルート
     public function create_theme(Theme_Request $request){
         $theme_name=$request->new_theme_name;
+
         try{
-            DB::transaction(function()use ($theme_name){
-                // 重複確認
-                $this->is_multiple($theme_name);     
-                
-                // 登録
+            DB::transaction(function()use ($theme_name,$request){                
+                // 登録(重複確認はバリデーションで行っている)
                 $themes=new Theme;
-                $themes->theme_name=$theme_name;
+                $themes->theme_name=$theme_name;  
+                $themes->kind=
+                $request->select_first_choise==="new" ? $request->new_kind_name : ($request->select_first_choise==="exist" ? $request->exist_kinds_select : "");
                 $themes->save();
             });
         }catch(\Throwable $e){
-            return redirect()->route("configroute")->with(["Error"=>$e->getMessage()]);
+            // throw new CustomException("テーマ登録時のエラーです");
+            throw new CustomException($e->getMessage());
         }
         return redirect()->route("configroute")->with(["message"=>"テーマを登録しました！"]);
     }
 
     // 編集ページ表示
     public function edit_theme(Theme_Request $request){
+
         $old_theme_name=$request->old_theme_name;
         $new_theme_name=$request->edit_theme_name;
         try{
@@ -63,13 +68,6 @@ class ConfigController extends Controller
     }
 
 
-    public function is_multiple($theme_name){
-        // 重複除去
-        $all_themes=Theme::pluck("theme_name")->toArray();
-        if(in_array($theme_name,$all_themes)){
-            throw new CustomException("既に登録されています");
-        }        
-    }
 
 
 }

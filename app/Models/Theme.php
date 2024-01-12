@@ -9,5 +9,5 @@ class Theme extends Model
 {
     use HasFactory;
 
-    public $fillable=["theme_name"];
+    public $fillable=["theme_name","kind"];
 }

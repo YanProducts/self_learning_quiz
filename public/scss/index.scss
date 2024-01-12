@@ -5,8 +5,8 @@ $base_min_width:300ox;
 $inner_max_width:400px;
 $inner_min_width:200px;
 
-@mixin base_frame($max:1000px,$min:300px){
-  width:80%;
+@mixin base_frame($width:80%,$max:1000px,$min:300px){
+  width:$width;
   margin: 0 auto;
   max-width:$max;
   min-width:$min;
@@ -131,10 +131,10 @@ form{
 }
 
 // 選択要素(ui)
-#first_ul,#theme_ul{
+#first_ul,#second_ul,#theme_ul{
   @include base_frame();
   padding:0;
-  .first_li,.theme_li{
+  .first_li,.second_li,.theme_li{
     list-style-type:none;
     text-decoration: underline;
     cursor: pointer;
@@ -149,42 +149,52 @@ form{
   .first_li_click{
     background-color: white;
   }
+  .theme_li_click{
+    background-color: aqua;
+  }
 }
-
 
 
 // 設定のフォーム
 .config_form{
   @include base_frame();
   @include border_sets($radius:20px);
-  // height:100px;
   padding-top:15px;
   padding-bottom:15px;
 }
 
-
-
-// 種類の設定
-#kind_which{
-  width:100%;
-  margin:$base_margin;
-  max-width:$inner_max_width;
-  min-width:$inner_min_width;
-  padding:0;
-  .kind_li{
-    list-style-type:none;
-    text-decoration: underline;
-    cursor: pointer;
-    // background-color: rgb(120,220,120);
-    background-color: white;
-   @include border_sets();
+// テーマ名の記入
+.config_label_div{
+  @include base_frame($width:90%);
+  border-top: black dashed 2px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+ .for_inlineForm_div{
+  @include base_frame($width:80%);
+    .config_themeName_input,.config_kindName_input,.config_select_native{
+     width:100%;
+     height:30px;
+     line-height: 30px;
+     font-size: 1em;
+   }
+   .config_select_native{
+     text-align: center;
+   }
+ }
+  .config_label{
     text-align: center;
-    height:30px;
-    line-height: 30px;
-    margin-bottom: 5px;
-    color:rgb(20,20,20);
+    font-weight: bold;
+    font-size:1.15em;
+    background-color: rgba(250,250,250,0.3);
   }
 }
+
+// ボタンに連動して動く「種類」の選択表示
+.config_kind_div,.config_edit_div{
+  display:none;
+}
+
 
 // クイズ作成ページ
 #quiz_create_form{
@@ -599,13 +609,6 @@ form[id*="before_edit_from"]{
 }
 
 
-
-
-
-
-
-
-
 // 設定されていない
 .no_data{
   width:100%;
@@ -630,24 +633,6 @@ form[id*="before_edit_from"]{
     margin-bottom: 10px;
   }
 }
-
-// ラベル要素
-label{
-  @include base_frame(400px,200px);
-  display: block;
-  text-align: left;
-  input{
-    width:100%;
-  }
-}
-
-.label_inner1{
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top:black dashed 1px;
-}
-
-
 
 // お知らせページ
 

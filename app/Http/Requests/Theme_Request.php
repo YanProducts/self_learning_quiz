@@ -3,6 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\NotInExistTheme;
+use App\Rules\InExistKind;
+use App\Rules\NotInExistKind;
+use App\Rules\NotRegexComma;
+use App\Rules\NotRegexAllThemes;
 
 class Theme_Request extends FormRequest
 {
@@ -21,35 +26,83 @@ class Theme_Request extends FormRequest
      */
     public function rules(): array
     {
-        if(request()->route()->getName()==="new_theme_route"){
-            return [
+        $route_name=request()->route()->getName();
+        $choise_new_ptn=request()->input("select_first_choise");
+        $choise_edit_ptn=request()->input("select_second_choise");
+
+        $rules=[];
+        if($route_name==="create_theme_route"){
+            $rules=array_merge($rules,[
                 "new_theme_name"=>[
                     "required",
-                    "regex:/^[^,、]+$/u"
-                ]];
-        }else if(request()->route()->getName()==="edit_theme_route2"){
-            return [
-                "edit_theme_name"=>[
-                "required",
-                "regex:/^[^,、]+$/u"
-                ]];
+                    "min:3",
+                     new NotRegexComma,
+                     new NotRegexAllThemes,
+                     new NotInExistTheme
+                ],
+                "select_first_choise"=>[
+                    "regex:/^(nothing|new|exist)$/"
+                ]
+            ]);
+            if($choise_new_ptn==="exist"){
+               $rules=array_merge($rules,[
+                "exist_kinds_select"=>[
+                    "required",
+                    new InExistKind
+                    ]
+                ]);
+            }
+            else if($choise_new_ptn==="new"){
+                $rules=array_merge($rules,[
+                "new_kind_name"=>[
+                    "required",
+                    "min:3",
+                    new NotRegexComma,
+                    new NotRegexAllThemes,
+                    new NotInExistKind
+                  ]
+             ]);
+            }
+        }else if($route_name==="edit_theme_route"){
+                if($choise_edit_ptn==="theme"){
+                 $rules=array_merge($rules,[
+                        "edit_theme_name"=>[
+                        "required",
+                        "min:3",
+                        new NotRegexComma,
+                        new NotRegexAllThemes,
+                        new NotInExistTheme
+                        ]]);
+                }
+                else if($choise_edit_ptn==="kind"){
+                    $rules=array_merge($rules,[
+                        "edit_kind_name"=>[
+                        "required",
+                        "min:3",
+                        new NotRegexComma,
+                        new NotRegexAllThemes,
+                        new NotInExistKind
+                        ]]);
+                }
         }else{
             // 不正な処理
-            return [
+            $rules=array_merge($rules,[
                 // 存在しない値を設定
                 "is_valid"=>"required"
-            ];
+            ]);
         }
+        return $rules;
     }
     public function messages(){
         return[
             "new_theme_name.required"=>"テーマは入力必須です",
+            "new_theme_name.min"=>"テーマは３文字以上で記入してください",
+            "select_first_choise.not_regex"=>"種類選択のエラーです",
+            "exist_kinds_select.required"=>"種類が選択されていません",
+            "new_kind_name.required"=>"種類が記入されていません",
+            "new_kind_name.min"=>"種類は３文字以上で記入してください",
             "edit_theme_name.required"=>"テーマは入力必須です",
-            "new_theme_name.regex"=>"テーマにカンマはつけないでください",
-            "edit_theme_name.regex"=>"テーマにカンマはつけないでください",
             "is_valid.required"=>"不正な処理です"
         ];
     }
-
-
 }

@@ -7,7 +7,7 @@
 <form id="what_you_do" method="post" action="{{route("firstroute")}}">
   @csrf
 
-  @include("common/index_before_edit")
+  @include("common/li_option_view",["num"=>"first"])
   
  
   
