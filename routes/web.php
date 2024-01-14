@@ -46,6 +46,14 @@ Route::post("/configquiz/create",[ConfigController::class,"create_theme"])
 Route::patch("/configquiz/edit",[ConfigController::class,"edit_theme"])
 ->name("edit_theme_route");
 
+// 小テーマの大テーマ移動
+Route::patch("/configquiz/move",[ConfigController::class,"move_theme"])
+->name("move_theme_route");
+
+// テーマ消去
+Route::delete("/configquiz/delete",[ConfigController::class,"delete_theme"])
+->name("delete_theme_route");
+
 // クイズ作成→投稿
 Route::post("/post_createquiz",[QuizController::class,"post_create_quiz"])
 ->name("post_create_route");

@@ -18,7 +18,7 @@ class NotInExistKind implements ValidationRule
   public function validate(string $attribute, mixed $value, Closure $fail): void
   {
       if(in_array($value,Theme::groupBy("kind")->pluck("kind")->toArray())){
-          $fail("種類が重複しています");
+          $fail("大テーマが重複しています");
       }
   }
 

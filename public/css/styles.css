@@ -115,7 +115,7 @@ form {
   min-width: 300px;
 }
 
-#type_select, .config_form {
+.type_select, .config_form {
   display: none;
 }
 

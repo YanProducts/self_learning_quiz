@@ -19,7 +19,7 @@
         public function validate(string $attribute, mixed $value, Closure $fail): void
         {
             if(!in_array($value,Theme::groupBy("kind")->pluck("kind")->toArray())){
-                $fail("種類が見当たりません");
+                $fail("大テーマが見当たりません");
             }
         }
 

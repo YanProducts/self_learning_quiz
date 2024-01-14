@@ -126,7 +126,7 @@ form{
 }
 
 // 少なくとも初期段階では見せない
-#type_select,.config_form{
+.type_select,.config_form{
   display: none;
 }
 
@@ -190,7 +190,7 @@ form{
   }
 }
 
-// ボタンに連動して動く「種類」の選択表示
+// ボタンに連動して動く「大テーマ」の選択表示
 .config_kind_div,.config_edit_div{
   display:none;
 }
