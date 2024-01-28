@@ -22,12 +22,12 @@
    @foreach($errors->getMessages() as $key=>$messages)
     @if(str_contains($key,"search_where"))
       @foreach($messages as $message)
-      <p class="if_error0">{{$message}}</p>
+      <p class="if_error0">{!! nl2br(e($message)) !!}</p>
       @endforeach
     @endif
     @if(str_contains($key,"search_words"))
       @foreach($messages as $message)
-      <p class="if_error0">{{$message}}</p>
+      <p class="if_error0">{!! nl2br(e($message)) !!}</p>
       @endforeach
     @endif
   @endforeach
@@ -52,10 +52,10 @@
   </div>
     
   @error("what_num")
-    <p class="if_error0">{{$message}}</p>
+    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
   @enderror
   @error("edit_search_andor")
-    <p class="if_error0">{{$message}}</p>
+    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
   @enderror
 
   <div class="btn_div">

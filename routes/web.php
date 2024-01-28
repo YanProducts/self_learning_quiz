@@ -50,6 +50,9 @@ Route::patch("/configquiz/edit",[ConfigController::class,"edit_theme"])
 Route::patch("/configquiz/move",[ConfigController::class,"move_theme"])
 ->name("move_theme_route");
 
+
+
+
 // テーマ消去
 Route::delete("/configquiz/delete",[ConfigController::class,"delete_theme"])
 ->name("delete_theme_route");

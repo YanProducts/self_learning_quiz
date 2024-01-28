@@ -33,7 +33,7 @@ class ConfigController extends Controller
                 $themes=new Theme;
                 $themes->theme_name=$theme_name;  
                 $themes->kind=
-                $request->select_first_choise==="new" ? $request->new_kind_name : ($request->select_first_choise==="exist" ? $request->exist_kinds_select : "");
+                $request->select_first_choise==="new" ? $request->new_kind_name : ($request->select_first_choise==="exist" ? $request->exist_kinds_select : "テーマなし");
                 $themes->save();
             });
         }catch(\Throwable $e){
@@ -101,12 +101,45 @@ class ConfigController extends Controller
     }
 
     // 小テーマの大テーマ移動
-    public function move_theme(){
+    public function move_theme(Theme_Request $request){
+        
+        DB::transaction(function()use($request){
+            try{
+                // 移動前ID(既にexistかどうかは弾いている)
+                $move_quiz=Theme::find($request->move_before_theme_id);
+                
+                // 移動先(newとexist以外は既に弾いている)
+                $move_quiz->kind=$request->select_third_choise==="new" ? $request->move_new_input : ($request->select_third_choise==="exist" ? $request->move_before_kind:"既に除去");                 
+   
+                $move_quiz->save();
+            }catch(Throwable $e){
+                throw new CustomException("テーマ移動時のエラーです");
+            }
+        });
+
+        return redirect()->route("configroute")->with(["message"=>"大テーマを移動しました！"]);
 
     }
+
     // テーマの削除
-    public function delete_theme(){
-        
+    public function delete_theme(Theme_Request $request){
+        DB::transaction(function()use($request){
+          try{
+              // 大テーマを「大テーマなし」に変更
+              if($request->select_fourth_choice==="kind"){
+                $delete_kind_lists=Theme::where("kind","=",$request->delete_kind)->get();
+                $delete_kind_lists->kind="テーマなし";
+                $delete_kind_lists->save();
+              // テーマを消去
+              }else if($request->select_fourth_choice==="theme"){
+                $delete_theme=Theme::find($request->delete_theme_id);
+                $delete_theme->delete();
+                
+              }
+          }catch(\Throwable $e){
+            throw new CustomException("テーマ消去時のエラーです");         
+          }
+        });
     }
 
 }

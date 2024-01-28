@@ -105,8 +105,8 @@ h2 {
 
 @keyframes out_three_minute{
   99%{
-    height:30px;
     line-height:30px;
+    height:auto;
     visibility: visible;
     opacity:1;
   }
@@ -131,10 +131,10 @@ form{
 }
 
 // 選択要素(ui)
-#first_ul,#second_ul,#theme_ul{
+#first_ul,#second_ul,#third_ul,#fourth_ul,#theme_ul{
   @include base_frame();
   padding:0;
-  .first_li,.second_li,.theme_li{
+  .first_li,.second_li,.third_li,.fourth_li,.theme_li{
     list-style-type:none;
     text-decoration: underline;
     cursor: pointer;
@@ -172,7 +172,9 @@ form{
   margin-bottom: 20px;
  .for_inlineForm_div{
   @include base_frame($width:80%);
-    .config_themeName_input,.config_kindName_input,.config_select_native{
+    .config_themeName_input,.config_kindName_input,.config_select_native,
+    #move_new_input
+    {
      width:100%;
      height:30px;
      line-height: 30px;
@@ -191,7 +193,17 @@ form{
 }
 
 // ボタンに連動して動く「大テーマ」の選択表示
-.config_kind_div,.config_edit_div{
+//moveの大テーマが新規か既存か
+.config_kind_div,.config_edit_div,.config_move_div,.config_delete_div{
+  display:none;
+}
+
+// moveでの過去テーマ選択時に自動で表示が変わるp
+.now_choice_move_theme,.now_choice_move_theme_default{
+  background-color: white;
+  text-align: center;
+}
+.now_choice_move_theme{
   display:none;
 }
 

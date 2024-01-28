@@ -23,16 +23,5 @@
             }
         }
 
-        // // 初期状態で、requestでnew ...で投げられたら、このpassに渡る。attributeは属性、valueは値
-        // public function passes(){
-        //     //toArrayは空の場合は空の配列を返してくれる（エラーにならない）ので初期状態でも大丈夫
-        //     return  in_array($value,Theme::groupBy("kind")->pluck("kind")->toArray());
-        // }
-    
-        // // // メッセージ
-        // public function messages(){
-        //     return "テーマが重複しています";
-        // }
-    
     }
     

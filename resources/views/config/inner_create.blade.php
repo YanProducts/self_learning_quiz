@@ -14,7 +14,7 @@ style="display:block;"
     </div>
     @error("new_theme_name")
     <input type="hidden" id="validationReturn_newThemeName">
-    <p class="if_error0">{{$message}}</p>
+    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
     @enderror
  </div>
 
@@ -26,7 +26,7 @@ style="display:block;"
         "exist"=>"既存の大テーマ",
         "new"=>"新しい大テーマ"
       ]
-  @endphp
+    @endphp
   @include("common/li_option_view",["num"=>"first"])
 </div>
 
@@ -48,7 +48,7 @@ style="display:block;"
     </select>
     @error("exist_kinds_select")
     <input type="hidden" id="validationReturn_existKindSelect">
-    <p class="if_error0">{{$message}}</p>
+    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
     @enderror
   </div>
   @endif
@@ -60,7 +60,7 @@ style="display:block;"
     <input type="text" name="new_kind_name" id="new_kind_input" class="config_kindName_input" value="{{old("new_kind_name")}}">    
     @error("new_kind_name")
     <input type="hidden" id="validationReturn_newKindName">
-    <p class="if_error0">{{$message}}</p>
+    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
     @enderror
    </div>
   </div>

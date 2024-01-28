@@ -42,15 +42,13 @@
    </select>
    @error("old_".$key."_id")
    <input type="hidden" id="validationReturn_old_{{$key}}Id">
-   <p class="if_error0">{{$message}}</p>
+   <p class="if_error0">{!! nl2br(e($message)) !!}</p>
    @enderror
    </div>
    </div>
  
    <div class="config_label_div">
    <p class="config_label">新しい{{$value}}の名前</p>
-  
-
    <div class="for_inlineForm_div">
    <input type="text" name="edit_{{$key}}_name" value="{{old("edit_.$key._name")}}" id="edit_{{$key}}_name"
    class="config_{{$key}}Name_input">
@@ -59,7 +57,7 @@
 
    @error("edit_".$key."_name")
    <input type="hidden" id="validationReturn_edit_{{$key}}Name">
-   <p class="if_error0">{{$message}}</p>
+   <p class="if_error0">{!! nl2br(e($message)) !!}</p>
    @enderror
  
  </div>

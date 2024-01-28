@@ -96,8 +96,8 @@ h2 {
 
 @keyframes out_three_minute {
   99% {
-    height: 30px;
     line-height: 30px;
+    height: auto;
     visibility: visible;
     opacity: 1;
   }
@@ -119,14 +119,14 @@ form {
   display: none;
 }
 
-#first_ul, #second_ul, #theme_ul {
+#first_ul, #second_ul, #third_ul, #fourth_ul, #theme_ul {
   width: 80%;
   margin: 0 auto;
   max-width: 1000px;
   min-width: 300px;
   padding: 0;
 }
-#first_ul .first_li, #first_ul .second_li, #first_ul .theme_li, #second_ul .first_li, #second_ul .second_li, #second_ul .theme_li, #theme_ul .first_li, #theme_ul .second_li, #theme_ul .theme_li {
+#first_ul .first_li, #first_ul .second_li, #first_ul .third_li, #first_ul .fourth_li, #first_ul .theme_li, #second_ul .first_li, #second_ul .second_li, #second_ul .third_li, #second_ul .fourth_li, #second_ul .theme_li, #third_ul .first_li, #third_ul .second_li, #third_ul .third_li, #third_ul .fourth_li, #third_ul .theme_li, #fourth_ul .first_li, #fourth_ul .second_li, #fourth_ul .third_li, #fourth_ul .fourth_li, #fourth_ul .theme_li, #theme_ul .first_li, #theme_ul .second_li, #theme_ul .third_li, #theme_ul .fourth_li, #theme_ul .theme_li {
   list-style-type: none;
   text-decoration: underline;
   cursor: pointer;
@@ -140,10 +140,10 @@ form {
   margin-bottom: 10px;
   color: rgb(20, 20, 20);
 }
-#first_ul .first_li_click, #second_ul .first_li_click, #theme_ul .first_li_click {
+#first_ul .first_li_click, #second_ul .first_li_click, #third_ul .first_li_click, #fourth_ul .first_li_click, #theme_ul .first_li_click {
   background-color: white;
 }
-#first_ul .theme_li_click, #second_ul .theme_li_click, #theme_ul .theme_li_click {
+#first_ul .theme_li_click, #second_ul .theme_li_click, #third_ul .theme_li_click, #fourth_ul .theme_li_click, #theme_ul .theme_li_click {
   background-color: aqua;
 }
 
@@ -175,7 +175,8 @@ form {
   max-width: 1000px;
   min-width: 300px;
 }
-.config_label_div .for_inlineForm_div .config_themeName_input, .config_label_div .for_inlineForm_div .config_kindName_input, .config_label_div .for_inlineForm_div .config_select_native {
+.config_label_div .for_inlineForm_div .config_themeName_input, .config_label_div .for_inlineForm_div .config_kindName_input, .config_label_div .for_inlineForm_div .config_select_native,
+.config_label_div .for_inlineForm_div #move_new_input {
   width: 100%;
   height: 30px;
   line-height: 30px;
@@ -191,7 +192,16 @@ form {
   background-color: rgba(250, 250, 250, 0.3);
 }
 
-.config_kind_div, .config_edit_div {
+.config_kind_div, .config_edit_div, .config_move_div, .config_delete_div {
+  display: none;
+}
+
+.now_choice_move_theme, .now_choice_move_theme_default {
+  background-color: white;
+  text-align: center;
+}
+
+.now_choice_move_theme {
   display: none;
 }
 

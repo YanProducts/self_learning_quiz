@@ -5,8 +5,8 @@ $(()=>{
 
   // liをクリックするとoptionが動く
   
-  const li_sets=[".first_li",".second_li"];
-  const option_sets=[".first_option",".second_option"];
+  const li_sets=[".first_li",".second_li",".third_li",".fourth_li"];
+  const option_sets=[".first_option",".second_option",".third_option",".fourth_option"];
 
   for(let n=0;n<li_sets.length;n++){
     if($(li_sets[n]).length>0){
@@ -15,11 +15,17 @@ $(()=>{
           $(li_sets[n]).removeClass("first_li_click")
           $(option_sets[n]).eq(index).prop("selected",true);
           $(this).addClass("first_li_click");
+
+
           if($("#config_create_form").length>0){
             if(li_sets[n]===".first_li"){
             viewChangeWhenLiClick1(index);
             }else if(li_sets[n]===".second_li"){
             viewChangeWhenLiClick2(index);
+            }else if(li_sets[n]===".third_li"){
+            viewChangeWhenLiClick3(index);
+          }else if(li_sets[n]===".fourth_li"){
+            viewChangeWhenLiClick4(index);
             }
           }
         });
@@ -29,7 +35,6 @@ $(()=>{
 
 
 // 何も選択されていない時は返す
-// 
   if($("#index_btn").length>0){
     $("#index_btn").click((e)=>{
       e.preventDefault();
@@ -59,6 +64,17 @@ $(()=>{
   }
 
 
+  // configのみ、小テーマの大テーマへの移動
+  function viewChangeWhenLiClick3(index){
+    $(".config_move_div").css("display","none");
+    $(".config_move_div").eq(index-1).css("display","block");
+  }
+
+  // configのみ、テーマの消去
+  function viewChangeWhenLiClick4(index){
+    $(".config_delete_div").css("display","none");
+    $(".config_delete_div").eq(index-1).css("display","block");
+  }
 
 
 

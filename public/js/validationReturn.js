@@ -2,108 +2,77 @@
 
 // バリデーションで返ってきた要素を開くJs
 $(()=>{
-  //config-新しいテーマの名前
-  if($("#validationReturn_newThemeName").length>0){
-    $(".config_form").eq(0).css("display","block");
-    $(".theme_li").eq(0).addClass("theme_li_click");
-    $("#validationReturn_newThemeName").closest(".config_label_div").css("display","block");
-    $(".first_option").eq(1).prop("selected",true);
-    $(".first_li").eq(1).addClass("first_li_click");
-    setTimeout(()=>{
-      $("#validationReturn_newThemeName").next(".if_error0").css("display","none");
-    },3000);
-  }
 
-  //config大テーマ既存
-  if($("#validationReturn_existKindSelect").length>0){
-    $(".config_form").eq(0).css("display","block");
-    $(".theme_li").eq(0).addClass("theme_li_click");
-    $("#validationReturn_existKindSelect").closest(".config_label_div").css("display","block");
-    $(".first_option").eq(2).prop("selected",true);
-    $(".first_li").eq(2).addClass("first_li_click");
-
-    setTimeout(()=>{
-      $("#validationReturn_existKindSelect").next(".if_error0").css("display","none");
-    },3000);
-  }
+  // config_create
+  //新しいテーマの名前
+  // validationOpen("#validationReturn_newThemeName",0,0,".config_label_div","first",null);
+  validationOpen("#validationReturn_newThemeName",0,0,"","","");
+  //大テーマ既存
+  validationOpen("#validationReturn_existKindSelect",0,0,".config_label_div","first",2);
+  //大テーマ新規
+  validationOpen("#validationReturn_newKindName",0,0,".config_label_div","first",3);
 
 
-  //config-大テーマ新規
-  if($("#validationReturn_newKindName").length>0){
-    $(".config_form").eq(0).css("display","block");
-    $(".theme_li").eq(0).addClass("theme_li_click");
-    $("#validationReturn_newKindName").closest(".config_label_div").css("display","block");
-    $(".first_option").eq(3).prop("selected",true);
-    $(".first_li").eq(3).addClass("first_li_click");
-    setTimeout(()=>{
-      $("#validationReturn_newKindName").next(".if_error0").css("display","none");
-    },3000);
-  }
-
-
-
+  // config_edit
   // phpで取得している$keyの最初が小文字なのに注意
-  //config-テーマの編集
-  if($("#validationReturn_edit_themeName").length>0){
-    console.log("a");
-     $(".config_form").eq(1).css("display","block");
-    $(".theme_li").eq(1).addClass("theme_li_click");
-    $("#validationReturn_edit_themeName").closest(".config_edit_div").css("display","block");
-    $(".second_option").eq(1).prop("selected",true);
-    $(".second_li").eq(1).addClass("first_li_click");
-    setTimeout(()=>{
-      $("#validationReturn_edit_themeName").next(".if_error0").css("display","none");
-    },3000);
-  }
+  //テーマの編集
+  validationOpen("#validationReturn_edit_themeName",1,1,".config_edit_div","second",1);
+  //大テーマの編集
+  validationOpen("#validationReturn_edit_kindName",1,1,".config_edit_div","second",2);
+  //テーマの編集の既存取得
+  validationOpen("#validationReturn_old_themeId",1,1,".config_edit_div","second",1);
+  //大テーマの編集の既存取得
+  validationOpen("#validationReturn_old_kindId",1,1,".config_edit_div","second",2);
+
+  
+  // config_move
+
+  // 移動する小テーマ
+  validationOpen("#validationReturn_move_beforeThemeId",2,2,"","","");
+
+  // 新しい大テーマへ
+  validationOpen("#validationReturn_move_newKind",2,2,".config_move_div","third",0);
+  // 以前の大テーマへ
+  validationOpen("#validationReturn_move_beforeKind",2,2,".config_move_div","third",1);
 
 
-  //config-大テーマの編集
-  if($("#validationReturn_edit_kindName").length>0){
-     $(".config_form").eq(1).css("display","block");
-    $(".theme_li").eq(1).addClass("theme_li_click");
-    $("#validationReturn_edit_kindName").closest(".config_edit_div").css("display","block");
-    $(".second_option").eq(2).prop("selected",true);
-    $(".second_li").eq(2).addClass("first_li_click");
-    setTimeout(()=>{
-      $("#validationReturn_edit_kindName").next(".if_error0").css("display","none");
-    },3000);
-  }
 
-    //config-テーマの編集の既存取得
-    if($("#validationReturn_old_themeId").length>0){
-      console.log("a");
-       $(".config_form").eq(1).css("display","block");
-      $(".theme_li").eq(1).addClass("theme_li_click");
-      $("#validationReturn_old_themeId").closest(".config_edit_div").css("display","block");
-      $(".second_option").eq(1).prop("selected",true);
-      $(".second_li").eq(1).addClass("first_li_click");
-      setTimeout(()=>{
-        $("#validationReturn_old_themeId").next(".if_error0").css("display","none");
-      },3000);
+
+  // 開けるfunction
+  function validationOpen(openElement,configIndex,themeIndex,openDiv,liOptionNum,optionIndex){
+    // エラーが存在したら
+      if($(openElement).length>0){
+        // エラー上位の上位のformを開ける
+        $(".config_form").eq(configIndex).css("display","block");
+        // configのトップページのformのliをクリック状態に
+        $(".theme_li").eq(themeIndex).addClass("theme_li_click");
+        // 必要ならエラー対象のdiv要素を開ける
+        if($(openDiv).length>0){
+          $(openElement).closest(openDiv).css("display","block");
+        }
+
+
+
+
+        // 新しいテーマ作成の場合、大テーマ設定ありでもなしでも「テーマ入力」が必要。その場合、テーマをどうするかは無関係。
+        
+        // 汎用的に直す！！
+        // if(openElement!=="#validationReturn_newThemeName"){
+        
+        // liオプションをクリック状態に
+        if($(openElement).length>0){
+          $("." + liOptionNum + "_option").eq(optionIndex).prop("selected",true);
+          $("." + liOptionNum + "_li").eq(optionIndex).addClass("first_li_click");
+          
+          $(".first_option").eq(optionIndex).prop("selected",true);
+          $(".first_li").eq(optionIndex).addClass("first_li_click");
+        }
+        
+        setTimeout(()=>{
+          $(openElement).next(".if_error0").css("display","none");
+        },3000);
+      }
     }
-
-    //config-大テーマの編集の既存取得
-    if($("#validationReturn_old_kindId").length>0){
-      console.log("a");
-       $(".config_form").eq(1).css("display","block");
-      $(".theme_li").eq(1).addClass("theme_li_click");
-      $("#validationReturn_old_kindId").closest(".config_edit_div").css("display","block");
-      $(".second_option").eq(1).prop("selected",true);
-      $(".second_li").eq(1).addClass("first_li_click");
-      setTimeout(()=>{
-        $("#validationReturn_old_kindId").next(".if_error0").css("display","none");
-      },3000);
-    }
-
-
-
-
-    // まとめ
-
-
-
-
-
 
 })
 

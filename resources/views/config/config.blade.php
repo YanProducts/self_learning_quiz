@@ -9,7 +9,7 @@
 
 {{-- リクエストルートが不正だった時 --}}
 @error("is_valid")
-<p class="if_error0">{{$message}}</p>
+<p class="if_error0">{!! nl2br(e($message)) !!}</p>
 @enderror
 
   <h1>テーマの設定</h1>  
