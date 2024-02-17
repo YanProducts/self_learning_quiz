@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\QuizPtn;
 use App\Rules\PtnEnumValue;
 
+// クイズ作成の例外
 class Create_Request extends FormRequest
 {
     /**

@@ -5,7 +5,7 @@ $(()=>{
     // 選択領域を非表示に
     $("#quiz_edit_ptn_div").css("display","none");
 
-    switch($("#type_select").val()){
+    switch($("#select_first_choice").val()){
       // 全クイズから検索
       case "from_all":
         $("#before_edit_from_all").submit();
@@ -79,7 +79,7 @@ $(()=>{
 function before_addition(){
   // 全てのinputとselectの両方が入力されている時に限り作動
   for(let setnum=0;setnum<$(".edit_words_sentence").length;setnum++){
-    if($(".edit_words_sentence").eq(setnum).children("input").val()==="" || $(".edit_words_sentence").eq(setnum).children("select").val()==="no_choise"){
+    if($(".edit_words_sentence").eq(setnum).children("input").val()==="" || $(".edit_words_sentence").eq(setnum).children("select").val()==="no_choice"){
      alert("未入力の項目があります");
      return false;
    }

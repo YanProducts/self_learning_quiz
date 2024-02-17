@@ -56,7 +56,7 @@ class EditQuizController extends Controller
        $quiz_lists=Quiz_list::all();
        return view("quiz/edit/view_edit_quiz_lists")->with([
             "quiz_lists"=>$quiz_lists,
-            "js_sets"=>["quiz/edit/choise"]
+            "js_sets"=>["quiz/edit/choice"]
        ]);
     }
 
@@ -68,7 +68,7 @@ class EditQuizController extends Controller
 
         return view("quiz/edit/view_edit_quiz_lists")->with([
             "quiz_lists"=>$quiz_lists,
-            "js_sets"=>["quiz/edit/choise"]
+            "js_sets"=>["quiz/edit/choice"]
        ]);
      }
 
@@ -161,29 +161,20 @@ class EditQuizController extends Controller
                 )->orWhereIn(
                     "theme_name3",$request->theme_what      
                 );
-             })    
+            })    
             ->get();
         }catch(\Throwable $e){
-            $naiyou=$e->getMessage();
-            return redirect()->route("sign_route")->with([
-                "is_error"=>"error",
-                "naiyou"=>$naiyou,
-            ]);
+            throw new CustomException("クイズ条件抽出時のエラーです");
         }
         return view("quiz/edit/view_edit_quiz_lists")->with([
             "quiz_lists"=>$quiz_lists,
-            "js_sets"=>["quiz/edit/choise"]
+            "js_sets"=>["quiz/edit/choice"]
             ]);
     }
 
     // 編集するクイズの決定→編集ページへ
     // post処理はimplicit binding使わない
     public function edit_decide(Request $request){
-
-       // idが存在しなければデフォルトエラーページへ
-       if(!$quiz_for_edit){
-        throw new CustomException("選択時にエラーがありました");
-       }
 
         // バリデーション
         $request->validate([
@@ -196,7 +187,13 @@ class EditQuizController extends Controller
 
         // 該当idのクイズを受け取る
         $quiz_for_edit=Quiz_list::find($request->edit_quiz_decide);
-    
+
+
+        // idが存在しなければデフォルトエラーページへ
+       if(empty($quiz_for_edit)){
+        throw new CustomException("選択時にエラーがありました");
+       }
+
       
         // テーマは順不同の配列で表示
         $edit_quiz_themes=[
@@ -261,11 +258,7 @@ class EditQuizController extends Controller
             $edit_quiz_set->save();
             });
         }catch(\Throwable $e){
-            $naiyou=$e->getMessage();
-            return redirect()->route("sign_route")->with([
-                "is_error"=>"error",
-                "naiyou"=>$naiyou,
-            ]);
+            throw new CustomException("クイズ編集のエラーです");
         }
             
 

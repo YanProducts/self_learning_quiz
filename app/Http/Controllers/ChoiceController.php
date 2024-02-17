@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\QuizController;
 
-class ChoiseController extends Controller
+class ChoiceController extends Controller
 {
     public function first_index(){
 
@@ -25,8 +25,8 @@ class ChoiseController extends Controller
 
 
 
-    public function firstchoise(Request $request){
-        switch($request->select_first_choise){
+    public function firstchoice(Request $request){
+        switch($request->select_first_choice){
             case "play":
               return redirect()->route("before_quiz_route");
             break;
@@ -44,15 +44,6 @@ class ChoiseController extends Controller
             break; 
         }
     }
-
-    // // 完了などのサイン
-    // public function view_sign($naiyou,$page,$js){
-    //     return view("sign")->with([
-    //         "naiyou"=>$naiyou,
-    //         "pageRoute"=>$page,
-    //         "js_needless"=>$js
-    //     ]);
-    // }
 
 
 }

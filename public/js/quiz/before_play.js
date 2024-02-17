@@ -114,7 +114,7 @@ $(()=>{
         return "全テーマ全種類";
       }else{
         // テーマの名前表示用（全種類全テーマ以外）
-      return choise_theme_name($("#theme_select_beforequiz").val())
+      return choice_theme_name($("#theme_select_beforequiz").val())
       }
   }else{
     return "選択なし"
@@ -122,7 +122,7 @@ $(()=>{
   }
 
   // テーマの名前表示用（全種類全テーマ以外）
-  function choise_theme_name(selects){
+  function choice_theme_name(selects){
     let newSelects=[];
     selects.forEach((sss)=>{
       if(sss.includes("all_themes")){

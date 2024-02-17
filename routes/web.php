@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ChoiseController;
+use App\Http\Controllers\ChoiceController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\PlayQuizController;
@@ -19,11 +19,11 @@ use App\Http\Controllers\EditQuizController;
 */
 
 // 最初の画面
-Route::get('/',[ChoiseController::class,"first_index"])
+Route::get('/',[ChoiceController::class,"first_index"])
 ->name("indexroute");
 
 // 何をするかの選択時
-Route::post('/firstchoise',[ChoiseController::class,"firstchoise"]
+Route::post('/firstchoice',[ChoiceController::class,"firstchoice"]
 )->name("firstroute");
 
 // クイズを作る
@@ -50,12 +50,14 @@ Route::patch("/configquiz/edit",[ConfigController::class,"edit_theme"])
 Route::patch("/configquiz/move",[ConfigController::class,"move_theme"])
 ->name("move_theme_route");
 
-
-
-
 // テーマ消去
 Route::delete("/configquiz/delete",[ConfigController::class,"delete_theme"])
 ->name("delete_theme_route");
+
+// テーマ削除の際にクイズをどうするかのページのから、それを決定するフォーム
+Route::patch("config/delete/quizProcessRelatedTheme",[ConfigController::class,"quizProcess_when_deleteOnlyTheme"])
+->name("quizProcess_when_deleteTheme_route");
+
 
 // クイズ作成→投稿
 Route::post("/post_createquiz",[QuizController::class,"post_create_quiz"])

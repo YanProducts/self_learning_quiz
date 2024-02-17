@@ -106,7 +106,6 @@
       )
         selected
     @endif
-    
     ></option>
   @endforeach
 </select>

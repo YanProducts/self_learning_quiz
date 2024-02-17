@@ -24,7 +24,7 @@
       @foreach($theme_lists as $tl)
        @if($tl["kind"]!==$before_kind)
        <?php $large_theme=!empty($tl["kind"]) ? $tl["kind"] : "分類なし" ?>
-        <li  class="no_choise_li">{{$large_theme}}</li>
+        <li  class="no_choice_li">{{$large_theme}}</li>
         <li  class="beforequiz_theme_li0" data-kind="{{$large_theme}}" data-value="all_themes_{{$large_theme}}">　{{$large_theme}}の全テーマ</li>
        @endif
         <li  class="beforequiz_theme_li" data-kind="{{$large_theme}}" data-value="{{$tl["theme_name"]}}">　{{$tl["theme_name"]}}</li>
@@ -34,7 +34,7 @@
   </div>
 
 
-  <fieldset id="now_choise_theme_field">
+  <fieldset id="now_choice_theme_field">
       <legend>現在選択中テーマ</legend>
       <p id="now_choice_themes">選択なし</p>
   </fieldset>

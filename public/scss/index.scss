@@ -18,6 +18,27 @@ $inner_min_width:200px;
   border-collapse: collapse;
 }
 
+@mixin base_table(){
+  @include border_sets($size:3px,$radius:0px);
+  border-collapse: collapse;
+  text-align: center;
+  table-layout: fixed;
+  width:100%;
+  min-width: 300px;
+  th{
+    @include border_sets($size:2px,$radius:0px);
+  }
+  td{
+    @include border_sets($size:1.5px,$radius:0px);
+  }
+  td,th{
+    border-collapse: collapse;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 @mixin page_title($height:50px,$marginTop:40px,$marginBottom:50px){
   text-align: center;
   height:$height;
@@ -82,6 +103,13 @@ h2 {
   @include base_error();
 }
 
+
+// エラーメッセージ2のdiv
+.if_error2_div{
+  @include base_frame();
+}
+
+
 // エラーメッセージ
 @for $i from 0 through 2{
   .if_error#{$i}{
@@ -94,10 +122,9 @@ h2 {
     }
     @if($i == 2){
       margin-top: 30px;
-      width: 30%;
       background-color: lavenderblush;
       font-size: 1.3em;
-      height:80px;
+      height:auto;
       line-height:40px;
     }
   }
@@ -128,6 +155,11 @@ form{
 // 少なくとも初期段階では見せない
 .type_select,.config_form{
   display: none;
+}
+
+// 該当テーマのクイズテーマ等修正時は見せる
+.config_form.config_deleteThemeInQuiz{
+  display:block;
 }
 
 // 選択要素(ui)
@@ -194,7 +226,7 @@ form{
 
 // ボタンに連動して動く「大テーマ」の選択表示
 //moveの大テーマが新規か既存か
-.config_kind_div,.config_edit_div,.config_move_div,.config_delete_div{
+.config_kind_div,.config_edit_div,.config_move_div,.config_delete_div,#config_newTheme_whenDelete,#config_existTheme_whenDelete{
   display:none;
 }
 
@@ -206,6 +238,64 @@ form{
 .now_choice_move_theme{
   display:none;
 }
+
+// テーマ削除に伴うクイズ調整が必要なページのh1
+#fixQuizForDeleteTheme_h1{
+  margin-bottom: 20px;
+}
+
+// テーマ削除に伴うクイズ調整が必要のアナウンス
+#fixQuizForDeleteTheme_notice{
+  @include base_frame();
+  @include border_sets($size:1px,$radius:3px);
+  background-color: blanchedalmond;
+  color:red;
+  text-align: center;
+  p{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 30px;
+  }
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  .br600{
+   display:none; 
+   @media screen and (max-width:600px){
+      display:inline; 
+   }
+  }
+}
+
+#new_input_when_delete,#exist_select_when_delete{
+  height:30px;
+  font-size: 1em;
+  width:100%;
+  text-align: center;
+}
+
+// テーマ削除の確認-既存のクイズ表示
+#quizSample_whenDeleteTheme_div{
+  @include base_frame($width:90%,$max:1500px);
+  p{
+    background-color: beige;
+    text-align: center;
+  }
+  #show_quiz_table_span,#hide_quiz_table_p{
+    cursor: pointer;
+    text-decoration: underline;
+    color:blue;
+  }
+  #tableSample_whenDeleteTheme,#hide_quiz_table_p{
+    display:none;
+  }
+  table{
+    @include base_table();
+  }
+}
+
+
+
 
 
 // クイズ作成ページ
@@ -298,7 +388,7 @@ div[id*="quiz_create_"]{
         .beforequiz_theme_li0{
           font-weight: bold;
         }
-        .no_choise_li{
+        .no_choice_li{
           background-color: lighten(gray,25%);
         }
       }
@@ -314,7 +404,7 @@ div[id*="quiz_create_"]{
   }
 
   
-  #now_choise_theme_field{
+  #now_choice_theme_field{
     @include base_frame($min:280px);
     @include border_sets($size:2px,$radius:3px);
     padding:0;
@@ -564,26 +654,11 @@ form[id*="before_edit_from"]{
     width:95%;
   }
   table{
-    @include border_sets($size:3px,$radius:0px);
-    border-collapse: collapse;
-    text-align: center;
-    table-layout: fixed;
-    width:100%;
-    min-width: 300px;
+    @include base_table();
     tr{
       cursor:pointer;
     }
-    th{
-      @include border_sets($size:2px,$radius:0px);
-    }
-    td{
-      @include border_sets($size:1.5px,$radius:0px);
-    }
     td,th{
-      border-collapse: collapse;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
       min-width: 50px;
       @media screen and (max-width:400px){
         font-size: 0.95em;

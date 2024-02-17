@@ -17,6 +17,7 @@ $(()=>{
           $(this).addClass("first_li_click");
 
 
+          // configページ、それぞれliをクリック時に開く要素
           if($("#config_create_form").length>0){
             if(li_sets[n]===".first_li"){
             viewChangeWhenLiClick1(index);
@@ -28,6 +29,14 @@ $(()=>{
             viewChangeWhenLiClick4(index);
             }
           }
+
+          // テーマ削除の際にクイズをどうするか確認ページ
+          if($("#config_quizWhenDeleteTheme_form").length>0){
+            if(li_sets[n]===".first_li"){
+              viewChangeWhenLiClick5(index);
+            }
+          }
+
         });
       });  
     }
@@ -75,6 +84,24 @@ $(()=>{
     $(".config_delete_div").css("display","none");
     $(".config_delete_div").eq(index-1).css("display","block");
   }
+
+  // configのみ、テーマ削除の際にクイズをどうするか確認ページ...新しいテーマ挿入inputのdivを開く
+  function viewChangeWhenLiClick5(index){    
+    if(index===1){
+      $("#config_newTheme_whenDelete").css("display","block");
+    }else{
+      $("#config_newTheme_whenDelete").css("display","none");
+    }
+
+    if(index===2){
+      $("#config_existTheme_whenDelete").css("display","block");
+    }else{
+      $("#config_existTheme_whenDelete").css("display","none");
+
+    }
+
+  }
+
 
 
 

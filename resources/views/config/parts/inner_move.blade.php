@@ -51,7 +51,7 @@
 
 
     {{-- 新規大テーマ--}}
-  <div class="config_move_div move">
+  <div class="config_move_div">
      <div class="config_label_div">
       <p class="config_label">新しい大テーマの名前</p>
       <div class="for_inlineForm_div">

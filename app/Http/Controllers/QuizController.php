@@ -8,6 +8,7 @@ use App\Models\Theme;
 use App\Enums\QuizPtn;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Create_Request;
+use App\Exceptions\CustomException;
 
 class QuizController extends Controller
 {
@@ -63,10 +64,9 @@ class QuizController extends Controller
     
             });
         }catch(\PDOException $e){
-            $naiyou="エラーです\n".$e->getMessage();
-            $page="createroute";
 
-            return redirect()->route("sign_route")->with(["naiyou"=>$naiyou,"is_error"=>"error","pageRoute"=>$page]);
+            throw new CustomException("クイズ投稿時のエラーです");
+
         }
 
         $naiyou="登録完了しました！";

@@ -33,6 +33,11 @@
               @endforeach
             </select>
             </div>
+            {{-- エラーディレクティブ --}}
+            @error("delete_kind")
+            <input type="hidden" id="validationReturn_delete_kind">
+            <p class="if_error0">{!! nl2br(e($message)) !!}</p>
+            @enderror
         </div>
      </div>
     
@@ -41,7 +46,7 @@
    <div class="config_label_div">
     <p class="config_label">小テーマを選んでください</p>
     <div class="for_inlineForm_div">
-    <select name="delete_theme_id" class="config_select_native" id="move_before_theme_select">
+    <select name="delete_theme_id" class="config_select_native">
       <option hidden value="no_choice">選択してください</option>
       @php $before_kind="" @endphp
       @foreach($all_lists as $theme){
@@ -53,8 +58,9 @@
       @endforeach
     </select>
     </div>
-    @error("move_before_theme_id")
-    <input type="hidden" id="validationReturn_move_beforeThemeId">
+    {{-- エラーディレクティブ --}}
+    @error("delete_theme_id")
+    <input type="hidden" id="validationReturn_delete_themeId">
     <p class="if_error0">{!! nl2br(e($message)) !!}</p>
     @enderror
   </div>    

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+// 編集の検索上の例外
 class EditWord_Request extends FormRequest
 {
     /**

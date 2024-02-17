@@ -7,7 +7,7 @@
   <div id="edit_words_phrase">
     <div class="edit_words_sentence">
     <select class="before_edit_words_select" name="search_where0">
-      <option hidden class="words_from_where" value="no_choise">選択してください</option>
+      <option hidden class="words_from_where" value="no_choice">選択してください</option>
       <option class="words_from_where" value="title">タイトル</option>
       <option class="words_from_where" value="quiz">本文</option>
       <option class="words_from_where" value="answer">解答</option>
