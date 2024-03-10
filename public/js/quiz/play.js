@@ -215,27 +215,24 @@ function display_change(flug1,flug2=""){
         method:"post",
         headers:{
           // Laravelで必要なCSRFヘッダーを追加
-          'X-CSRF-TOKEN': window.csrf_token
-      },
+          'X-CSRF-TOKEN': window.csrf_token,
+          "Accept": "application/json"
+        },
         body:new URLSearchParams({
           is_ok:is_ok,
           quiz_id:$("#quiz_hidden").data("id")
         })
       }
     ).then((response)=>{
-      if (response.status === 204) {
-        // 204 No Contentレスポンスの場合、データが存在しない
-        return;
-      }else{
-        return response.json();
+      if(!response.ok){
+        return response.json().then((err)=>{
+          return Promise.reject(err);
+        });
       }
-    }).then((json)=>{
-      if(typeof json==="object" && Object.keys(json).includes("result_plus")){
-        if(json.result_plus==="error"){
-          error_display("何らかのエラーにより、履歴に正解/不正解が登録されませんでした");
-        }
-      }
-    });
+      //  成功の場合は何もしない
+    }).catch((err)=>{
+      error_display("何らかのエラーにより、履歴に正解/不正解が登録されませんでした");
+    })
   }
 
 // 最終結果発表

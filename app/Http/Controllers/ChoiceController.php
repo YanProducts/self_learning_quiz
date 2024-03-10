@@ -18,7 +18,7 @@ class ChoiceController extends Controller
             ],
             "js_sets"=>["index"]
         ];
-
+        
         return view('index')->with($values);
     }
 

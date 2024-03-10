@@ -179,7 +179,7 @@ class Theme_Request extends FormRequest
                     "is_valid"=>"required"
                 ]);
             }
-        }else if($route_name==="quizProcess_when_deleteTheme_route"){
+        }else if($route_name==="quizProcess_when_deleteTheme_route"){          
             $rules=array_merge($rules,[
                 "delete_theme_id"=>[
                     "required",
@@ -198,7 +198,7 @@ class Theme_Request extends FormRequest
                          new NotRegexNoChoice
                     ]
                 ]);
-            }else if($quizProcess_deleteTheme==="change"){
+            }else if($quizProcess_deleteTheme==="change"){;
                 $rules=array_merge($rules,
                 [
                     "exist_select_when_delete"=>[
@@ -260,7 +260,6 @@ class Theme_Request extends FormRequest
             "new_input_when_delete.required"=>"新規テーマを入力してください",
             "new_input_when_delete.min"=>"新規テーマが短いです",
             "exist_select_when_delete.required"=>"既存テーマが選択されていません",
-
 
             "is_valid.required"=>"不正な処理です"
         ];

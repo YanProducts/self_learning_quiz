@@ -1,7 +1,13 @@
 {{-- テーマ削除の際にクイズをどうするか確認ページ --}}
+  
 <x-layout>
   <x-slot name="title">自習用クイズを作ろう-小テーマ削除確認-</x-slot>
   <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
+
+{{-- リクエストルートが不正だった時 --}}
+@error("is_valid")
+<p class="if_error0">{!! nl2br(e($message)) !!}</p>
+@enderror
 
 <h1 id="fixQuizForDeleteTheme_h1">テーマ削除の調整</h1>
 
@@ -34,6 +40,7 @@
     <input type="text" name="new_input_when_delete" value="{{old("move_new_input")}}" id="new_input_when_delete">
     </div>
     @error("new_input_when_delete")
+    <input type="hidden" id="validationReturn_newInputWhenDelete">
     <p class="if_error0">{!! nl2br(e($message)) !!}</p>
     @enderror
   </div>
@@ -57,7 +64,8 @@
       @endforeach
       </select>
     </div>
-    @error("new_input_when_delete")
+    @error("exist_select_when_delete")
+      <input type="hidden" id="validationReturn_existSelectWhenDelete">
     <p class="if_error0">{!! nl2br(e($message)) !!}</p>
     @enderror
   </div>

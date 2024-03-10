@@ -8,6 +8,7 @@ use App\Models\Theme;
 use App\Enums\QuizPtn;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EditWord_Request;
+use App\Http\Requests\EditQuiz_Request;
 use App\Http\Requests\Create_Request;
 use App\Http\Requests\BeforePlay_Request;
 use App\Exceptions\CustomException;
@@ -66,11 +67,38 @@ class EditQuizController extends Controller
         // 検索結果のセット
         $quiz_lists=$this->search_result_sets($request->what_num+1,$request->edit_search_andor,$request);
 
+        // バリデーションリターン後に表示するため、上記の結果をセッションで保管
+      session(["onetime_editquiz"=>$quiz_lists]);
+
         return view("quiz/edit/view_edit_quiz_lists")->with([
             "quiz_lists"=>$quiz_lists,
             "js_sets"=>["quiz/edit/choice"]
        ]);
      }
+
+    // １部の言葉が含まれるクイズを返す(バリデーションリターン用にget作成)
+    public function edit_from_word_get(){
+
+        if(empty(session("onetime_editquiz"))){
+            throw new CustomException("不正なアクセスです");
+        }
+        
+        // 検索結果のセット
+        $quiz_lists=session("onetime_editquiz");
+        
+        // sessionの削除は成功後に行う
+        // session()->forget("onetime_editquiz");
+
+        return view("quiz/edit/view_edit_quiz_lists")->with([
+            "quiz_lists"=>$quiz_lists,
+            "js_sets"=>["quiz/edit/choice"]
+        ]);
+    }
+
+    
+
+
+
 
     // 検索結果をセットにする
     public function search_result_sets($count,$search_ptn,$request){
@@ -174,26 +202,13 @@ class EditQuizController extends Controller
 
     // 編集するクイズの決定→編集ページへ
     // post処理はimplicit binding使わない
-    public function edit_decide(Request $request){
+    public function edit_decide(EditQuiz_Request $request){
 
-        // バリデーション
-        $request->validate([
-            "edit_quiz_decide"=>"required|integer"
-        ],
-        [
-            "edit_quiz_decide.required"=>"選択されていません",
-            "edit_quiz_decide.integer"=>"入力データが不正です"
-        ]);
+        // 前ページでのバリデーションリターン用のsession削除(emptyでもエラー発生しない)
+        session()->forget("onetime_editquiz");
 
         // 該当idのクイズを受け取る
         $quiz_for_edit=Quiz_list::find($request->edit_quiz_decide);
-
-
-        // idが存在しなければデフォルトエラーページへ
-       if(empty($quiz_for_edit)){
-        throw new CustomException("選択時にエラーがありました");
-       }
-
       
         // テーマは順不同の配列で表示
         $edit_quiz_themes=[
@@ -208,8 +223,7 @@ class EditQuizController extends Controller
         ]);
 
         // 編集本番ページ
-            return view("common/create_edit")->with($valuesets);
-      
+        return view("common/create_edit")->with($valuesets);
     }
 
 

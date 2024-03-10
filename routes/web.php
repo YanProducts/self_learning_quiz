@@ -6,6 +6,7 @@ use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\PlayQuizController;
 use App\Http\Controllers\EditQuizController;
+use App\Http\Controllers\SignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,15 @@ Route::patch("/configquiz/move",[ConfigController::class,"move_theme"])
 Route::delete("/configquiz/delete",[ConfigController::class,"delete_theme"])
 ->name("delete_theme_route");
 
+// 消去したいテーマを唯一のテーマに持ったクイズがある時のルート
+Route::get("/configquiz/delete/fixQuiz_when_deleteTheme_confirm",
+[ConfigController::class,"fixQuiz_when_deleteTheme_view"])
+->name("fixQuiz_when_deleteTheme_route");
+
+// テーマ消去...リクエストバリデーションで戻る時
+Route::get("/configquiz/delete",[ConfigController::class,"delete_theme"])
+->name("delete_theme_route");
+
 // テーマ削除の際にクイズをどうするかのページのから、それを決定するフォーム
 Route::patch("config/delete/quizProcessRelatedTheme",[ConfigController::class,"quizProcess_when_deleteOnlyTheme"])
 ->name("quizProcess_when_deleteTheme_route");
@@ -81,8 +91,11 @@ Route::get("quiz/edit/view_all_quiz_lists_get",[EditQuizController::class,"view_
 
 
 // 言葉から該当するクイズの取得
+// バリデーションで返った時用にgetも用意
 Route::post("quiz/edit/from_words",[EditQuizController::class,"edit_from_word"])
 ->name("edit_from_words_route");
+Route::get("quiz/edit/from_words",[EditQuizController::class,"edit_from_word_get"])
+->name("edit_from_words_get_route");
 
 
 // 条件から該当するクイズの取得（編集用）
@@ -102,5 +115,5 @@ Route::patch("quiz/edit/edit_final",[EditQuizController::class,"edit_final"])
 ->name("edit_final_route");
 
 // お知らせのページ
-Route::get("sign",function(){return view("sign");})
+Route::get("sign",[SignController::class,"view_sign"])
 ->name("sign_route");

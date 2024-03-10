@@ -799,17 +799,17 @@ form[id*=before_edit_from] {
 }
 
 #finish_sign {
-  width: 1000px;
+  width: 60%;
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 1000px;
   min-width: 300px;
   background-color: cornsilk;
   border: black solid 5px;
   border-radius: 10px;
   border-collapse: collapse;
 }
-
-.finish_p {
+#finish_sign p {
+  font-size: 1.1em;
   text-align: center;
 }
 

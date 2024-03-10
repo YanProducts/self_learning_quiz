@@ -10,10 +10,16 @@
         {!! nl2br("エラーです\n".session("naiyou")) !!}
     </p>
   @else
-    <p  class="finish_p">
-        {!! nl2br(session("naiyou")) !!}
-    </p>
-    <p class="back_home_inner"><a href="{{route(session("pageRoute"))}}">戻る</a></p>
+
+  {{-- redirectで渡した変数はリロードしたら削除される --}}
+    @if(empty(session("pageRoute") || empty(session("naiyou"))))
+  
+    @else
+      <p  class="finish_p">
+          {!! nl2br(session("naiyou")) !!}
+      </p>
+      <p class="back_home_inner"><a href="{{route(session("pageRoute"))}}">戻る</a></p>
+      @endif
   @endif
 
   <p class="back_home_inner"><a href="{{route("indexroute")}}">トップページへ</a></p>

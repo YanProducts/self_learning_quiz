@@ -724,14 +724,15 @@ form[id*="before_edit_from"]{
 // お知らせページ
 
 #finish_sign{
-  @include base_frame(1000px,300px);
+  @include base_frame($width:60%,$max:1000px,$min:300px);
   background-color: cornsilk;
   @include border_sets($size:5px);
+  p{
+    font-size: 1.1em;
+    text-align: center;
+  }
 }
 
-.finish_p{
-  text-align: center;
-}
 
 
 // 戻るボタン

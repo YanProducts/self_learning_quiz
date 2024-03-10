@@ -170,17 +170,13 @@ class PlayQuizController extends Controller
     }
 
 
-
     // 正解と不正解を登録
     public function to_record(Request $request){
-        // バリデーション
-        try{
-          $request->validate([
-                "isok"=>"regex:/^(ok|out)$/"
+
+        // バリデーション(１行のみでmessageも返さないため、登録しない)
+        $request->validate([
+            "is_ok"=>["required","regex:/^(ok|out)$/"]
             ]);
-        }catch(\ValidationException $e){
-            return response()->json(["result_plus"=>"error"]);
-        }
 
         try{
               DB::transaction(function() use($request){
@@ -197,8 +193,9 @@ class PlayQuizController extends Controller
         }catch(\PDOException $e){
             return response()->json(["result_plus"=>"error"]);
         }
-        return response()->noContent();
-  
+        return response()->json([
+            "ok"=>"ok"
+        ]);
     }
 
 }

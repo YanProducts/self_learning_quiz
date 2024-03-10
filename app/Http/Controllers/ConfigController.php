@@ -133,16 +133,16 @@ class ConfigController extends Controller
             $mustFixdAnothePlaceQuiz=$this->quizInDeleteTheme_process($delete_theme_name);
             $all_themes=Theme::orderby("kind")->get();
             if(!empty($mustFixdAnothePlaceQuiz)){
-              return view("config/pages/fixQuiz_when_deleteTheme_confirm")->with([
+              session([
                 "all_themes"=>$all_themes,
                 "exist_quizzes"=>$mustFixdAnothePlaceQuiz,
                 "delete_theme_name"=>$delete_theme_name,
                 "delete_theme_id"=>$id,
-                "js_sets"=>["config","index"]
-             ]);    
+                "js_sets"=>["config","index","validationReturn"]
+              ]);
+              return redirect()->route("fixQuiz_when_deleteTheme_route");
             };                  
         }
-
 
        // 編集するテーマがどちらか
         $which="";
@@ -172,6 +172,33 @@ class ConfigController extends Controller
         }
         return redirect()->route("configroute")->with(["message"=>$which."を削除しました！"]);
     }
+
+    // クイズに削除したい唯一のテーマが含まれる時のビュー
+    public function fixQuiz_when_deleteTheme_view(){
+    
+        // session確認
+        if(!session()->has("all_themes") || !session()->has("exist_quizzes") || !session()->has("delete_theme_name") || !session()->has("delete_theme_id") || !session()->has("js_sets")){
+             throw new CustomException("不正なアクセスです");
+        }
+
+        // sessionから変数へ
+            $all_themes=session("all_themes");
+            $exist_quizzes=session("exist_quizzes");
+            $delete_theme_name=session("delete_theme_name");
+            $delete_theme_id=session("delete_theme_id");
+            $js_sets=session("js_sets");   
+        
+            // セッションデータを消去するとvalidationの時に問題なので消去しない
+
+            return view("config/pages/fixQuiz_when_deleteTheme_confirm")->with([
+                "all_themes"=>$all_themes,
+                "exist_quizzes"=>$exist_quizzes,
+                "delete_theme_name"=>$delete_theme_name,
+                "delete_theme_id"=>$delete_theme_id,
+                "js_sets"=>$js_sets
+            ]);
+    }
+
 
     // 小テーマの削除候補にクイズが既に入っているかどうか
     public function quizInDeleteTheme_process($delete_theme){      
@@ -286,10 +313,14 @@ class ConfigController extends Controller
             return $process;
           });
         }catch(\Throwable $e){
-
-            throw new CustomException($e->getMessage());
             throw new CustomException($e->getMessage() ===  "invalid" ? "不正な処理です" : "小テーマ設定クイズの\n操作時のエラーです");
         }
+        // sessionの削除
+
+
+        // まだ！！！！
+
+
         // メッセージ
         $message=($process_name==="create" || $process_name==="change") ? "該当クイズのテーマを変更し\nテーマを削除しました" : "テーマとテーマを含むクイズを削除しました"; 
 

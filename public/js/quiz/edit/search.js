@@ -69,11 +69,16 @@ $(()=>{
     edit_word_default();
   })
 
-  // エラーがあった時
-  if($(".if_error1").length > 0){
-    $(".if_error1").closest("form").css("display","block");
-    $("#quiz_edit_ptn_div").css("display","none");
+  // エラーがあった時、該当のエラービューを開く
+  function if_error(elem){
+    if(elem.length){
+      elem.closest("form").css("display","block");
+      $("#quiz_edit_ptn_div").css("display","none");
+    }
   }
+  if_error($(".if_error0"))
+  if_error($(".if_error1"))
+
 
 // and検索/or検索の前段階の追加
 function before_addition(){

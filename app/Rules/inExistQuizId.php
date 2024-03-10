@@ -4,9 +4,9 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use App\Models\Theme;
+use App\Models\Quiz_list;
 
-class InExistThemeId implements ValidationRule
+class inExistQuizId implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -15,9 +15,8 @@ class InExistThemeId implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //（移動や編集など）themeが既存idだったらOK
-        if(!Theme::where("id","=",$value)->exists()){
-            $fail("テーマが見当たりません");
+        if(Quiz_list::find($value)===null){
+            $fail("クイズが存在しません");
         }
     }
 }

@@ -19,7 +19,7 @@
 </form>
 
 {{-- 言葉から検索 --}}
-@include("/quiz/edit/part/from_word_part");
+@include("/quiz/edit/part/from_word_part")
 
 
 {{-- 条件から検索する場合--}}
@@ -32,5 +32,5 @@
   </div>
 </form>
 
-@include("footer");
+@include("footer")
 </x-layout>
