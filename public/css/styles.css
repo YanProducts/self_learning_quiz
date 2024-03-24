@@ -533,7 +533,7 @@ div[id*=quiz_create_] select {
 }
 
 #end_of_quiz {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   max-width: 1000px;
   min-width: 300px;
@@ -546,6 +546,13 @@ div[id*=quiz_create_] select {
   animation-name: end_anime;
   animation-duration: 2s;
   animation-fill-mode: forwards;
+}
+#end_of_quiz .end_quiz_p1 {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+#end_of_quiz .end_quiz_p2 {
+  font-size: 0.9em;
 }
 
 @keyframes end_anime {

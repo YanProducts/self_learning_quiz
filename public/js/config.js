@@ -14,15 +14,31 @@ $(()=>{
   // moveの現在大テーマ
   if($("#move_before_theme_select").length>0){
     $("#move_before_theme_select").change((e)=>{
+      // 選択テーマの大テーマのデフォルト。再利用するため別定義
+        let choicedBigThemeName="";
+
       // まず全ての表示を消す
       $(".now_choice_move_theme_default").css("display","none");
       $(".now_choice_move_theme").css("display","none");
-      
+
       // 該当の大テーマのみ表示
       $(".now_choice_move_theme").each((index,elem)=>{
         if($(elem).data("id")===parseInt(e.currentTarget.value)){
           $(elem).css("display","block");
+          choicedBigThemeName=$(elem).data("contents");
       }
+
+     // 現在の大テーマを移動先の大テーマのoptionから削除
+        // ひとまず全部開ける
+        $(".move_after_kind_option").css("display","inline");
+        // 該当のものは非表示
+        $(".move_after_kind_option").each((index,elem)=>{
+            if($(elem).val()===choicedBigThemeName){
+                $(elem).css("display","none");
+            }
+        });
+
+
      });
     })
   }

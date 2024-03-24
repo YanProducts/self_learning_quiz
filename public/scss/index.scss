@@ -260,9 +260,9 @@ form{
   margin-bottom: 10px;
   font-weight: bold;
   .br600{
-   display:none; 
+   display:none;
    @media screen and (max-width:600px){
-      display:inline; 
+      display:inline;
    }
   }
 }
@@ -403,7 +403,7 @@ div[id*="quiz_create_"]{
       }
   }
 
-  
+
   #now_choice_theme_field{
     @include base_frame($min:280px);
     @include border_sets($size:2px,$radius:3px);
@@ -413,7 +413,7 @@ div[id*="quiz_create_"]{
 }
 
 // クイズ行うとき
-  //クイズの設定表示 
+  //クイズの設定表示
   #quiz_play_conf{
     @include base_frame();
     @include border_sets();
@@ -432,7 +432,7 @@ div[id*="quiz_create_"]{
       padding:5px;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis; 
+      text-overflow: ellipsis;
     }
 
     #theme_other{
@@ -445,8 +445,8 @@ div[id*="quiz_create_"]{
     }
 
   }
-  
- 
+
+
   // 正解不正解の表示
    #display_isok,#display_without{
       @include base_frame();
@@ -469,7 +469,7 @@ div[id*="quiz_create_"]{
       }
    }
 
-  //クイズの表示 
+  //クイズの表示
     #play_quiz_corner{
       @include base_frame();
       @include border_sets();
@@ -505,7 +505,7 @@ div[id*="quiz_create_"]{
     }
 
     #end_of_quiz{
-      @include base_frame();
+      @include base_frame($width:90%);
       @include border_sets();
       display:none;
       background-color: skyblue;
@@ -513,6 +513,13 @@ div[id*="quiz_create_"]{
       animation-name:end_anime;
       animation-duration:2s;
       animation-fill-mode: forwards;
+      .end_quiz_p1{
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+    .end_quiz_p2{
+        font-size: 0.9em;
+      }
     }
 
     @keyframes end_anime{

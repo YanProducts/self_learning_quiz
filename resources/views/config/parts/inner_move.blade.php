@@ -16,7 +16,7 @@
           @if($theme["kind"]!==$before_kind)
             <optgroup label="{{$theme["kind"]}}">
           @endif
-          <option value="{{$theme["id"]}}">{{$theme["theme_name"]}}</option> 
+          <option value="{{$theme["id"]}}">{{$theme["theme_name"]}}</option>
          @php $before_kind=$theme["kind"] @endphp
         @endforeach
       </select>
@@ -25,7 +25,7 @@
    <input type="hidden" id="validationReturn_move_beforeThemeId">
    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
   @enderror
-</div>      
+</div>
 
 
   <div class="config_label_div">
@@ -33,7 +33,7 @@
     <div class="for_inlineForm_div">
       <p class="now_choice_move_theme_default" data-id="">選択されていません</p>
       @foreach($all_lists as $theme)
-        <p class="now_choice_move_theme" data-id="{{$theme["id"]}}">{{$theme["kind"]}}</p>
+        <p class="now_choice_move_theme" data-id="{{$theme["id"]}}" data-contents="{{$theme["kind"]}}">{{$theme["kind"]}}</p>
       @endforeach
     </div>
   </div>
@@ -64,7 +64,7 @@
     </div>
   </div>
 
-    
+
       {{-- 既存大テーマへ移動 --}}
   <div class="config_move_div">
     <div class="config_label_div">
@@ -73,7 +73,7 @@
         <select id="move_before_kind" name="move_before_kind" class="config_select_native" >
           <option hidden value="no_choice">選択してください</option>
           @foreach($kind_lists as $kind)
-             <option value="{{$kind}}">{{$kind}}</option>
+             <option class="move_after_kind_option"  value="{{$kind}}">{{$kind}}</option>
           @endforeach
         </select>
         </div>

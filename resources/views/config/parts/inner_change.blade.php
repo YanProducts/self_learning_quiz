@@ -2,8 +2,8 @@
 <form action="{{route("edit_theme_route")}}" method="post" id="config_edit_form" class="config_form">
   @method("PATCH")
   @csrf
- 
- 
+
+
  <div class="config_label_div">
      <p class="config_label">変更する内容</p>
      @php
@@ -14,7 +14,7 @@
     @endphp
    @include("common/li_option_view",["num"=>"second"])
  </div>
- 
+
  @foreach($li_option_sets as $key=>$value)
  {{-- 小テーマ、大テーマの編集 --}}
  <div class="config_edit_div">
@@ -25,10 +25,12 @@
      <option hidden value="no_choice">選択してください</option>
      @if($key==="kind")
        @foreach ($kind_lists as $name)
-       <option value="{{$name}}">{{$name}}</option>   
-       @endforeach
+        @if($name!=="テーマなし")
+          <option value="{{$name}}">{{$name}}</option>
+        @endif
+        @endforeach
      @endif
- 
+
      @if($key==="theme")
        @php $before_kind="" @endphp
          @foreach ($all_lists as $name)
@@ -38,7 +40,7 @@
            <option value="{{$name["id"]}}">{{$name["theme_name"]}}</option>
            @php $before_kind=$name["kind"] @endphp
          @endforeach
-     @endif 
+     @endif
    </select>
    @error("old_".$key."_id")
    <input type="hidden" id="validationReturn_old_{{$key}}Id">
@@ -46,7 +48,7 @@
    @enderror
    </div>
    </div>
- 
+
    <div class="config_label_div">
    <p class="config_label">新しい{{$value}}の名前</p>
    <div class="for_inlineForm_div">
@@ -59,12 +61,12 @@
    <input type="hidden" id="validationReturn_edit_{{$key}}Name">
    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
    @enderror
- 
+
  </div>
  @endforeach
- 
- 
- 
+
+
+
    <div class="btn_div">
      <button>決定！</button>
    </div>

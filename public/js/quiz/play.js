@@ -16,14 +16,18 @@ $(()=>{
     theme_display();
   };
 
+  //  クイズのパターン(回答の有無)
+  const ptn=Number($("#quiz_hidden").data("ptn"));
 
+  //  回答必須なら回答欄フォーカス
+  if(ptn===0){
+    $("#user_answer").focus();
+  }
 
   // 回答ボタンが押されたとき（どちらのptnでもこの処理へ)
   $("#play_quiz_btn").click((e)=>{
 
     e.preventDefault();
-
-    const ptn=Number($("#quiz_hidden").data("ptn"));
 
     // 回答があるかどうか
     if(ptn===0){
@@ -52,10 +56,10 @@ $(()=>{
       display_change("after","without");
     }
 
-    
+
     // 現在何問目か
     const mondai_num=$("#nanmonme").text()
-        
+
     // クイズの入換
     change_quiz(alldata,mondai_num);
 
@@ -66,7 +70,7 @@ $(()=>{
       }else{
         display_change("before");
       }
-    })    
+    })
   })
 
 
@@ -119,7 +123,7 @@ function display_change(flug1,flug2=""){
       $("#isok_out").css("display","none");
       $("#display_isok").css("background-color","yellow");
       $("#display_isok").css("height","75px");
-      $("#right_sum").text(parseInt($("#right_sum").text())+1);
+      $("#right_sum").text(parseInt($("#right_sum").text())+1)
     }else if(flug2==="out"){
       $("#display_isok").css("display","block");
       $("#isok_ok").css("display","none");
@@ -146,6 +150,10 @@ function display_change(flug1,flug2=""){
       $("#display_without").css("display","none");
     }
     $("#play_quiz_corner").css("display","block");
+    // 回答欄にフォーカス
+    if(flug2!=="without"){
+        $("#user_answer").focus();
+    }
   }else{
     error_display("何らかのエラーです");
   }
@@ -153,7 +161,7 @@ function display_change(flug1,flug2=""){
 
 //  クイズの入替
  function change_quiz(alldata,mondai_num){
-    
+
   if(parseInt(mondai_num)===alldata.length){
     $("#to_next_question").text("最終結果表示");
     return;
@@ -184,10 +192,10 @@ function display_change(flug1,flug2=""){
       theme_value=theme_value + " " + $("#quiz_hidden").data("theme2");
       if($("#quiz_hidden").data("theme3")){
         theme_value=theme_value + " " +$("#quiz_hidden").data("theme3");
-      }  
+      }
     }
     $("#each_quiz_theme_span").text(theme_value);
-    
+
     // 表示パーセント
     let percent="";
     if($("#quiz_hidden").data("correct")+$("#quiz_hidden").data("wrong")===0){
@@ -195,7 +203,7 @@ function display_change(flug1,flug2=""){
     }else{
       percent=Math.round($("#quiz_hidden").data("correct")/($("#quiz_hidden").data("correct")+$("#quiz_hidden").data("wrong"))*100,1) + "%";
     }
-    
+
     $("#each_quiz_percent_span").text(percent);
 
     $("#each_quiz_level_span").text($("#quiz_hidden").data("level"));
@@ -206,7 +214,7 @@ function display_change(flug1,flug2=""){
     // 回答を空にする
     $("#user_answer").text();
   }
-  
+
   // 結果登録
   function result_plus(is_ok){
     fetch(
@@ -241,6 +249,7 @@ function end_function(){
   $("#last_wrong_span").text($("#wrong_sum").text());
   $("#display_isok").css("display","none");
   $("#quiz_play_conf").css("display","none");
+  $("#play_quiz_corner").css("display","none");
   $("#end_of_quiz").css("display","block");
   if($("#play_results")){
     $("#play_results").css("display","none");
