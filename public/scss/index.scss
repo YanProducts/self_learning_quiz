@@ -1,0 +1,760 @@
+$base_width:80%;
+$base_margin:0 auto;
+$base_max_width:500ox;
+$base_min_width:300ox;
+$inner_max_width:400px;
+$inner_min_width:200px;
+
+@mixin base_frame($width:80%,$max:1000px,$min:300px){
+  width:$width;
+  margin: 0 auto;
+  max-width:$max;
+  min-width:$min;
+}
+
+@mixin border_sets($color:black,$size:3px,$radius:10px){
+  border:$color solid $size;
+  border-radius:$radius;
+  border-collapse: collapse;
+}
+
+@mixin base_table(){
+  @include border_sets($size:3px,$radius:0px);
+  border-collapse: collapse;
+  text-align: center;
+  table-layout: fixed;
+  width:100%;
+  min-width: 300px;
+  th{
+    @include border_sets($size:2px,$radius:0px);
+  }
+  td{
+    @include border_sets($size:1.5px,$radius:0px);
+  }
+  td,th{
+    border-collapse: collapse;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@mixin page_title($height:50px,$marginTop:40px,$marginBottom:50px){
+  text-align: center;
+  height:$height;
+  line-height:$height;
+  border-bottom: black solid 1px;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: $marginTop;
+  margin-bottom: $marginBottom;
+  width:100%;
+  min-width: 300px;
+  max-width:800px;
+}
+
+@mixin base_button($btn_marginTop:30px,$btn_marginBtm:0px){
+  margin-top: $btn_marginTop;
+  margin-bottom: $btn_marginBtm;
+  text-align: center;
+  min-width: 300px;
+}
+
+@mixin span_to_btn(){
+  @include border_sets(black, 1px, 3px);
+  background-color: lighten(gray,30%);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding:5px;
+  font-size: 0.9em;
+}
+
+@mixin base_error(){
+  @include base_frame();
+  color:red;
+  height:30px;
+  line-height:30px;
+  text-align: center;
+}
+
+
+body{
+  background-color: darken(rgb(100,200,100),10%);
+}
+
+h1 {
+  @include page_title();
+}
+
+h2 {
+  @include page_title($height:30px,$marginTop:30px,$marginBottom:30px);
+  @media screen and (max-width:500px){
+    font-size: 1.2em;
+  }
+  @media screen and (max-width:350px){
+    font-size: 1.1em;
+  }
+}
+
+
+// okメッセージ
+.ok_message{
+  @include base_error();
+}
+
+
+// エラーメッセージ2のdiv
+.if_error2_div{
+  @include base_frame();
+}
+
+
+// エラーメッセージ
+@for $i from 0 through 2{
+  .if_error#{$i}{
+    @include base_error();
+    @if($i == 0){
+      animation-name:out_three_minute;
+      animation-duration:3s;
+      animation-fill-mode:forwards;
+      background-color: lavenderblush;
+    }
+    @if($i == 2){
+      margin-top: 30px;
+      background-color: lavenderblush;
+      font-size: 1.3em;
+      height:auto;
+      line-height:40px;
+    }
+  }
+}
+
+@keyframes out_three_minute{
+  99%{
+    line-height:30px;
+    height:auto;
+    visibility: visible;
+    opacity:1;
+  }
+  100%{
+    height:0px;
+    line-height:0px;
+    visibility: hidden;
+    opacity:0;
+  }
+
+}
+
+
+// フォーム：基本的には基本の長さ
+form{
+  @include base_frame();
+}
+
+// 少なくとも初期段階では見せない
+.type_select,.config_form{
+  display: none;
+}
+
+// 該当テーマのクイズテーマ等修正時は見せる
+.config_form.config_deleteThemeInQuiz{
+  display:block;
+}
+
+// 選択要素(ui)
+#first_ul,#second_ul,#third_ul,#fourth_ul,#theme_ul{
+  @include base_frame();
+  padding:0;
+  .first_li,.second_li,.third_li,.fourth_li,.theme_li{
+    list-style-type:none;
+    text-decoration: underline;
+    cursor: pointer;
+    background-color: rgb(120,220,120);
+    @include border_sets();
+    text-align: center;
+    height:40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    color:rgb(20,20,20);
+  }
+  .first_li_click{
+    background-color: white;
+  }
+  .theme_li_click{
+    background-color: aqua;
+  }
+}
+
+
+// 設定のフォーム
+.config_form{
+  @include base_frame();
+  @include border_sets($radius:20px);
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
+// テーマ名の記入
+.config_label_div{
+  @include base_frame($width:90%);
+  border-top: black dashed 2px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+ .for_inlineForm_div{
+  @include base_frame($width:80%);
+    .config_themeName_input,.config_kindName_input,.config_select_native,
+    #move_new_input
+    {
+     width:100%;
+     height:30px;
+     line-height: 30px;
+     font-size: 1em;
+   }
+   .config_select_native{
+     text-align: center;
+   }
+ }
+  .config_label{
+    text-align: center;
+    font-weight: bold;
+    font-size:1.15em;
+    background-color: rgba(250,250,250,0.3);
+  }
+}
+
+// ボタンに連動して動く「大テーマ」の選択表示
+//moveの大テーマが新規か既存か
+.config_kind_div,.config_edit_div,.config_move_div,.config_delete_div,#config_newTheme_whenDelete,#config_existTheme_whenDelete{
+  display:none;
+}
+
+// moveでの過去テーマ選択時に自動で表示が変わるp
+.now_choice_move_theme,.now_choice_move_theme_default{
+  background-color: white;
+  text-align: center;
+}
+.now_choice_move_theme{
+  display:none;
+}
+
+// テーマ削除に伴うクイズ調整が必要なページのh1
+#fixQuizForDeleteTheme_h1{
+  margin-bottom: 20px;
+}
+
+// テーマ削除に伴うクイズ調整が必要のアナウンス
+#fixQuizForDeleteTheme_notice{
+  @include base_frame();
+  @include border_sets($size:1px,$radius:3px);
+  background-color: blanchedalmond;
+  color:red;
+  text-align: center;
+  p{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 30px;
+  }
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  .br600{
+   display:none;
+   @media screen and (max-width:600px){
+      display:inline;
+   }
+  }
+}
+
+#new_input_when_delete,#exist_select_when_delete{
+  height:30px;
+  font-size: 1em;
+  width:100%;
+  text-align: center;
+}
+
+// テーマ削除の確認-既存のクイズ表示
+#quizSample_whenDeleteTheme_div{
+  @include base_frame($width:90%,$max:1500px);
+  p{
+    background-color: beige;
+    text-align: center;
+  }
+  #show_quiz_table_span,#hide_quiz_table_p{
+    cursor: pointer;
+    text-decoration: underline;
+    color:blue;
+  }
+  #tableSample_whenDeleteTheme,#hide_quiz_table_p{
+    display:none;
+  }
+  table{
+    @include base_table();
+  }
+}
+
+
+
+
+
+// クイズ作成ページ
+#quiz_create_form{
+  @include base_frame;
+  @include border_sets();
+  background-color: lighten(gray,10%);
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+div[id*="quiz_create_"]{
+  width:90%;
+  max-width: 900px;
+  min-width: $inner_min_width;
+  margin: $base_margin;
+  p{
+    margin-top: none;
+    margin-bottom: 1px;
+  }
+  input,textarea{
+    width:100%;
+  }
+  ul{
+    list-style-type:none;
+    padding-left: 0px;
+    .quiz_create_each_kind{
+      background-color: gray;
+    }
+    .quiz_create_each_theme{
+      background-color: darken(white,10%);
+      padding-left: 15px;
+      white-space: nowrap;
+      border-bottom: black solid 1px;
+      cursor: pointer;
+    }
+  }
+  select{
+    font-size: 1em;
+  }
+}
+
+#quiz_create_hidden_select{
+  display:none;
+}
+
+
+// クイズ行う前段階
+#before_quiz_form,#before_edit_from_case{
+  @include base_frame();
+  @include border_sets();
+  max-width: 500px;
+
+  div{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    text-align: center;
+      p{
+        font-size: 1.1em;
+        margin:$base_margin
+      }
+      select{
+        margin-top: 7px;
+        width:80%;
+        font-size: 1em;
+      }
+      #theme_select_beforequiz{
+        margin:0;
+        width:0;
+        display:none;
+        .beforequiz_theme_hidden,.beforequiz_theme_hidden0{
+          display:none;
+        }
+      }
+      #theme_ui_ul{
+        list-style-type:none;
+        @include base_frame();
+        text-align: left;
+        padding-left:0px;
+        li{
+          @include border_sets($size:1px, $radius:0px);
+        }
+        .beforequiz_theme_li,.beforequiz_theme_li0{
+          background-color: white;
+          padding-left:10px;
+          white-space: nowrap;
+          overflow-x: hidden;
+          cursor: pointer;
+        }
+        .beforequiz_theme_li0{
+          font-weight: bold;
+        }
+        .no_choice_li{
+          background-color: lighten(gray,25%);
+        }
+      }
+      .level_percent_flex{
+        margin-top: 0px;
+        margin-bottom:20px;
+        display:flex;
+        justify-content: center;
+        select{
+          width:40%;
+        }
+      }
+  }
+
+
+  #now_choice_theme_field{
+    @include base_frame($min:280px);
+    @include border_sets($size:2px,$radius:3px);
+    padding:0;
+  }
+
+}
+
+// クイズ行うとき
+  //クイズの設定表示
+  #quiz_play_conf{
+    @include base_frame();
+    @include border_sets();
+    background-color: lighten(gray,25%);
+    margin-bottom: 20px;
+    text-align: center;
+
+    #display_themeother{
+      display:none;
+      @include border_sets($size:1px,$radius:5px);
+      position:absolute;
+      font-size:0.8em;
+      background-color: gray;
+      text-align: center;
+      width:120px;
+      padding:5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #theme_other{
+      text-decoration: underline;
+      cursor:pointer;
+      color:blue;
+    }
+    p.count_zero_p{
+      font-weight: bold;
+    }
+
+  }
+
+
+  // 正解不正解の表示
+   #display_isok,#display_without{
+      @include base_frame();
+      @include border_sets();
+      padding-top:10px;
+      display: none;
+      #isok_ok{
+        color:black;
+      }
+      #isok_out{
+        color:black;
+      }
+      p{
+        text-align: center;
+        margin:$base_margin;
+      }
+      #what_is_correct{
+        margin-top:5px;
+        margin-bottom:7px;
+      }
+   }
+
+  //クイズの表示
+    #play_quiz_corner{
+      @include base_frame();
+      @include border_sets();
+      text-align: center;
+      background-color: darkkhaki;
+      padding:15px 0px;
+      p,h3{
+        margin:$base_margin;
+      }
+      .play_each{
+        margin-top:8px;
+        margin-bottom:8px;
+      }
+      #play_user_answer{
+        margin-bottom: 12px;
+      }
+    }
+
+    // 正解不正解の表示
+    #play_results{
+      @include base_frame();
+      text-align: right;
+      font-size: 0.9em;
+    }
+
+    // 非同期通信のエラー
+    #play_quiz_error{
+      display:none;
+      @include base_frame();
+      p{
+        text-align: center;
+      }
+    }
+
+    #end_of_quiz{
+      @include base_frame($width:90%);
+      @include border_sets();
+      display:none;
+      background-color: skyblue;
+      text-align: center;
+      animation-name:end_anime;
+      animation-duration:2s;
+      animation-fill-mode: forwards;
+      .end_quiz_p1{
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+    .end_quiz_p2{
+        font-size: 0.9em;
+      }
+    }
+
+    @keyframes end_anime{
+      0%{
+        transform: scale(0);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+
+
+// 編集方法決定ボタン
+#before_edit_to_next{
+  font-size: 1em;
+}
+
+// クイズ編集
+form[id*="before_edit_from"]{
+  display:none;
+}
+
+// 言葉で検索条件
+
+#edit_words_phrase,#edit_andor_display{
+  font-size: 1.1em;
+  border-top: black dashed 2px;
+  border-bottom: black dashed 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+#edit_words_phrase{
+  @include border_sets($size:2px);
+  padding:10px;
+}
+
+#edit_andor_display{
+  padding-bottom:10px;
+  box-sizing: content-box;
+}
+
+.edit_words_sentence{
+  height:40px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1em;
+  @media screen and (max-width:500px) {
+    font-size:0.95em;
+  }
+  @media screen and (max-width:430px){
+    font-size: 0.9em;
+  }
+
+  select,input{
+    height:30px;
+    vertical-align: middle;
+    width:30%;
+    font-size:1em;
+    @media screen and (max-width:500px){
+      width:100px;
+      font-size:0.95em;
+    }
+    @media screen and (max-width:450px){
+      width:80px;
+      font-size:0.9em;
+    }
+    @media screen and (max-width:380px){
+      width:70px;
+    }
+  }
+}
+
+.edit_words_delete_btn,#edit_back_search{
+  display:none;
+}
+
+// 編集ー言葉ー条件追加削除のspanボタン
+#and_addition,#or_addition,#normal_addition,.edit_words_delete_btn{
+  @include span_to_btn();
+}
+
+// andor条件追加文章
+#edit_word_condition_space{
+  display:flex;
+  justify-content: center;
+  margin-top: 10px;
+  #or_addition{
+    margin-left: 10px;
+  }
+  #and_addition{
+    margin-right: 10px;
+  }
+}
+
+#now_edit_andor{
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 0;
+  display:none;
+  height:40px;
+  line-height: 40px;
+  #normal_addition{
+    height:30px;
+    vertical-align: middle;
+    margin-left: 30px;
+  }
+}
+
+#edit_back_search{
+  cursor: pointer;
+  text-decoration: underline;
+  color:blue;
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 2px;
+}
+
+
+#edit_word_btn2{
+  font-size: 1.1em;
+  @media screen and (max-width:500px){
+    font-size: 0.95em;
+  }
+  @media screen and (max-width:380px){
+    font-size: 0.9em;
+  }
+}
+
+
+// 編集結果表示ページ
+#edit_quiz_decide{
+  @include base_frame();
+  @media screen and (max-width:700px){
+    width:90%;
+  }
+  @media screen and (max-width:600px){
+    width:95%;
+  }
+  table{
+    @include base_table();
+    tr{
+      cursor:pointer;
+    }
+    td,th{
+      min-width: 50px;
+      @media screen and (max-width:400px){
+        font-size: 0.95em;
+      }
+      @media screen and (max-width:340px){
+        font-size: 0.9em;
+      }
+    }
+    @media screen and (min-width:600px){
+      .edit_td_title,.edit_td_answer{
+        width:17.5%;
+      }
+      .edit_td_quiz{
+        width:30%;
+      }
+      .edit_td_theme{
+        width:15%;
+      }
+      .edit_td_level,.edit_td_ptn{
+        width:10%;
+      }
+    }
+  }
+
+}
+
+#edit_hit_none{
+  font-size: 1.1em;
+  text-align: center;
+}
+
+// 編集最終決定ボタン
+#edit_to_viewquiz{
+  font-size: 1em;
+}
+
+
+// 設定されていない
+.no_data{
+  width:100%;
+  margin:$base_margin;
+  max-width:$inner_max_width;
+  min-width:$inner_min_width;
+  padding:0;
+}
+
+// ボタン
+.btn_div{
+  @include base_button();
+}
+.btn_div2{
+  @include base_button(10px,10px);
+}
+
+// 個別ボタン
+.config_form{
+  .btn_div{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+// お知らせページ
+
+#finish_sign{
+  @include base_frame($width:60%,$max:1000px,$min:300px);
+  background-color: cornsilk;
+  @include border_sets($size:5px);
+  p{
+    font-size: 1.1em;
+    text-align: center;
+  }
+}
+
+
+
+// 戻るボタン
+.back_home{
+  @include base_frame();
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+// 戻るボタン(内側)
+.back_home_inner{
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+
