@@ -100,6 +100,20 @@ h2 {
   line-height: 40px;
 }
 
+.if_error3 {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  color: red;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  animation-name: out_three_minute;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+
 @keyframes out_three_minute {
   99% {
     line-height: 30px;

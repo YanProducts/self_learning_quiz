@@ -118,16 +118,16 @@ class EditQuizController extends Controller
 
             $hit_in_condition=Quiz_list::where(function($query) use($search_word,$search_where){
                 if($search_where!=="all"){
-                    $query->where($search_where,"like","%${search_word}%");
+                    $query->where($search_where,"like","%".$search_word."%");
                 }
                 else{
-                    $query->orwhere("title","like","%${search_word}%");
-                    $query->orwhere("quiz","like","%${search_word}%");
-                    $query->where("answer","like","%${search_word}%");
+                    $query->orwhere("title","like","%".$search_word."%");
+                    $query->orwhere("quiz","like","%".$search_word."%");
+                    $query->where("answer","like","%".$search_word."%");
                 }
                 if($search_where==="answer" || $search_where==="all"){
                     for($n=2;$n<=5;$n++){
-                        $query->orWhere("answer".$n,"like","%${search_word}%");
+                        $query->orWhere("answer".$n,"like","%".$search_word."%");
                     }
                 }
             })->pluck("id")->toArray();

@@ -16,9 +16,14 @@ class PlayQuizController extends Controller
 
     // 何のクイズを行うか
     public function before_play_quiz(){
-         
-        $valuesets=QuizController::setReturnsets();
+        // まだ１つもクイズがない場合
+        if(!Quiz_list::exists()){
+            return redirect()->route("indexroute")->with([
+                "firstStepMessage"=>"クイズが１つもありません"
+            ]);
+        }
 
+        $valuesets=QuizController::setReturnsets();
         $valuesets["js_sets"]=["quiz/before_play"];
 
         return view("quiz/before_play_quiz")->with($valuesets);
@@ -34,7 +39,7 @@ class PlayQuizController extends Controller
 
         // 出題クイズのjson用
         $base64Data = self::gzip($all_quizzes);
-        
+
         // 表示用にarray分割
         list($theme_view,$theme_other,$count_other)=self::themes_for_view($theme_what);
 
@@ -56,15 +61,15 @@ class PlayQuizController extends Controller
             if($first_quiz["correct"]+$first_quiz["wrong"]===0){
                 $first_quiz["percent"]=0;
             }else{
-                $first_quiz["percent"]=round(($first_quiz["correct"]/($first_quiz["correct"]+$first_quiz["wrong"]))*100,1);         
+                $first_quiz["percent"]=round(($first_quiz["correct"]/($first_quiz["correct"]+$first_quiz["wrong"]))*100,1);
             }
         }else{
             $first_quiz="no_quiz";
         }
-        
+
 
         // ページへ
-        return view("quiz/play_quiz")->with([    
+        return view("quiz/play_quiz")->with([
             "theme_view"=>$theme_view,
             "theme_other"=>$theme_other ?? "",
             "count_other"=>$count_other,
@@ -111,10 +116,10 @@ class PlayQuizController extends Controller
                   ->whereBetween(
                     DB::raw("(correct/(correct + wrong)) *100"),
                     [intval($request->percent_min),intval($request->percent_max)]
-                 );               
+                 );
             });
         }
- 
+
 
             // all_themes以外は下記で絞る(all_themesが入っていたら全部選ぶから絞らない)
             if(!in_array("all_themes",$theme_what)){
@@ -158,11 +163,11 @@ class PlayQuizController extends Controller
         if(count($theme_what)>3){
             $theme_first=array_slice($theme_what,0,3);
             $theme_second=array_slice($theme_what,3);
-            $theme_view=implode("、",$theme_first); 
-            $theme_other=implode("\n",$theme_second);           
+            $theme_view=implode("、",$theme_first);
+            $theme_other=implode("\n",$theme_second);
             $count_other=count($theme_second);
         }else{
-            $theme_view=implode("、",$theme_what); 
+            $theme_view=implode("、",$theme_what);
             $theme_other="";
             $count_other=0;
         }
@@ -184,11 +189,11 @@ class PlayQuizController extends Controller
                 if($request->is_ok==="ok"){
                     $plus_data->correct=$plus_data->correct+1;
                 }else if($request->is_ok==="out"){
-                    $plus_data->wrong=$plus_data->wrong+1;               
+                    $plus_data->wrong=$plus_data->wrong+1;
                 }else{
                     throw new \PDOException("正解不正解が取得できません");
                 }
-                $plus_data->save();    
+                $plus_data->save();
             });
         }catch(\PDOException $e){
             return response()->json(["result_plus"=>"error"]);

@@ -12,7 +12,7 @@
 <p class="if_error0">{!! nl2br(e($message)) !!}</p>
 @enderror
 
-  <h1>テーマの設定</h1>  
+  <h1>テーマの設定</h1>
 
 <ul id="theme_ul">
   <li class="theme_li" data-li="make">テーマを作る</li>
@@ -23,9 +23,19 @@
 </ul>
 
 
+{{-- 小テーマが1つも設定されていないときのjs反応用 --}}
+{{-- include内のvalidationリターンの都合上、includeしないという手立ては取れない --}}
+ @if(count($theme_lists)===0)
+ <input type="hidden" id="ifThemeDoesNotExists">
+ @endif
+
+ {{-- 大テーマが1つも設定されていないときのjs反応用 --}}
+ @if(count($kind_lists)===0)
+  <input type="hidden" id="ifKindDoesNotExists">
+ @endif
+
 {{-- テーマを作る --}}
 @include("config/parts/inner_create",["kind_lists"=>$kind_lists])
-
 
 {{-- テーマを変更する --}}
 @include("config/parts/inner_change",["kind_lists"=>$kind_lists,"all_lists"=>$all_lists])

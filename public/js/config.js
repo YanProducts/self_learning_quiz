@@ -4,6 +4,14 @@ $(()=>{
   // liをクリックすればformが変動
   $(".theme_li").each(function(index,elem){
     $(elem).click(function(){
+
+    // 小テーマが１つもない場合
+    // ２〜４つ目は不可能
+    if($("#ifThemeDoesNotExists").length>0 && index!==0){
+        alert("まずは小テーマを設定してください");
+        return;
+    }
+
       $(".theme_li").removeClass("theme_li_click")
       $(".config_form").css("display","none");
       $(".config_form").eq(index).css("display","block");
@@ -27,6 +35,7 @@ $(()=>{
           $(elem).css("display","block");
           choicedBigThemeName=$(elem).data("contents");
       }
+    
 
      // 現在の大テーマを移動先の大テーマのoptionから削除
         // ひとまず全部開ける
