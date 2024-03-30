@@ -7,11 +7,12 @@ use App\Models\Quiz_list;
 use App\Models\Theme;
 use App\Enums\QuizPtn;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\EditWord_Request;
-use App\Http\Requests\EditQuiz_Request;
-use App\Http\Requests\Create_Request;
-use App\Http\Requests\BeforePlay_Request;
+use App\Http\Requests\EditWordRequest;
+use App\Http\Requests\EditQUizRequest;
+use App\Http\Requests\CreateRequest;
+use App\Http\Requests\BeforePlayRequest;
 use App\Exceptions\CustomException;
+use Exception;
 
 class EditQuizController extends Controller
 {
@@ -62,13 +63,13 @@ class EditQuizController extends Controller
     }
 
     // １部の言葉が含まれるクイズを返す
-    public function edit_from_word(EditWord_Request $request){
+    public function edit_from_word(EditWordRequest $request){
 
         // 検索結果のセット
         $quiz_lists=$this->search_result_sets($request->what_num+1,$request->edit_search_andor,$request);
 
         // バリデーションリターン後に表示するため、上記の結果をセッションで保管
-      session(["onetime_editquiz"=>$quiz_lists]);
+      session(["onetime_editquiz_forbackList"=>$quiz_lists]);
 
         return view("quiz/edit/view_edit_quiz_lists")->with([
             "quiz_lists"=>$quiz_lists,
@@ -79,25 +80,18 @@ class EditQuizController extends Controller
     // １部の言葉が含まれるクイズを返す(バリデーションリターン用にget作成)
     public function edit_from_word_get(){
 
-        if(empty(session("onetime_editquiz"))){
+        if(empty(session("onetime_editquiz_forbackList"))){
             throw new CustomException("不正なアクセスです");
         }
 
         // 検索結果のセット
-        $quiz_lists=session("onetime_editquiz");
-
-        // sessionの削除は成功後に行う
-        // session()->forget("onetime_editquiz");
+        $quiz_lists=session("onetime_editquiz_forbackList");
 
         return view("quiz/edit/view_edit_quiz_lists")->with([
             "quiz_lists"=>$quiz_lists,
             "js_sets"=>["quiz/edit/choice"]
         ]);
     }
-
-
-
-
 
 
     // 検索結果をセットにする
@@ -166,7 +160,7 @@ class EditQuizController extends Controller
     }
 
     // 条件に合うクイズを返す
-    public function edit_from_case(BeforePlay_Request $request){
+    public function edit_from_case(BeforePlayRequest $request){
         try{
             $quiz_lists=Quiz_list::where([
                 ["ptn","=",$request->answer_which]
@@ -202,13 +196,14 @@ class EditQuizController extends Controller
 
     // 編集するクイズの決定→編集ページへ
     // post処理はimplicit binding使わない
-    public function edit_decide(EditQuiz_Request $request){
+    public function edit_decide(EditQUizRequest $request){
 
         // 前ページでのバリデーションリターン用のsession削除(emptyでもエラー発生しない)
-        session()->forget("onetime_editquiz");
+        session()->forget("onetime_editquiz_forbackList");
 
         // 該当idのクイズを受け取る
         $quiz_for_edit=Quiz_list::find($request->edit_quiz_decide);
+
 
         // テーマは順不同の配列で表示
         $edit_quiz_themes=[
@@ -216,6 +211,14 @@ class EditQuizController extends Controller
             $quiz_for_edit["theme_name2"],
             $quiz_for_edit["theme_name3"],
         ];
+
+        // post後のリクエストバリデーションで弾かれた時の対策
+        session(["onetime_editQuiz_forbackQuiz"=>
+        [
+         "id"=>$request->edit_quiz_decide,
+         "themes"=>$edit_quiz_themes
+        ]
+        ]);
 
         // 受け渡す変数の格納
         // js_setsはcreateと同じ（？）
@@ -228,20 +231,35 @@ class EditQuizController extends Controller
 
 
     // バリデーションで返された場合はgetで返す必要がある
-    // idで渡した初期値は「old」で変更直前の値を保持
     public function edit_decide_get(){
 
+        // 前ページでsessionが設定されていないか
+        if(!session()->has("onetime_editQuiz_forbackQuiz") ||
+           !array_key_exists("id",session("onetime_editQuiz_forbackQuiz"))||
+           !array_key_exists("themes",session("onetime_editQuiz_forbackQuiz"))
+        ){
+            throw new CustomException("ルートが不正\nまたは時間切れです");
+        }
+        $quiz_for_edit=Quiz_list::find(session("onetime_editQuiz_forbackQuiz")["id"]);
+        $edit_quiz_themes=session("onetime_editQuiz_forbackQuiz")["themes"];
+
         // 受け渡す変数の格納
-        $valuesets=array_merge(self::setReturnsets(),["js_sets"=>[ "quiz/create"],"mode"=>"作成","quiz_for_edit"=>""
+        $valuesets=array_merge(self::setReturnsets(),[
+            "js_sets"=>[ "quiz/create"],
+            "mode"=>"編集",
+            "quiz_for_edit"=>$quiz_for_edit,
+            "edit_quiz_themes"=>$edit_quiz_themes
         ]);
 
+        // バリデーション用のsession削除
+        session()->forget("onetime_editQuiz_forbackQuiz");
         return view("common/create_edit")->with($valuesets);
 
     }
 
 
     // クイズの編集決定
-    public function edit_final(Create_Request $request){
+    public function edit_final(CreateRequest $request){
 
         // idはcreateのrequestで処理されないため、こちらで処理
         if(!$request->edit_id || !Quiz_list::find($request->edit_id)){
@@ -249,6 +267,10 @@ class EditQuizController extends Controller
         }else{
             $edit_quiz_set=Quiz_list::find($request->edit_id);
         }
+
+        // バリデーション用のsession削除
+        session()->forget("onetime_editQuiz_forbackQuiz");
+
 
         // theme以外のrequest
         // 後にRuleクラスで例外定義
@@ -284,12 +306,24 @@ class EditQuizController extends Controller
     }
 
 
-
-
     // クイズの消去
-    public function delete_quiz($quiz_lists){
-        return redirect("quiz/edit/view_edit_quiz_list")->with([
-            "quiz_lists"=>$quiz_lists
+    public function delete_quiz(EditQUizRequest $request){
+        try{
+            DB::transaction(function()use($request){
+                $delete_quiz=Quiz_list::find($request->edit_quiz_decide);
+                $delete_quiz->delete();
+            });
+        }catch(\Throwable $e){
+            return redirect(route("sign_route"))->with([
+                "pageRoute"=>"editroute",
+                "is_error"=>"error",
+                "naiyou"=>config("app.env")==="local" ? $e->getMessage() :"削除時のエラーです"
+            ]);
+        }
+
+        return redirect(route("sign_route"))->with([
+            "pageRoute"=>"editroute",
+            "naiyou"=>"クイズを削除しました！"
         ]);
     }
 }

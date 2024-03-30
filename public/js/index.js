@@ -93,7 +93,7 @@ $(()=>{
   // configのみ、テーマの消去
   function viewChangeWhenLiClick4(index){
     // 大テーマが1つもないと既存の大テーマには移動できない
-    if($("#ifKindDoesNotExists").length>0 && index===1){
+    if($("#ifKindDoesNotExists").length>0 && index===2){
         alert("大テーマが１つもありません");
         return;
     };

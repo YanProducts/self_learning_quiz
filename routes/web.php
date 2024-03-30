@@ -35,6 +35,10 @@ Route::get('/createquiz',[QuizController::class,"create_quiz"]
 Route::get('/editquiz',[EditQuizController::class,"edit_quiz"]
 )->name("editroute");
 
+// クイズを削除する
+Route::delete('/deletequiz',[EditQuizController::class,"delete_quiz"]
+)->name("quiz_delete_route");
+
 // テーマの設定ページへ
 Route::get('/configquiz',[ConfigController::class,"config_theme"]
 )->name("configroute");

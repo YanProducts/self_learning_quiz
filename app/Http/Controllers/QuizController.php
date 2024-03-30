@@ -7,7 +7,7 @@ use App\Models\QUiz_list;
 use App\Models\Theme;
 use App\Enums\QuizPtn;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Create_Request;
+use App\Http\Requests\CreateRequest;
 use App\Exceptions\CustomException;
 
 class QuizController extends Controller
@@ -34,13 +34,13 @@ class QuizController extends Controller
                 "firstStepMessage"=>"まずはテーマを設定してください"
             ]);
         }
-        
+
         return view("common/create_edit")
         ->with($valuesets);
     }
 
     // クイズの作成->投稿
-    public function post_create_quiz(Create_Request $request){
+    public function post_create_quiz(CreateRequest $request){
 
         // 登録
         try{

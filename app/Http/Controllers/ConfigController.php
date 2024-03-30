@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Theme;
 use App\Models\Quiz_list;
-use App\Http\Requests\Theme_Request;
+use App\Http\Requests\ThemeRequest;
 use App\Exceptions\CustomException;
 
 class ConfigController extends Controller
@@ -27,7 +27,7 @@ class ConfigController extends Controller
     }
 
     // 作成ルート
-    public function create_theme(Theme_Request $request){
+    public function create_theme(ThemeRequest $request){
         $theme_name=$request->new_theme_name;
 
         try{
@@ -46,7 +46,7 @@ class ConfigController extends Controller
     }
 
     // 編集ページ表示
-    public function edit_theme(Theme_Request $request){
+    public function edit_theme(ThemeRequest $request){
 
         // 小テーマか大テーマか
         // themeかkind以外はrequestの例外除去で弾いている
@@ -104,7 +104,7 @@ class ConfigController extends Controller
     }
 
     // 小テーマの大テーマ移動
-    public function move_theme(Theme_Request $request){
+    public function move_theme(ThemeRequest $request){
 
         try{
             DB::transaction(function()use($request){
@@ -123,7 +123,7 @@ class ConfigController extends Controller
     }
 
     // テーマの削除
-    public function delete_theme(Theme_Request $request){
+    public function delete_theme(ThemeRequest $request){
 
         // 小テーマが含まれるクイズがあればどうするか？
         if($request->select_fourth_choice==="theme"){
@@ -273,7 +273,7 @@ class ConfigController extends Controller
     }
 
     // テーマ削除の際に該当テーマがその１つしかないクイズをどうするか(決定して操作)
-    public function quizProcess_when_deleteOnlyTheme(Theme_Request $request){
+    public function quizProcess_when_deleteOnlyTheme(ThemeRequest $request){
 
         try{
             $process_name=DB::transaction(function()use($request){

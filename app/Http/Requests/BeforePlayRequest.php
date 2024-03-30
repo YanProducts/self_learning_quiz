@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 // クイズ選択時の例外
-class BeforePlay_Request extends FormRequest
+class BeforePlayRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

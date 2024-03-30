@@ -14,4 +14,14 @@ $(()=>{
      })
   })
 
+    //  編集の場合＝削除のリンクを押せば削除のform投稿
+    if($("#ifQuizDeleteForm").length>0){
+        $("#ifQuizDeletePatternSpan").click(function(){
+            if(!confirm("このクイズを削除しますか？")){
+                return;
+            }
+            $("#ifQuizDeleteForm").submit();
+        })
+    }
+
 })

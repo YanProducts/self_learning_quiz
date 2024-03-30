@@ -1,9 +1,9 @@
 <x-layout>
-<x-slot name="title">クイズの編集</x-slot>
+<x-slot name="title">クイズの編集/削除</x-slot>
 <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
 
 
-<h2>編集するクイズはどう選びますか？</h2>
+<h2 class="h2WithBr500">編集または削除するクイズは<br class="br500">どう選びますか？</h2>
 
 {{-- どの選び方をするか --}}
 <div id="quiz_edit_ptn_div">

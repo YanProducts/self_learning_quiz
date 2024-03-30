@@ -13,7 +13,7 @@ use App\Rules\NotRegexNoChoice;
 use App\Rules\NotRegexNoThemeInJp;
 
 // テーマ設定上の例外
-class Theme_Request extends FormRequest
+class ThemeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -125,7 +125,7 @@ class Theme_Request extends FormRequest
             $rules=[
                 "move_before_theme_id"=>[
                     "required",
-                    new InExistThemeId             
+                    new InExistThemeId
                 ]
             ];
             if($choice_move_ptn==="new"){
@@ -144,7 +144,7 @@ class Theme_Request extends FormRequest
                 $rules=array_merge($rules,[
                     "move_before_kind"=>[
                         "required",
-                        new InExistKind            
+                        new InExistKind
                         ]
                 ]);
             }else{
@@ -179,7 +179,7 @@ class Theme_Request extends FormRequest
                     "is_valid"=>"required"
                 ]);
             }
-        }else if($route_name==="quizProcess_when_deleteTheme_route"){          
+        }else if($route_name==="quizProcess_when_deleteTheme_route"){
             $rules=array_merge($rules,[
                 "delete_theme_id"=>[
                     "required",
@@ -216,13 +216,13 @@ class Theme_Request extends FormRequest
                 "is_valid"=>"required"
               ]);
             }
-        
+
         }else{
             // 不正な処理
             $rules=array_merge($rules,[
                 // 存在しない値を設定
                 "is_valid"=>"required"
-            ]);        
+            ]);
         }
         return $rules;
     }
@@ -244,7 +244,7 @@ class Theme_Request extends FormRequest
             "edit_kind_name.required"=>"入力必須です",
             "edit_kind_name.min"=>"大テーマは３文字以上で記入してください",
             "old_kind_id.required"=>"以前の大テーマが見つかりません",
-            
+
             // move
             "move_before_theme_id.required"=>"以前のテーマを選択してください",
             "move_before_theme_id.integer"=>"以前のテーマ選択のエラーです",

@@ -7,7 +7,7 @@ use App\Enums\QuizPtn;
 use App\Rules\PtnEnumValue;
 
 // クイズ作成の例外
-class Create_Request extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class Create_Request extends FormRequest
      */
     public function rules(): array
     {
-        return 
+        return
             [
             "title"=>"required",
             "quiz"=>"required|min:3",

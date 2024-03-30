@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 // 編集の検索上の例外
-class EditWord_Request extends FormRequest
+class EditWordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,9 @@ class EditWord_Request extends FormRequest
             "what_num"=>"required|integer",
             "edit_search_andor"=>"required|in:normal,type_a,type_o"
         ];
-     
+
         $count=$this->what_num;
-     
+
         for($num=0;$num<$count+1;$num++){
             $rule["search_where".$num]="required|in:title,quiz,answer,all";
             $rule["search_words".$num]="required";

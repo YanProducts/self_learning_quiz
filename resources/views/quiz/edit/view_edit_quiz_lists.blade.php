@@ -2,17 +2,17 @@
   <x-slot name="title">クイズリスト</x-slot>
    <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
 
-  <h2>編集するクイズを選んでください？</h2>
+  <h2  class="h2WithBr500">編集または削除するクイズを<br class="br500">選んでください</h2>
 
-  
+
   {{-- 該当するクイズがない時 --}}
   @if($quiz_lists->isEmpty())
-  <p id="edit_hit_none">該当クイズはありません</p> 
+  <p id="edit_hit_none">該当クイズはありません</p>
   @else
 
   <form id="edit_quiz_decide" method="post" action="{{route("edit_decide_route")}}">
     @csrf
-    
+
     @error("edit_quiz_decide")
     <p class="if_error1">{{$message}}</p>
     @enderror
@@ -44,9 +44,8 @@
     <input id="hidden_edit_quiz_decide" type="hidden" name="edit_quiz_decide" value="">
 
     <div class="btn_div">
-      <button  id="edit_to_viewquiz">これを編集！</button>
+      <button  id="edit_to_viewquiz">これを編集/削除！</button>
     </div>
-
 
   </form>
 

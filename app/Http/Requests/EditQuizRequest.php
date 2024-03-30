@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\inExistQuizId;
 
-class EditQuiz_Request extends FormRequest
+class EditQUizRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -36,6 +36,6 @@ class EditQuiz_Request extends FormRequest
             [
             "edit_quiz_decide.required"=>"選択されていません",
             "edit_quiz_decide.integer"=>"入力データが不正です",
-            ];        
+            ];
     }
 }

@@ -40,6 +40,13 @@ h2 {
   }
 }
 
+@media screen and (max-width: 500px) {
+  h2.h2WithBr500 {
+    font-size: 1.3em;
+    height: 60px;
+  }
+}
+
 .ok_message {
   width: 80%;
   margin: 0 auto;
@@ -128,6 +135,11 @@ h2 {
     opacity: 0;
   }
 }
+#errorPage_title {
+  padding-bottom: 5px;
+  border-bottom: solid red 2px;
+}
+
 form {
   width: 80%;
   margin: 0 auto;
@@ -253,14 +265,6 @@ form {
   margin-bottom: 0;
   line-height: 30px;
 }
-#fixQuizForDeleteTheme_notice .br600 {
-  display: none;
-}
-@media screen and (max-width: 600px) {
-  #fixQuizForDeleteTheme_notice .br600 {
-    display: inline;
-  }
-}
 
 #new_input_when_delete, #exist_select_when_delete {
   height: 30px;
@@ -325,6 +329,27 @@ form {
   background-color: #9a9a9a;
   padding-top: 10px;
   padding-bottom: 20px;
+}
+
+#ifQuizDeletePattern {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: aqua;
+}
+#ifQuizDeletePattern p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#ifQuizDeletePattern p span {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 div[id*=quiz_create_] {
@@ -847,6 +872,24 @@ form[id*=before_edit_from] {
 .back_home_inner {
   text-align: center;
   margin-top: 10px;
+}
+
+.br500 {
+  display: none;
+}
+@media screen and (max-width: 500px) {
+  .br500 {
+    display: inline;
+  }
+}
+
+.br600 {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .br600 {
+    display: inline;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

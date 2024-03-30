@@ -85,16 +85,25 @@ body{
 
 h1 {
   @include page_title();
+
 }
+
 
 h2 {
   @include page_title($height:30px,$marginTop:30px,$marginBottom:30px);
   @media screen and (max-width:500px){
     font-size: 1.2em;
-  }
+   }
   @media screen and (max-width:350px){
     font-size: 1.1em;
   }
+}
+
+h2.h2WithBr500{
+    @media screen and (max-width:500px){
+        font-size: 1.3em;
+        height:60px;
+    }
 }
 
 
@@ -108,7 +117,6 @@ h2 {
 .if_error2_div{
   @include base_frame();
 }
-
 
 // エラーメッセージ
 @for $i from 0 through 3{
@@ -149,6 +157,13 @@ h2 {
     opacity:0;
   }
 
+}
+
+
+// エラーのお知らせのタイトル
+#errorPage_title{
+    padding-bottom:5px;
+    border-bottom: solid red 2px;
 }
 
 
@@ -264,12 +279,7 @@ form{
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: bold;
-  .br600{
-   display:none;
-   @media screen and (max-width:600px){
-      display:inline;
-   }
-  }
+
 }
 
 #new_input_when_delete,#exist_select_when_delete{
@@ -300,9 +310,6 @@ form{
 }
 
 
-
-
-
 // クイズ作成ページ
 #quiz_create_form{
   @include base_frame;
@@ -310,6 +317,24 @@ form{
   background-color: lighten(gray,10%);
   padding-top: 10px;
   padding-bottom: 20px;
+}
+
+#ifQuizDeletePattern{
+  @include base_frame;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: aqua;
+  p{
+    margin-top: 0;
+    margin-bottom: 0;
+    span{
+        color:blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+  }
 }
 
 div[id*="quiz_create_"]{
@@ -763,3 +788,17 @@ form[id*="before_edit_from"]{
 
 
 
+// 共通
+.br500{
+    display:none;
+    @media screen and (max-width:500px){
+        display: inline;
+        }
+}
+
+.br600{
+    display:none;
+    @media screen and (max-width:600px){
+       display:inline;
+    }
+   }

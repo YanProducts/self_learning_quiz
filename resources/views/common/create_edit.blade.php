@@ -8,13 +8,35 @@
   <p class="if_error0">{!! nl2br(e($message)) !!}</p>
 @enderror
 
+{{-- 削除の場合の隠れフォーム --}}
+@if($mode==="編集")
+    <form action="{{route("quiz_delete_route")}}" id="ifQuizDeleteForm" method="post">
+     @method("DELETE")
+     @csrf
+     <input type="hidden" name="edit_quiz_decide" value="{{old("edit_quiz_decide") ?? $quiz_for_edit->id}}">
+    </form>
+ @endif
+
+
+
 <form action="{{$mode==="編集"  ? route("edit_final_route") :route("post_create_route")}}" method="post" id="quiz_create_form">
   @if($mode==="編集")
     @method("PATCH")
      <input type="hidden" name="edit_id" value="{{old("edit_id") ?? $quiz_for_edit->id}}">
   @endif
  @csrf
- 
+
+ {{-- 削除の場合のUI --}}
+ @if($mode==="編集")
+    <div id="ifQuizDeletePattern">
+        <p>このクイズを削除する場合は<br class="br500"><span id="ifQuizDeletePatternSpan">こちら</span>をクリック</p>
+    </div>
+    @error("edit_id")
+    <p class="if_error0">{!! nl2br(e($message)) !!}</p>
+    @enderror
+ @endif
+
+
 <div id="quiz_create_title">
 <p id="each_quiz_title">タイトル</p>
 <input type="text" name="title" value="{{old("title", $mode==="編集" ? $quiz_for_edit->title : "")}}">
@@ -92,7 +114,7 @@
       (old("themes") && in_array($theme->theme_name,old("themes"))) ||
       ($mode==="編集" && in_array($theme->theme_name,$edit_quiz_themes))
       )
-          style="background-color:skyblue"          
+          style="background-color:skyblue"
       @endif
     >{{$theme->theme_name}}</li>
   @endforeach
@@ -140,7 +162,7 @@
   <option value="{{$ptn_key}}"
       @if((old("ptn") && old("ptn")===$n) || ($mode==="編集" && intval($quiz_for_edit->ptn)===$ptn_key))
           selected
-      @endif  
+      @endif
   >{{$ptn}}</option>
 @endforeach
 </select>

@@ -8,7 +8,7 @@ use App\Models\Quiz_list;
 use App\Enums\QuizPtn;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\BeforePlay_Request;
+use App\Http\Requests\BeforePlayRequest;
 
 
 class PlayQuizController extends Controller
@@ -30,7 +30,7 @@ class PlayQuizController extends Controller
      }
 
     // クイズで遊ぶ
-    public function play_quiz(BeforePlay_Request $request){
+    public function play_quiz(BeforePlayRequest $request){
 
         $theme_what=$request->theme_what;
 

@@ -3,7 +3,7 @@
 // バリデーションで返ってきた要素を開くJs
 $(()=>{
 
-  //削除テーマがテーマがそれのみのクイズに含まれている時 
+  //削除テーマがテーマがそれのみのクイズに含まれている時
   if($("#config_quizWhenDeleteTheme_form").length>0){
     validationOpen("#validationReturn_newInputWhenDelete","","","#config_newTheme_whenDelete","first",1);
     validationOpen("#validationReturn_existSelectWhenDelete","","","#config_existTheme_whenDelete","first",2);
@@ -31,7 +31,7 @@ $(()=>{
     //大テーマの編集の既存取得
     validationOpen("#validationReturn_old_kindId",1,1,".config_edit_div","second",2);
 
-    
+
     // config_move
 
     // 移動する小テーマ
@@ -43,11 +43,12 @@ $(()=>{
 
 
     // config/delete
-    // 大テーマ消去
-    validationOpen("#validationReturn_delete_kind",3,3,".config_delete_div","fourth",0);
-    
     // 小テーマ消去
-    validationOpen("#validationReturn_delete_themeId",3,3,".config_delete_div","fourth",1);
+    validationOpen("#validationReturn_delete_themeId",3,3,".config_delete_div","fourth",0);
+
+    // 大テーマ消去
+    validationOpen("#validationReturn_delete_kind",3,3,".config_delete_div","fourth",1);
+
   }
 
 
@@ -58,7 +59,7 @@ $(()=>{
 
     // エラーが存在したら
       if($(openElement).length>0){
-        
+
         // エラー上位の上位のformを開ける
         if(configIndex!==""){
           $(".config_form").eq(configIndex).css("display","block");
@@ -73,10 +74,10 @@ $(()=>{
 
 
         // 新しいテーマ作成の場合、大テーマ設定ありでもなしでも「テーマ入力」が必要。その場合、テーマをどうするかは無関係。
-        
+
         // 汎用的に直す！！
         // if(openElement!=="#validationReturn_newThemeName"){
-        
+
 
 
 
@@ -85,10 +86,10 @@ $(()=>{
         console.log($("." + liOptionNum + "_option").eq(optionIndex))
           $("." + liOptionNum + "_option").eq(optionIndex).prop("selected",true);
           $("." + liOptionNum + "_li").eq(optionIndex).addClass("first_li_click");
-          
+
           $(".first_option").eq(optionIndex).prop("selected",true);
           $(".first_li").eq(optionIndex).addClass("first_li_click");
-        
+
         setTimeout(()=>{
           $(openElement).next(".if_error0").css("display","none");
         },3000);
