@@ -722,9 +722,40 @@ form[id*="before_edit_from"]{
 
 }
 
+#edit_view_10quiz{
+    @include base_frame($max:600px);
+    display:flex;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    #edit_view_10quiz_toBefore,#edit_view_10quiz_toAfter{
+            color:white;
+            font-size:0.9em;
+            border-bottom: solid white 1.5px;
+            padding-bottom:0.5px;
+            box-sizing: content-box;
+            cursor: pointer;
+    }
+    #edit_view_10quiz_toBefore{
+        margin-right: auto;
+    }
+    #edit_view_10quiz_toAfter{
+        margin-left: auto;
+    }
+}
+
 #edit_hit_none{
   font-size: 1.1em;
   text-align: center;
+}
+
+#edit_choice_count{
+    @include base_frame();
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    color:blue;
+    font-weight: bold;
 }
 
 // 編集最終決定ボタン

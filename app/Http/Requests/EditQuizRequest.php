@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\inExistQuizId;
 
-class EditQUizRequest extends FormRequest
+class EditQuizRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

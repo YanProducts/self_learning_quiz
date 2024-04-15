@@ -8,7 +8,7 @@ use App\Models\Theme;
 use App\Enums\QuizPtn;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EditWordRequest;
-use App\Http\Requests\EditQUizRequest;
+use App\Http\Requests\EditQuizRequest;
 use App\Http\Requests\CreateRequest;
 use App\Http\Requests\BeforePlayRequest;
 use App\Exceptions\CustomException;
@@ -196,7 +196,7 @@ class EditQuizController extends Controller
 
     // 編集するクイズの決定→編集ページへ
     // post処理はimplicit binding使わない
-    public function edit_decide(EditQUizRequest $request){
+    public function edit_decide(EditQuizRequest $request){
 
         // 前ページでのバリデーションリターン用のsession削除(emptyでもエラー発生しない)
         session()->forget("onetime_editquiz_forbackList");
@@ -307,7 +307,7 @@ class EditQuizController extends Controller
 
 
     // クイズの消去
-    public function delete_quiz(EditQUizRequest $request){
+    public function delete_quiz(EditQuizRequest $request){
         try{
             DB::transaction(function()use($request){
                 $delete_quiz=Quiz_list::find($request->edit_quiz_decide);

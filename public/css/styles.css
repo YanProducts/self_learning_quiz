@@ -808,9 +808,46 @@ form[id*=before_edit_from] {
   }
 }
 
+#edit_view_10quiz {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 600px;
+  min-width: 300px;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+#edit_view_10quiz #edit_view_10quiz_toBefore, #edit_view_10quiz #edit_view_10quiz_toAfter {
+  color: white;
+  font-size: 0.9em;
+  border-bottom: solid white 1.5px;
+  padding-bottom: 0.5px;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+#edit_view_10quiz #edit_view_10quiz_toBefore {
+  margin-right: auto;
+}
+#edit_view_10quiz #edit_view_10quiz_toAfter {
+  margin-left: auto;
+}
+
 #edit_hit_none {
   font-size: 1.1em;
   text-align: center;
+}
+
+#edit_choice_count {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 1px;
+  margin-bottom: 5px;
+  color: blue;
+  font-weight: bold;
 }
 
 #edit_to_viewquiz {

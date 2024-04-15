@@ -8,7 +8,6 @@ use App\Http\Controllers\QuizController;
 class ChoiceController extends Controller
 {
     public function first_index(){
-
         $values=[
             "li_option_sets"=>[
                 "play"=>"クイズを行う",
@@ -18,7 +17,7 @@ class ChoiceController extends Controller
             ],
             "js_sets"=>["index"]
         ];
-        
+
         return view('index')->with($values);
     }
 
@@ -41,7 +40,7 @@ class ChoiceController extends Controller
             break;
             default:
             //  エラーページ
-            break; 
+            break;
         }
     }
 
