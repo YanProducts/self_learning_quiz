@@ -251,8 +251,6 @@ class EditQuizController extends Controller
             "edit_quiz_themes"=>$edit_quiz_themes
         ]);
 
-        // バリデーション用のsession削除
-        session()->forget("onetime_editQuiz_forbackQuiz");
         return view("common/create_edit")->with($valuesets);
 
     }
@@ -267,7 +265,6 @@ class EditQuizController extends Controller
         }else{
             $edit_quiz_set=Quiz_list::find($request->edit_id);
         }
-
         // バリデーション用のsession削除
         session()->forget("onetime_editQuiz_forbackQuiz");
 

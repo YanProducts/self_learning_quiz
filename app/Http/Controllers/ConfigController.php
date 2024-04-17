@@ -317,9 +317,12 @@ class ConfigController extends Controller
             throw new CustomException($e->getMessage() ===  "invalid" ? "不正な処理です" : "小テーマ設定クイズの\n操作時のエラーです");
         }
         // sessionの削除
+        session()->forget("all_themes");
+        session()->forget("exits_quizzes");
+        session()->forget("delete_theme_name");
+        session()->forget("delete_theme_id");
+        session()->forget("js_sets");
 
-
-        // まだ！！！！
 
 
         // メッセージ
