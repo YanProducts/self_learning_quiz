@@ -47,6 +47,12 @@ h2 {
   }
 }
 
+.ok_message, .ok_message2 {
+  animation-name: out_three_minute;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+
 .ok_message {
   width: 80%;
   margin: 0 auto;
@@ -54,6 +60,17 @@ h2 {
   min-width: 300px;
   color: red;
   height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.ok_message2 {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 300px;
+  color: red;
+  height: 60px;
   line-height: 30px;
   text-align: center;
 }
@@ -366,6 +383,7 @@ div[id*=quiz_create_] input, div[id*=quiz_create_] textarea {
   width: 100%;
 }
 div[id*=quiz_create_] ul {
+  margin-top: 1px;
   list-style-type: none;
   padding-left: 0px;
 }

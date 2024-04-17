@@ -82,8 +82,6 @@ $(()=>{
 
 
         // liオプションをクリック状態に
-        console.log(optionIndex);
-        console.log($("." + liOptionNum + "_option").eq(optionIndex))
           $("." + liOptionNum + "_option").eq(optionIndex).prop("selected",true);
           $("." + liOptionNum + "_li").eq(optionIndex).addClass("first_li_click");
 

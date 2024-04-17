@@ -4,7 +4,7 @@ $(()=>{
   function viewQuizTrLists(){
     // trのview
       $(".edit_quiz_what").each((eq,elem)=>{
-        if(eq>Number($("#table_view_number").val())*10 && eq<(Number($("#table_view_number").val())+1)*10){
+        if(eq>=Number($("#table_view_number").val())*10 && eq<(Number($("#table_view_number").val())+1)*10){
             $(elem).css("display","table-row")
         }else{
             $(elem).css("display","none")
@@ -12,7 +12,6 @@ $(()=>{
       })
     //   前の10件、次の10件
       if(Number($("#table_view_number").val())===0){
-        console.log( $("#ediit_view_10quiz_toBefore"));
         $("#edit_view_10quiz_toBefore").css("display","none");
         $("#edit_view_10quiz_toAfter").css("display","block");
       }else if(Number($("#table_view_number").val())===Math.floor($(".edit_quiz_what").length/10)){

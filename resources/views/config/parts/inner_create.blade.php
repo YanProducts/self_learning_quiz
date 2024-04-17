@@ -43,7 +43,9 @@ style="display:block;"
     <select id="exist_kinds_select" class="config_select_native" name="exist_kinds_select">
       <option hidden value="no_choice">選択してください</option>
       @foreach($kind_lists as $k)
-      <option>{{$k}}</option>
+        @if($k!=="テーマなし")
+            <option value="{{$k}}">{{$k}}</option>
+        @endif
       @endforeach
     </select>
     @error("exist_kinds_select")
@@ -57,7 +59,7 @@ style="display:block;"
   <div class="config_label_div  config_kind_div">
   <p class="config_label">新規大テーマの追加</p>
   <div class="for_inlineForm_div">
-    <input type="text" name="new_kind_name" id="new_kind_input" class="config_kindName_input" value="{{old("new_kind_name")}}">    
+    <input type="text" name="new_kind_name" id="new_kind_input" class="config_kindName_input" value="{{old("new_kind_name")}}">
     @error("new_kind_name")
     <input type="hidden" id="validationReturn_newKindName">
     <p class="if_error0">{!! nl2br(e($message)) !!}</p>

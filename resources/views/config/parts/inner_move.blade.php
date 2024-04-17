@@ -12,11 +12,15 @@
       <select name="move_before_theme_id" class="config_select_native" id="move_before_theme_select">
         <option hidden value="no_choice">選択してください</option>
          @php $before_kind="" @endphp
-        @foreach($all_lists as $theme){
-          @if($theme["kind"]!==$before_kind)
-            <optgroup label="{{$theme["kind"]}}">
-          @endif
-          <option value="{{$theme["id"]}}">{{$theme["theme_name"]}}</option>
+            @foreach($all_lists as $theme){
+            @if($theme["kind"]!==$before_kind)
+                <optgroup label="{{$theme["kind"]}}">
+            @endif
+            <option value="{{$theme["id"]}}"
+                @if(old("move_before_theme_id") && intval(old("move_before_theme_id"))===intval($theme["id"]))
+                    selected
+                @endif
+            >{{$theme["theme_name"]}}</option>
          @php $before_kind=$theme["kind"] @endphp
         @endforeach
       </select>
@@ -37,6 +41,11 @@
       @endforeach
     </div>
   </div>
+
+  {{-- バリデーションリターンの時の跳ね返り時に大テーマも開ける --}}
+  @if(old("move_before_theme_id") && old("move_before_theme_id")!=="no_choice")
+    <input type="hidden" id="validationSignForKind"  data-before-id= "{{intval(old("move_before_theme_id"))}}">
+  @endif
 
   <div class="config_label_div">
       <p class="config_label">移動先は？</p>

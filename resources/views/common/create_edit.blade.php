@@ -87,7 +87,7 @@
 
 <div id="quiz_create_theme">
 
-<p id="each_quiz_theme">テーマ<span class="quiz_create_span">３つまで選択可能</span></p>
+<p id="each_quiz_theme">テーマ<span class="quiz_create_span">（1つ〜３つ）</span></p>
 @error("themes")
 <p class="if_error0">{!! nl2br(e($message)) !!}</p>
 @enderror
@@ -137,13 +137,11 @@
 <div id="quiz_create_level">
 <p id="each_quiz_level">初期レベル</p>
 <select id="quiz_create_select_level" name="level">
-  <option hidden>選択してください</option>
+  <option hidden value="default_value">選択してください</option>
   @for($n=1;$n<=10;$n++)
     <option class="quiz_create_each_level"
-    @if($mode==="編集")
-      @if((old("level") && old("level")===$n) || $quiz_for_edit->level===$n)
+      @if((old("level") && strval(old("level"))===strval($n)) || ($mode==="編集" &&$quiz_for_edit->level===$n) )
         selected
-      @endif
     @endif
     >{{$n}}</option>
   @endfor
@@ -153,14 +151,14 @@
 <p class="if_error0">{!! nl2br(e($message)) !!}</p>
 @enderror
 
-
 <div id="quiz_create_ptn">
 <p id="each_quiz_ptn">パターン</p>
 <select id="quiz_create_select_ptn" name="ptn">
-  <option hidden>選択してください</option>
+  <option hidden value="default_value">選択してください</option>
 @foreach($ptn_which as $ptn_key=>$ptn)
   <option value="{{$ptn_key}}"
-      @if((old("ptn") && old("ptn")===$n) || ($mode==="編集" && intval($quiz_for_edit->ptn)===$ptn_key))
+  {{-- ptnは回答必須の場合は0選択になるのでfalseとされる。そのため、第一条件はold("level")で記入。levelはpostがあれば必ず存在する --}}
+      @if((old("level") && old("ptn")!=="default_value" && intval(old("ptn"))===intval($ptn_key)) || ($mode==="編集" && intval($quiz_for_edit->ptn)===intval($ptn_key)))
           selected
       @endif
   >{{$ptn}}</option>

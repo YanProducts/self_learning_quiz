@@ -70,13 +70,14 @@ $inner_min_width:200px;
   font-size: 0.9em;
 }
 
-@mixin base_error(){
+@mixin base_error($height:30px){
   @include base_frame();
   color:red;
-  height:30px;
+  height:$height;
   line-height:30px;
   text-align: center;
 }
+
 
 
 body{
@@ -108,8 +109,16 @@ h2.h2WithBr500{
 
 
 // okメッセージ
+.ok_message,.ok_message2{
+    animation-name:out_three_minute;
+    animation-duration:3s;
+    animation-fill-mode:forwards;
+}
 .ok_message{
-  @include base_error();
+    @include base_error();
+}
+.ok_message2{
+    @include base_error($height:60px);
 }
 
 
@@ -136,10 +145,10 @@ h2.h2WithBr500{
       line-height:40px;
     }
     @if($i == 3){
-        animation-name:out_three_minute;
-        animation-duration:3s;
-        animation-fill-mode:forwards;
-      }
+    animation-name:out_three_minute;
+    animation-duration:3s;
+    animation-fill-mode:forwards;
+    }
   }
 }
 
@@ -350,6 +359,7 @@ div[id*="quiz_create_"]{
     width:100%;
   }
   ul{
+    margin-top: 1px;
     list-style-type:none;
     padding-left: 0px;
     .quiz_create_each_kind{
@@ -719,7 +729,6 @@ form[id*="before_edit_from"]{
       }
     }
   }
-
 }
 
 #edit_view_10quiz{

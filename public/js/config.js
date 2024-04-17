@@ -19,9 +19,9 @@ $(()=>{
     });
   });
 
-  // moveの現在大テーマ
-  if($("#move_before_theme_select").length>0){
-    $("#move_before_theme_select").change((e)=>{
+// moveの現在大テーマ自動表示のfunction
+  function showKindAutomatically(themeId){
+
       // 選択テーマの大テーマのデフォルト。再利用するため別定義
         let choicedBigThemeName="";
 
@@ -31,11 +31,11 @@ $(()=>{
 
       // 該当の大テーマのみ表示
       $(".now_choice_move_theme").each((index,elem)=>{
-        if($(elem).data("id")===parseInt(e.currentTarget.value)){
+        if($(elem).data("id")===parseInt(themeId)){
           $(elem).css("display","block");
           choicedBigThemeName=$(elem).data("contents");
-      }
-    
+        }
+
 
      // 現在の大テーマを移動先の大テーマのoptionから削除
         // ひとまず全部開ける
@@ -46,9 +46,21 @@ $(()=>{
                 $(elem).css("display","none");
             }
         });
-
-
      });
+  }
+
+  // moveの現在大テーマ
+  if($("#move_before_theme_select").length>0){
+
+    // バリデーションリターン時には開ける
+    if($("#validationSignForKind").length>0){
+        showKindAutomatically($("#validationSignForKind").data("beforeId"));
+    }
+
+    // optionが変更した際にも開ける
+    $("#move_before_theme_select").change((e)=>{
+        const themeId=e.currentTarget.value;
+        showKindAutomatically(themeId);
     })
   }
 

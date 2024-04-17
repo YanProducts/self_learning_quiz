@@ -4,7 +4,7 @@
 
 @empty(session("message"))
 @else
-<p class="ok_message">{{session("message")}}
+<p class="{{mb_strpos(session("message"),"\n")!==false ? "ok_message2" : "ok_message" }}">{!! nl2br(e(session("message"))) !!}</p>
 @endempty
 
 {{-- リクエストルートが不正だった時 --}}
