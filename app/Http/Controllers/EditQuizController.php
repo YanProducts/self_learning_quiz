@@ -30,6 +30,13 @@ class EditQuizController extends Controller
      // クイズの編集
      public function edit_quiz(){
 
+        // クイズが1つもないとき
+        if(!Quiz_list::exists()){
+            return redirect()->route("indexroute")->with([
+                "firstStepMessage"=>"クイズが１つもありません"
+            ]);
+        }
+
         // 全クイズの取得
         $quiz=self::setReturnsets()["quiz_lists"];
         $theme=self::setReturnsets()["theme_lists"];
