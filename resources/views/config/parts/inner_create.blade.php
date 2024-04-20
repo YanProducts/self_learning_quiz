@@ -3,7 +3,6 @@
 @if($errors->has("new_theme_name"))
 style="display:block;"
 @endif
-}}
 >
  @csrf
 

@@ -133,6 +133,7 @@ class ThemeRequest extends FormRequest
                     "move_new_input"=>[
                         "required",
                         "string",
+                        "min:3",
                         new NotRegexComma,
                         new NotRegexAllThemes,
                         new NotInExistKind,
@@ -235,21 +236,21 @@ class ThemeRequest extends FormRequest
             "select_first_choice.not_regex"=>"種類選択のエラーです",
             "exist_kinds_select.required"=>"大テーマが選択されていません",
             "new_kind_name.required"=>"大テーマが記入されていません",
-            "new_kind_name.min"=>"大テーマは３文字以上で記入してください",
+            "new_kind_name.min"=>"大テーマは３文字以上必須です",
 
             // edit
             "edit_theme_name.required"=>"入力必須です",
             "edit_theme_name.min"=>"テーマは3文字以上です",
             "old_theme_id.required"=>"以前の小テーマが見つかりません",
             "edit_kind_name.required"=>"入力必須です",
-            "edit_kind_name.min"=>"大テーマは３文字以上で記入してください",
+            "edit_kind_name.min"=>"大テーマは３文字以上必須です",
             "old_kind_id.required"=>"以前の大テーマが見つかりません",
 
             // move
             "move_before_theme_id.required"=>"以前のテーマを選択してください",
             "move_before_theme_id.integer"=>"以前のテーマ選択のエラーです",
             "move_new_input.required"=>"大テーマの移動先が未入力です",
-            "move_new_input.min"=>"大テーマは3文字以上で記入してください",
+            "move_new_input.min"=>"大テーマは３文字以上必須です",
             "move_before_kind.id"=>"テーマの移動先が入力できていません",
 
             // delete

@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Enums\QuizPtn;
+use App\Rules\NotInExistTitle;
 use App\Rules\PtnEnumValue;
 use App\Rules\NotRegexDefaultValue;
 
@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
     {
         return
             [
-            "title"=>"required",
+            "title"=>["required", new NotInExistTitle],
             "quiz"=>"required|min:3",
             "answer"=>"required|min:1",
             "level"=>["required",new  NotRegexDefaultValue,"integer","min:1","max:10"],
