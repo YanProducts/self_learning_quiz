@@ -18,10 +18,31 @@ class NotInExistTitle implements ValidationRule
     {
         //クイズがそもそもあるか
         if(Quiz_list::exists()){
-            // 同じタイトルのデータがあればバリデーションエラー
-            if(Quiz_list::where("title","=",$value)->exists()){
-                $fail("そのタイトルは既出です");
+
+            // 作成と編集のどちらか
+            $route=request()->route()->getName();
+
+            switch($route){
+                case "edit_final_route";
+                    // 編集の、かつそのidのみは除外
+                    $inputId=request()->input("edit_id");
+                    // 同じタイトルのデータがあればバリデーションエラー
+                    if(Quiz_list::where([
+                        ["title","=",$value],
+                        ["id","<>",$inputId]
+                    ])->exists())
+                    {
+                        $fail("そのタイトルは既出です");
+                    }
+                break;
+                case "post_create_route":
+                    // 同じタイトルのデータがあればバリデーションエラー
+                    if(Quiz_list::where("title","=",$value)->exists()){
+                        $fail("そのタイトルは既出です");
+                    }
+                break;
             }
+
         }
     }
 }

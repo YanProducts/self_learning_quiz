@@ -284,16 +284,17 @@ class EditQuizController extends Controller
         try{
             DB::transaction(function()use($edit_quiz_set,$request,$requestSets){
                 // themne以外
-                foreach($requestSets as $parameter)
-                if($edit_quiz_set->$parameter!==$request->$parameter){
-                    $edit_quiz_set->$parameter=$request->$parameter;
+                foreach($requestSets as $parameter){
+                    if($edit_quiz_set->$parameter!==$request->$parameter){
+                        $edit_quiz_set->$parameter=$request->$parameter;
+                    }
                 }
 
                 // theme
                 if([$edit_quiz_set->theme_name,$edit_quiz_set->theme_name2,$edit_quiz_set->theme_name3]!==$request->themes){
                     $edit_quiz_set->theme_name=$request->themes[0];
-                    $edit_quiz_set->theme_name2=$request->themes[1];
-                    $edit_quiz_set->theme_name3=$request->themes[2];
+                    $edit_quiz_set->theme_name2=$request->themes[1] ?? null;
+                    $edit_quiz_set->theme_name3=$request->themes[2] ?? null;
                 }
             $edit_quiz_set->save();
             });

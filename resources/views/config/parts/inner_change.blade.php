@@ -1,5 +1,5 @@
 {{-- テーマ変更の場合 --}}
-<form action="{{route("edit_theme_route")}}" method="post" id="config_edit_form" class="config_form">
+<form action="{{route("edit_theme_route")}}" method="post" id="config_edit_form" class="config_form"  data-is_submit="yet">
   @method("PATCH")
   @csrf
 

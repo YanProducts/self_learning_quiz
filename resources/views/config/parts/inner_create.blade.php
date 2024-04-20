@@ -1,5 +1,5 @@
 {{-- テーマを作る --}}
-<form action="{{route("create_theme_route")}}" method="post" id="config_create_form" class="config_form"
+<form action="{{route("create_theme_route")}}" method="post" id="config_create_form" class="config_form"  data-is_submit="yet"
 @if($errors->has("new_theme_name"))
 style="display:block;"
 @endif
@@ -21,12 +21,16 @@ style="display:block;"
     <p class="config_label">大テーマの設定</p>
     @php
       $li_option_sets=[
-        "nothing"=>"設定しない",
+        "no_kind"=>"設定しない",
         "exist"=>"既存の大テーマ",
         "new"=>"新しい大テーマ"
       ]
     @endphp
   @include("common/li_option_view",["num"=>"first"])
+  @error("select_first_choice")
+  <input type="hidden" id="validationReturn_createKindSelectNone">
+  <p class="if_error0">{!! nl2br(e($message)) !!}</p>
+  @enderror
 </div>
 
 {{-- 選択しない時のhidden要素 --}}

@@ -83,4 +83,36 @@ $(()=>{
   }
 
 
+
+
+   // 投稿時の2重登録防止
+  const formSets=[
+    $("#config_create_form"),
+    $("#config_edit_form"),
+    $("#config_delete_form"),
+    $("#config_move_form"),
+    ];
+
+
+  formSets.forEach((formElement)=>{
+      formElement.submit(function(e){
+         if(formElement.data("isSubmit")!=="already"){
+            // 送信済のサイン入れる
+            formElement.data("isSubmit","already")
+            //   ボタン無効化
+            $("button").prop("disabled",true);
+            return true;
+          }else{
+              e.preventDefault();
+              alert("投稿時にエラーが生じたので\n処理を中断しました");
+              formElement.data("isSubmit","yet")
+              location.reload()
+              return false;
+          }
+      })
+  })
+
+
+
+
 })

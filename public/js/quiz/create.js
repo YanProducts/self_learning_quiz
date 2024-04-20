@@ -24,4 +24,22 @@ $(()=>{
         })
     }
 
+
+        // 2重投稿防止
+        $("#quiz_create_form").submit(function(){
+            if($("#quiz_create_form").data("isSubmit")!=="already"){
+                // 送信済のサイン入れる
+                $("#quiz_create_form").data("isSubmit","already")
+                //   ボタン無効化
+                $("button").prop("disabled",true);
+                return true;
+            }else{
+                  e.preventDefault();
+                  alert("投稿時にエラーが生じたので\n処理を中断しました");
+                  $("#quiz_create_form").data("isSubmit","yet")
+                  location.reload()
+                  return false;
+              }
+        });
+
 })

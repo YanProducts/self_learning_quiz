@@ -14,6 +14,10 @@ $(()=>{
     // config_create
     //新しいテーマの名前
     validationOpen("#validationReturn_newThemeName",0,0,"","","");
+
+    //大テーマ選択なし
+    validationOpen("#validationReturn_createKindSelectNone",0,0,"","","");
+
     //大テーマ既存
     validationOpen("#validationReturn_existKindSelect",0,0,".config_label_div","first",2);
     //大テーマ新規
@@ -33,7 +37,6 @@ $(()=>{
 
 
     // config_move
-
     // 移動する小テーマ
     validationOpen("#validationReturn_move_beforeThemeId",2,2,"","","");
     // 新しい大テーマへ

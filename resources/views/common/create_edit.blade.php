@@ -19,7 +19,7 @@
 
 
 
-<form action="{{$mode==="編集"  ? route("edit_final_route") :route("post_create_route")}}" method="post" id="quiz_create_form">
+<form action="{{$mode==="編集"  ? route("edit_final_route") :route("post_create_route")}}" method="post" id="quiz_create_form" data-is_submit="yet">
   @if($mode==="編集")
     @method("PATCH")
      <input type="hidden" name="edit_id" value="{{old("edit_id") ?? $quiz_for_edit->id}}">
@@ -170,7 +170,7 @@
 @enderror
 
 <div class="btn_div">
-  <button>決定！</button>
+  <button id="create_submit_btn">決定！</button>
 </div>
 
 </form>

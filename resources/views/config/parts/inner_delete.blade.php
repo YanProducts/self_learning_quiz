@@ -1,6 +1,6 @@
 {{-- テーマ削除 --}}
 
-<form action="{{route("delete_theme_route")}}" method="post" id="config_delete_form" class="config_form">
+<form action="{{route("delete_theme_route")}}" method="post" id="config_delete_form" class="config_form"  data-is_submit="yet">
 
   @method("DELETE")
   @csrf

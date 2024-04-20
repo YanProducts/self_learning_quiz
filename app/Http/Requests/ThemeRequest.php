@@ -49,7 +49,7 @@ class ThemeRequest extends FormRequest
                      new NotRegexNoChoice
                 ],
                 "select_first_choice"=>[
-                    "regex:/^(nothing|new|exist)$/"
+                    "regex:/^(no_kind|new|exist)$/"
                 ]
             ]);
             if($choice_new_ptn==="exist"){
@@ -233,7 +233,7 @@ class ThemeRequest extends FormRequest
             // create
             "new_theme_name.required"=>"テーマは入力必須です",
             "new_theme_name.min"=>"テーマは３文字以上で記入してください",
-            "select_first_choice.not_regex"=>"種類選択のエラーです",
+            "select_first_choice.regex"=>"種類選択のエラーです",
             "exist_kinds_select.required"=>"大テーマが選択されていません",
             "new_kind_name.required"=>"大テーマが記入されていません",
             "new_kind_name.min"=>"大テーマは３文字以上必須です",
