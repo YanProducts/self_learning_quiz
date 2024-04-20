@@ -47,7 +47,7 @@ $(()=>{
   if($("#index_btn").length>0){
     $("#index_btn").click((e)=>{
       e.preventDefault();
-      if($("#type_select").val()==="nothing"){
+      if($("#select_first_choice").val()==="nothing"){
         alert("選択されていません");
         return;
       }else{

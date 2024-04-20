@@ -16,8 +16,6 @@
 
   @include("common/li_option_view",["num"=>"first"])
 
-
-
   <div class="btn_div">
     <button id="index_btn">決定！</button>
   </div>

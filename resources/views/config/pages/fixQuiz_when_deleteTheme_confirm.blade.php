@@ -1,5 +1,5 @@
 {{-- テーマ削除の際にクイズをどうするか確認ページ --}}
-  
+
 <x-layout>
   <x-slot name="title">自習用クイズを作ろう-小テーマ削除確認-</x-slot>
   <x-slot name="js_sets">{{json_encode($js_sets)}}</x-slot>
@@ -19,7 +19,7 @@
 </div>
 
 
-<form action="{{route("quizProcess_when_deleteTheme_route")}}" method="post" id="config_quizWhenDeleteTheme_form" class="config_form config_deleteThemeInQuiz">
+<form action="{{route("quizProcess_when_deleteTheme_route")}}" method="post" id="config_quizWhenDeleteTheme_form" class="config_form config_deleteThemeInQuiz" data-is_submit="yet">
     @method("PATCH")
     @csrf
 @php
@@ -104,7 +104,7 @@
  {{-- 渡ってきた既存のテーマid(バリデーションの関係でid渡し) --}}
  {{-- コレクション渡しにしないため、クイズリストは渡さない --}}
 <input type="hidden" name="delete_theme_id" value="{{$delete_theme_id}}">
- 
+
   <div class="btn_div">
     <button>決定！</button>
   </div>

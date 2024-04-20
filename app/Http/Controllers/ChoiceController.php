@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exceptions\CustomException;
 use App\Http\Controllers\QuizController;
 
 class ChoiceController extends Controller
@@ -46,6 +47,7 @@ class ChoiceController extends Controller
             break;
             default:
             //  エラーページ
+            throw new CustomException("不正なルートです");
             break;
         }
     }
