@@ -10,17 +10,16 @@ You can set quiz theme and choise quiz fitting the theme.
 [使用条件]
 ・Dockerがインストールされていること。
 ・Laravelの基本的な知識がある、またはその知識を持つ人がサポート可能なこと。
+・bashを使用できる環境下であること。
 
 [セットアップ]
 1：まずはgit cloneでリポジトリをローカルにダウンロードしてください。
 2：次に、.env.exampleを元に.envを作成し、必要に応じて設定を調整します（例：APP_PORT=8573）。
-
-3:composer installを行って、vendorディレクトリを作成し、必要な依存関係をインストールします。
-4:php artisan key:generate コマンドで、ENVのAPP_KEYをセットします。
-
-
-5:./vendor/bin/sail up -dでDockerを起動し、./vendor/bin/sail migrate コマンドでデータベースの準備をします。
-6:ブラウザでhttp://localhost:8573/にアクセスしてアプリケーションを開始します(8573の部分は自分が設定したPORT番号を使ってください)。
+3:chmod +x ./vendor/bin/sail で、コマンドの実行権限を付与します。
+4:./vendor/bin/sail up -dでDockerを起動します
+5:php artisan key:generate コマンドで、ENVのAPP_KEYをセットします。
+6:./vendor/bin/sail migrate コマンドでデータベースの準備をします。
+7:ブラウザでhttp://localhost:8573/にアクセスしてアプリケーションを開始します(8573の部分は自分が設定したPORT番号を使ってください)。
 
 [使い方]
 1:まずは学習テーマを設定してください
