@@ -394,8 +394,17 @@ div[id*="quiz_create_"]{
     margin-bottom: 12px;
     text-align: center;
       p{
+        height:26px;
+        line-height: 26px;
         font-size: 1.1em;
-        margin:$base_margin
+        margin:$base_margin;
+        .level_choice_span{
+            color:yellow;
+            font-weight: bold;
+            line-height: 26px;
+            margin-top:0%;
+            margin-bottom:0%;
+        }
       }
       select{
         margin-top: 7px;

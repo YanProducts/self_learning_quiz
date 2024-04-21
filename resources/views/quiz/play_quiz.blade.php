@@ -68,7 +68,7 @@
         テーマ：<span id="each_quiz_theme_span">{{$first_quiz->displaytheme}}</span>
         レベル：<span id="each_quiz_level_span">{{$first_quiz->level}}</span>
         @if($ptn==="0")
-        正解率：<span id="each_quiz_percent_span">{{$first_quiz->percent}}％</span>
+        正解率：<span id="each_quiz_percent_span">{{$first_quiz->percent}}</span>
         @endif
         ）</p>
     </div>

@@ -26,12 +26,21 @@ $(()=>{
 
   // 最小％が変更したとき
   $("#percent_select_beforequiz1").change(()=>{
-    auto_max_change("percent")
+    auto_number_change("percent","min")
   })
-  
+  // 最大％が変更したとき
+  $("#percent_select_beforequiz2").change(()=>{
+    auto_number_change("percent","max")
+  })
+
+
+
   // 最小レベルが変更したとき
   $("#level_select_beforequiz1").change(()=>{
-    auto_max_change("level")
+    auto_number_change("level","min")
+  })
+  $("#level_select_beforequiz2").change(()=>{
+    auto_number_change("level","max")
   })
 
 
@@ -53,7 +62,7 @@ $(()=>{
         $(elem).css("background-color","white");
         $(".beforequiz_theme_hidden").eq(eq).prop("selected",false);
       // 非選択→選択
-      }else{ 
+      }else{
         $(".beforequiz_theme_hidden").eq(eq).prop("selected",true);
         $(elem).css("background-color","skyblue");
       }
@@ -74,7 +83,7 @@ $(()=>{
       $(".beforequiz_theme_hidden0").eq(0).prop("selected",true);
     }else{
       $(".beforequiz_theme_hidden").prop("selected",false);
-      $(".beforequiz_theme_li").css("background-color","white"); 
+      $(".beforequiz_theme_li").css("background-color","white");
       // 各テーマごとの全種類も完全消去
       // ifの条件分岐に影響を与えるため、if~else両方で同じ式を書く必要あり
       $(".beforequiz_theme_hidden0").prop("selected",false);
@@ -143,31 +152,57 @@ $(()=>{
     }
   }
 
-  // 最小値変化＝最大値変化
-  function auto_max_change(elem){
+  // 最小値変化と最大値変化
+  function auto_number_change(elem,minOrMax){
+
     const min_value=parseInt($("#" + elem + "_select_beforequiz1").val());
-    const options=$("#" + elem + "_select_beforequiz2").children();
+    const max_value=parseInt($("#" + elem + "_select_beforequiz2").val());
 
-
-    // 最小値以下の最大値が設定＝最大値は最小値にする
-    if(parseInt($("#" + elem + "_select_beforequiz2").val()) < min_value){
-      // レベル=要素の番号は数字より１つ下
-      if(elem==="level"){
-        options.eq(min_value-1).prop("selected",true);
-        // %=要素の番号は数字と同じ
-      }else if(elem==="percent"){
-        options.eq(min_value).prop("selected",true);
-      }
+    // 最大値が設定された時の連動
+    if(minOrMax==="max"){
+        const options=$("#" + elem + "_select_beforequiz1").children();
+        if(parseInt($("#" + elem + "_select_beforequiz2").val()) <= min_value){
+            // レベル=要素の番号は数字より１つ下
+            if(elem==="level"){
+              options.eq(max_value-1).prop("selected",true);
+              // %=要素の番号は数字と同じ
+            }else if(elem==="percent"){
+              options.eq(max_value).prop("selected",true);
+            }
+          }
+          options.each((eq,option)=>{
+            if($(option).val()>max_value){
+            $(option).css("display","none");
+            }else{
+            $(option).css("display","block");
+            }
+        });
+    // 最小値が設定された時の連動
+    }else if(minOrMax==="min"){
+        const options=$("#" + elem + "_select_beforequiz2").children();
+        if(parseInt($("#" + elem + "_select_beforequiz1").val()) >= max_value){
+            // レベル=要素の番号は数字より１つ下
+            if(elem==="level"){
+              options.eq(min_value-1).prop("selected",true);
+              // %=要素の番号は数字と同じ
+            }else if(elem==="percent"){
+              options.eq(min_value).prop("selected",true);
+            }
+          }
+        // 最小値未満の最大値を消す
+        options.each((eq,option)=>{
+            if($(option).val()<min_value){
+            $(option).css("display","none");
+            }else{
+            $(option).css("display","block");
+            }
+        });
+    }else{
+        // エラーだが重要ではないので何もしない
+        console.log("選択時のエラーです");
     }
 
-    // 最小値未満の最大値を消す
-    options.each((eq,option)=>{
-      if($(option).val()<min_value){
-        $(option).css("display","none");
-      }else{
-        $(option).css("display","block");
-      }
-    });
+
   }
 
 })

@@ -2,6 +2,13 @@ $(()=>{
 
   //どのクイズを表示するかのfunction
   function viewQuizTrLists(){
+    // 合計が10個以下のとき
+    if($(".edit_quiz_what").length<=10){
+        $("#edit_view_10quiz_toBefore").css("display","none");
+        $("#edit_view_10quiz_toAfter").css("display","none");
+        return;
+    }
+
     // trのview
       $(".edit_quiz_what").each((eq,elem)=>{
         if(eq>=Number($("#table_view_number").val())*10 && eq<(Number($("#table_view_number").val())+1)*10){
@@ -10,7 +17,8 @@ $(()=>{
             $(elem).css("display","none")
         }
       })
-    //   前の10件、次の10件
+
+    // 現在表示のページ数によって「前の10件」「後の10件」の調整
       if(Number($("#table_view_number").val())===0){
         $("#edit_view_10quiz_toBefore").css("display","none");
         $("#edit_view_10quiz_toAfter").css("display","block");
@@ -21,6 +29,8 @@ $(()=>{
         $("#edit_view_10quiz_toBefore").css("display","block");
         $("#edit_view_10quiz_toAfter").css("display","block");
        }
+
+
   }
   //初期
   viewQuizTrLists();

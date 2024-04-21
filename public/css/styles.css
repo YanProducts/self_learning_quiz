@@ -421,8 +421,17 @@ div[id*=quiz_create_] select {
   text-align: center;
 }
 #before_quiz_form div p, #before_edit_from_case div p {
+  height: 26px;
+  line-height: 26px;
   font-size: 1.1em;
   margin: 0 auto;
+}
+#before_quiz_form div p .level_choice_span, #before_edit_from_case div p .level_choice_span {
+  color: yellow;
+  font-weight: bold;
+  line-height: 26px;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 #before_quiz_form div select, #before_edit_from_case div select {
   margin-top: 7px;
@@ -878,6 +887,7 @@ form[id*=before_edit_from] {
   max-width: 400px;
   min-width: 200px;
   padding: 0;
+  text-align: center;
 }
 
 .btn_div {

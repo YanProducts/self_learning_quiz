@@ -56,7 +56,8 @@ class EditQuizController extends Controller
             "theme_lists"=>$theme,
             "ptn_which"=>$ptn,
             "js_sets"=>["quiz/edit/search","quiz/before_play","index"],
-            "li_option_sets"=>$li_option_sets
+            "li_option_sets"=>$li_option_sets,
+            "mode"=>"編集"
         ]);
     }
 
@@ -175,11 +176,12 @@ class EditQuizController extends Controller
             ->WhereBetween(
                 "level",[$request->level_min,$request->level_max]
             )->where(function($query)use($request){
-                $query->WhereBetween(
+                $query
+                ->Where(
+                    DB::raw("correct + wrong"),"=",0)
+                ->orWhereBetween(
                     DB::raw("(correct/(correct + wrong))*100"),
                     [$request->percent_min,$request->percent_max]
-                )->orWhere(
-                    DB::raw("correct + wrong"),"=",0
                 );
              }
             )->where(function($query)use($request){

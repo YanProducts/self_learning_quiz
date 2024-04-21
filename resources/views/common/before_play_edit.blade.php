@@ -75,7 +75,7 @@
   </div>
 
   <div class="quiz_before_select_type" id="quiz_before_percents">
-  <p class="quiz_before_p">正解率は？</p>
+  <p class="quiz_before_p">正解率は？<span class="level_choice_span">(@if($mode==="編集") 未出題は選択されます @else 未出題は0% @endif )</span></p>
 
   @if($errors->has("percent_min") || $errors->has("percent_max"))
     <p class="if_error1">{{$message}}</p>

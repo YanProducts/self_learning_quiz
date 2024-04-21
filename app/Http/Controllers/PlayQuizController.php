@@ -25,6 +25,7 @@ class PlayQuizController extends Controller
 
         $valuesets=QuizController::setReturnsets();
         $valuesets["js_sets"]=["quiz/before_play"];
+        $valuesets["mode"]=["作成"];
 
         return view("quiz/before_play_quiz")->with($valuesets);
      }
@@ -35,13 +36,13 @@ class PlayQuizController extends Controller
         $theme_what=$request->theme_what;
 
         // 出題するクイズの取得
-        $all_quizzes=self::get_allquiz_data($request,$theme_what);
+        $all_quizzes=$this->get_allquiz_data($request,$theme_what);
 
         // 出題クイズのjson用
-        $base64Data = self::gzip($all_quizzes);
+        $base64Data = $this->gzip($all_quizzes);
 
         // 表示用にarray分割
-        list($theme_view,$theme_other,$count_other)=self::themes_for_view($theme_what);
+        list($theme_view,$theme_other,$count_other)=$this->themes_for_view($theme_what);
 
         // 最初の問題の表示用
         if(isset($all_quizzes[0])){
@@ -59,9 +60,9 @@ class PlayQuizController extends Controller
             }
             // 正解率表示の転換
             if($first_quiz["correct"]+$first_quiz["wrong"]===0){
-                $first_quiz["percent"]=0;
+                $first_quiz["percent"]="初回";
             }else{
-                $first_quiz["percent"]=round(($first_quiz["correct"]/($first_quiz["correct"]+$first_quiz["wrong"]))*100,1);
+                $first_quiz["percent"]=round(($first_quiz["correct"]/($first_quiz["correct"]+$first_quiz["wrong"]))*100,1)."%";
             }
         }else{
             $first_quiz="no_quiz";
@@ -130,6 +131,9 @@ class PlayQuizController extends Controller
                     ->orWhereIn("theme_name3",$theme_what);
                 });
             }
+
+        // ランダムに並び替え
+        $query->orderByRaw("Rand()");
 
         // 全テーマ取得がどうかで変更
             return $query->get();

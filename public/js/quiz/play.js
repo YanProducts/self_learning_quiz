@@ -39,7 +39,6 @@ $(()=>{
       let is_ok=answer_check();
 
       // 正解不正解が正しい値か
-      // returnのタイミングうまくいっているか確認しよう！！！！！！（結果挿入されていないか？）
       if(is_ok!=="ok" && is_ok!=="out"){
         error_display("何らかのエラーです");
         return;
@@ -199,10 +198,11 @@ function display_change(flug1,flug2=""){
     // 表示パーセント
     let percent="";
     if($("#quiz_hidden").data("correct")+$("#quiz_hidden").data("wrong")===0){
-      percent="0%";
+      percent="初回";
     }else{
       percent=Math.round($("#quiz_hidden").data("correct")/($("#quiz_hidden").data("correct")+$("#quiz_hidden").data("wrong"))*100,1) + "%";
     }
+
 
     $("#each_quiz_percent_span").text(percent);
 
