@@ -37,7 +37,7 @@ style="display:block;"
 <div class="config_label_div config_kind_div" style="height:0;margin:0;opacity:0;"></div>
 
   <div class="config_label_div config_kind_div">
-  @if(empty($kind_lists) || empty($kind_lists[0]))
+    @if(empty($kind_lists) || count($kind_lists)===1 && $kind_lists[0]==="テーマなし")
   <p class="no_data">大テーマはまだ設定されていません</p>
   @else
   <p class="config_label">既存大テーマの追加</p>
