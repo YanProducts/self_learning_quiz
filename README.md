@@ -10,7 +10,8 @@ You can set quiz theme and choise quiz fitting the theme.
 [使用条件]
 ・Dockerがインストールされていること。
 ・Laravelの基本的な知識がある、またはその知識を持つ人がサポート可能なこと。
-・bashを使用できる環境下であること。
+・bashを利用できる環境下にあること。macとLinuxはOK。Windowsユーザーは、wsl --installでWSL2とUbuntuをインストールする必要があります（詳細はページ下部を参照）
+
 
 [セットアップ]
 1：まずはgit cloneでリポジトリをローカルにダウンロードしてください。
@@ -20,6 +21,22 @@ You can set quiz theme and choise quiz fitting the theme.
 5:php artisan key:generate コマンドで、ENVのAPP_KEYをセットします。
 6:./vendor/bin/sail migrate コマンドでデータベースの準備をします。
 7:ブラウザでhttp://localhost:8573/にアクセスしてアプリケーションを開始します(8573の部分は自分が設定したPORT番号を使ってください)。
+
+
+[参考:windowsの方向けセットアップ]
+1:git cloneでリポジトリをダウンロードします。
+2:wsl --installコマンドでWSL2とUbuntuのインストローラーをダウンロードします。
+3:ubuntuをインストールします。
+4:Docker DesktopのSettingsから、Resources→WSL Integrationへ進み、Ubuntuを有効にして適用します。
+5:ubuntuを開きます。Windows10使用の方はスタートボタン横の検索ボックスに「ubuntu」と検索すると見つかると思われます。
+6:WSL2 の DNS 設定を変更します。以下をUbuntuで入力します。echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+7:cd mnt/cの後にダウンロードしたself_learning_quizフォルダへのリンクを入力して移動します(例：/mnt/c/Users/user/onedrive/デスクトップ ~/Desktop/self_learning_quiz)。
+8:必要な方は、ln -s /mnt/c/Users/user/onedrive/デスクトップ/self_learning_quiz ~/self_learning_quizなどのシンボリックリンクを貼ってください。
+9:Docker Desktopを立ち上げ、ubuntuから sudo docker run hello-worldで
+dockerが起動できる状態かを確認してください(起動できない場合は、ubuntuが何かしらの理由で、dockerを認識できていないと思われます)。
+10:「セットアップ」の2~6を行います。
+
+
 
 [使い方]
 1:まずは学習テーマを設定してください
@@ -44,5 +61,3 @@ You can set quiz theme and choise quiz fitting the theme.
 ・回答は文章のものは回答の入力と成否チェックはできません。
 ・該当の問題が全て終了すると、結果が表示されます。
 ・クイズは随時、作成&編集&消去が可能です。
-
-
