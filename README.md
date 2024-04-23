@@ -20,7 +20,12 @@ You can set quiz theme and choise quiz fitting the theme.
 4:./vendor/bin/sail up -dでDockerを起動します
 5:php artisan key:generate コマンドで、ENVのAPP_KEYをセットします。
 6:./vendor/bin/sail migrate コマンドでデータベースの準備をします。
-7:ブラウザでhttp://localhost:8573/にアクセスしてアプリケーションを開始します(8573の部分は自分が設定したPORT番号を使ってください)。
+7:プロジェクトのvendorディレクトリはリポジトリに含まれていますが、環境によっては依存関係が異なる場合があります。念のために依存関係を更新してください。
+・ローカルにPHPがインストールされている場合
+composer install
+・PHPがインストールされていない場合
+./vendor/bin/sail composer install
+8:ブラウザでhttp://localhost:8573/にアクセスしてアプリケーションを開始します(8573の部分は自分が設定したPORT番号を使ってください)。
 
 
 [参考:windowsの方向けセットアップ]
@@ -32,9 +37,8 @@ You can set quiz theme and choise quiz fitting the theme.
 6:WSL2 の DNS 設定を変更します。以下をUbuntuで入力します。echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
 7:cd mnt/cの後にダウンロードしたself_learning_quizフォルダへのリンクを入力して移動します(例：/mnt/c/Users/user/onedrive/デスクトップ ~/Desktop/self_learning_quiz)。
 8:必要な方は、ln -s /mnt/c/Users/user/onedrive/デスクトップ/self_learning_quiz ~/self_learning_quizなどのシンボリックリンクを貼ってください。
-9:Docker Desktopを立ち上げ、ubuntuから sudo docker run hello-worldで
-dockerが起動できる状態かを確認してください(起動できない場合は、ubuntuが何かしらの理由で、dockerを認識できていないと思われます)。
-10:「セットアップ」の2~6を行います。
+9:Docker Desktopを立ち上げ、ubuntuから sudo docker run hello-worldでdockerが起動できる状態かを確認してください(起動できない場合は、ubuntuが何かしらの理由で、dockerを認識できていないと思われます)。
+10:「セットアップ」の2~8を行います。
 
 
 
